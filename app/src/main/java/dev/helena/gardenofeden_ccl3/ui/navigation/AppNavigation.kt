@@ -1,9 +1,10 @@
-package dev.helena.gardenofeden_ccl3.ui.screens
+package dev.helena.gardenofeden_ccl3.ui.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import dev.helena.gardenofeden_ccl3.ui.screens.WelcomeScreen
 
 @Composable
 fun AppNavigation() {
