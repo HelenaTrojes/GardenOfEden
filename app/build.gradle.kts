@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    id("com.google.devtools.ksp")
+
 }
 
 android {
@@ -52,6 +54,12 @@ android {
 dependencies {
     //For images
     implementation("io.coil-kt.coil3:coil-compose:3.0.4")
+
+    //Room
+    implementation("androidx.room:room-runtime:2.6.1")
+    implementation("androidx.room:room-ktx:2.6.1")
+
+
 
 
     implementation(libs.androidx.core.ktx)
