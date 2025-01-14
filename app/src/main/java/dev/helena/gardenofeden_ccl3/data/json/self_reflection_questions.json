@@ -1,0 +1,384 @@
+{
+    "questions": [
+        {
+            "id": 1,
+            "question": "What are my core values, and how do I live by them daily?"
+        },
+        {
+            "id": 2,
+            "question": "What am I most grateful for in my life right now?"
+        },
+        {
+            "id": 3,
+            "question": "What strengths do I bring to my personal and professional relationships?"
+        },
+        {
+            "id": 4,
+            "question": "How do I handle challenges and setbacks?"
+        },
+        {
+            "id": 5,
+            "question": "What are my biggest accomplishments this year?"
+        },
+        {
+            "id": 6,
+            "question": "What areas of my life need more attention or improvement?"
+        },
+        {
+            "id": 7,
+            "question": "What does success mean to me?"
+        },
+        {
+            "id": 8,
+            "question": "How do I manage stress and maintain balance in my life?"
+        },
+        {
+            "id": 9,
+            "question": "What are my long-term goals, and am I on track to achieve them?"
+        },
+        {
+            "id": 10,
+            "question": "What do I do to nurture my mental and emotional well-being?"
+        },
+        {
+            "id": 11,
+            "question": "How do I show kindness and compassion to myself and others?"
+        },
+        {
+            "id": 12,
+            "question": "What habits or behaviors are holding me back?"
+        },
+        {
+            "id": 13,
+            "question": "What motivates and inspires me the most?"
+        },
+        {
+            "id": 14,
+            "question": "How do I spend my free time, and does it align with my priorities?"
+        },
+        {
+            "id": 15,
+            "question": "What role does fear play in my decision-making?"
+        },
+        {
+            "id": 16,
+            "question": "What do I value most in my relationships?"
+        },
+        {
+            "id": 17,
+            "question": "How do I celebrate my achievements and milestones?"
+        },
+        {
+            "id": 18,
+            "question": "What lessons have I learned from past mistakes?"
+        },
+        {
+            "id": 19,
+            "question": "What am I passionate about, and how do I pursue it?"
+        },
+        {
+            "id": 20,
+            "question": "How do I handle criticism and feedback?"
+        },
+        {
+            "id": 21,
+            "question": "What steps can I take to improve my self-discipline?"
+        },
+        {
+            "id": 22,
+            "question": "What does happiness look like for me?"
+        },
+        {
+            "id": 23,
+            "question": "How do I stay connected to the people who matter most?"
+        },
+        {
+            "id": 24,
+            "question": "What are my biggest fears, and how can I address them?"
+        },
+        {
+            "id": 25,
+            "question": "How do I define and measure personal growth?"
+        },
+        {
+            "id": 26,
+            "question": "What is my relationship with failure?"
+        },
+        {
+            "id": 27,
+            "question": "How do I maintain a positive and growth-oriented mindset?"
+        },
+        {
+            "id": 28,
+            "question": "What legacy do I want to leave behind?"
+        },
+        {
+            "id": 29,
+            "question": "What skills or knowledge do I want to acquire in the next year?"
+        },
+        {
+            "id": 30,
+            "question": "How do I express gratitude to others?"
+        },
+        {
+            "id": 31,
+            "question": "What does self-love mean to me?"
+        },
+        {
+            "id": 32,
+            "question": "What triggers my negative emotions, and how do I cope?"
+        },
+        {
+            "id": 33,
+            "question": "How do I ensure my actions align with my goals?"
+        },
+        {
+            "id": 34,
+            "question": "What does fulfillment mean to me?"
+        },
+        {
+            "id": 35,
+            "question": "What are the most important lessons I have learned in life so far?"
+        },
+        {
+            "id": 36,
+            "question": "How do I balance ambition with contentment?"
+        },
+        {
+            "id": 37,
+            "question": "What are my top priorities, and am I focusing on them?"
+        },
+        {
+            "id": 38,
+            "question": "How do I contribute to my community or society?"
+        },
+        {
+            "id": 39,
+            "question": "What activities bring me the most joy?"
+        },
+        {
+            "id": 40,
+            "question": "How do I handle uncertainty and change in my life?"
+        },
+        {
+            "id": 41,
+            "question": "What role does self-care play in my daily routine?"
+        },
+        {
+            "id": 42,
+            "question": "How do I communicate effectively with others?"
+        },
+        {
+            "id": 43,
+            "question": "What inspires me to keep moving forward when times get tough?"
+        },
+        {
+            "id": 44,
+            "question": "What does personal growth mean to me?"
+        },
+        {
+            "id": 45,
+            "question": "How do I set boundaries to protect my energy and time?"
+        },
+        {
+            "id": 46,
+            "question": "What is one thing I would like to change about my life?"
+        },
+        {
+            "id": 47,
+            "question": "How do I measure success in my career?"
+        },
+        {
+            "id": 48,
+            "question": "What brings me a sense of purpose?"
+        },
+        {
+            "id": 49,
+            "question": "What can I do to improve my physical health?"
+        },
+        {
+            "id": 50,
+            "question": "What steps can I take to strengthen my relationships?"
+        },
+        {
+            "id": 51,
+            "question": "What does forgiveness mean to me, and how do I practice it?"
+        },
+        {
+            "id": 52,
+            "question": "How do I celebrate the small wins in life?"
+        },
+        {
+            "id": 53,
+            "question": "What challenges have I overcome that I once thought were impossible?"
+        },
+        {
+            "id": 54,
+            "question": "How do I approach making difficult decisions?"
+        },
+        {
+            "id": 55,
+            "question": "What kind of legacy do I want to leave in my personal and professional life?"
+        },
+        {
+            "id": 56,
+            "question": "How do I balance being productive with enjoying life?"
+        },
+        {
+            "id": 57,
+            "question": "What hobbies or activities bring me the most peace?"
+        },
+        {
+            "id": 58,
+            "question": "What role does learning play in my life?"
+        },
+        {
+            "id": 59,
+            "question": "How do I manage and prioritize my time effectively?"
+        },
+        {
+            "id": 60,
+            "question": "What am I most proud of in the past five years?"
+        },
+        {
+            "id": 61,
+            "question": "What triggers my feelings of self-doubt, and how do I address them?"
+        },
+        {
+            "id": 62,
+            "question": "What am I doing to invest in my future self?"
+        },
+        {
+            "id": 63,
+            "question": "How do I maintain focus on my goals amidst distractions?"
+        },
+        {
+            "id": 64,
+            "question": "What do I want to accomplish in the next five years?"
+        },
+        {
+            "id": 65,
+            "question": "How do I handle conflict in my personal and professional life?"
+        },
+        {
+            "id": 66,
+            "question": "What does being authentic mean to me?"
+        },
+        {
+            "id": 67,
+            "question": "How do I ensure I am living a life true to myself?"
+        },
+        {
+            "id": 68,
+            "question": "What does balance between work and life look like for me?"
+        },
+        {
+            "id": 69,
+            "question": "How do I recharge when I feel burned out?"
+        },
+        {
+            "id": 70,
+            "question": "What practices help me stay grounded and mindful?"
+        },
+        {
+            "id": 71,
+            "question": "How do I handle uncertainty in my personal and professional life?"
+        },
+        {
+            "id": 72,
+            "question": "What do I do to cultivate a positive environment around me?"
+        },
+        {
+            "id": 73,
+            "question": "How do I ensure I continue learning and growing?"
+        },
+        {
+            "id": 74,
+            "question": "What values are most important in my life?"
+        },
+        {
+            "id": 75,
+            "question": "How do I create meaningful connections with others?"
+        },
+        {
+            "id": 76,
+            "question": "What impact do I want to have on the world?"
+        },
+        {
+            "id": 77,
+            "question": "What role does creativity play in my life?"
+        },
+        {
+            "id": 78,
+            "question": "What inspires me to be the best version of myself?"
+        },
+        {
+            "id": 79,
+            "question": "How do I navigate change in my life?"
+        },
+        {
+            "id": 80,
+            "question": "What do I do to manage my mental health?"
+        },
+        {
+            "id": 81,
+            "question": "What are my dreams, and how am I working towards them?"
+        },
+        {
+            "id": 82,
+            "question": "What does fulfillment mean to me, and am I pursuing it?"
+        },
+        {
+            "id": 83,
+            "question": "How do I give back to my community?"
+        },
+        {
+            "id": 84,
+            "question": "What motivates me to keep going, even when things get tough?"
+        },
+        {
+            "id": 85,
+            "question": "What are the most important relationships in my life, and how do I nurture them?"
+        },
+        {
+            "id": 86,
+            "question": "How do I define success, and am I working toward it?"
+        },
+        {
+            "id": 87,
+            "question": "What are my proudest moments, and why do they stand out?"
+        },
+        {
+            "id": 88,
+            "question": "How do I prioritize self-care in my busy life?"
+        },
+        {
+            "id": 89,
+            "question": "What do I want to be remembered for?"
+        },
+        {
+            "id": 90,
+            "question": "What inspires me to grow and evolve?"
+        },
+        {
+            "id": 91,
+            "question": "How do I maintain a sense of wonder and curiosity in life?"
+        },
+        {
+            "id": 92,
+            "question": "What steps can I take to improve my resilience?"
+        },
+        {
+            "id": 93,
+            "question": "What does inner peace look like for me?"
+        },
+        {
+            "id": 94,
+            "question": "How do I ensure my actions align with my values and beliefs?"
+        },
+        {
+            "id": 95,
+            "question": "What is one thing I can do today to improve my life?"
+        }
+    ]
+}
