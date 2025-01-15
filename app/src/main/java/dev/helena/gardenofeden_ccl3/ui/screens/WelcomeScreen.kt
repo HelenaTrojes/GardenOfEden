@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -65,7 +66,10 @@ fun WelcomeScreen(navController: NavHostController) {
                 .padding(top = 40.dp)
                 .height(60.dp)
                 .padding(horizontal = 16.dp),
-            shape = androidx.compose.foundation.shape.CircleShape
+            shape = androidx.compose.foundation.shape.CircleShape,
+            colors = ButtonDefaults.buttonColors(
+                containerColor  = Color(0xFF0096C7),
+            )
         ) {
             Text(
                 text = "Get started",

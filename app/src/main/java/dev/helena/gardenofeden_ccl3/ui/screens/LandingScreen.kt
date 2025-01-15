@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -68,11 +69,11 @@ fun LandingScreen(navController: NavController, entryViewModel: EntryViewModel) 
                 .padding(horizontal = 25.dp)
         ) {
             val moods = listOf(
-                "😊" to "Happy",
-                "😢" to "Sad",
-                "😲" to "Surprised",
-                "😜" to "Silly",
-                "😡" to "Furious"
+                "😊" to "happy",
+                "😢" to "sad",
+                "😲" to "surprised",
+                "😜" to "silly",
+                "😡" to "angry"
             )
             moods.forEach { (emoji, mood) ->
                 val isSelected = selectedMood == mood // check if the emoji is selected
@@ -87,7 +88,7 @@ fun LandingScreen(navController: NavController, entryViewModel: EntryViewModel) 
                         ) { selectedMood = mood }
                         .padding(horizontal = 8.dp)
                         .background(
-                            color = if (isSelected) Color.Yellow.copy(alpha = 0.3f) else Color.Transparent,
+                            color = if (isSelected) Color(0xFF0096C7).copy(alpha = 0.3f) else Color.Transparent,
                             shape = MaterialTheme.shapes.small
                         )
                         .padding(8.dp),
@@ -159,7 +160,10 @@ fun LandingScreen(navController: NavController, entryViewModel: EntryViewModel) 
                     }
                 }
             },
-            modifier = Modifier.align(Alignment.CenterHorizontally)
+            modifier = Modifier.align(Alignment.CenterHorizontally),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = Color(0xFF0096C7)
+            )
         ) {
             Text("Save answer")
         }
