@@ -11,7 +11,14 @@ fun AppNavigation() {
     val navController = rememberNavController()
 
     NavHost(navController = navController, startDestination = "welcome") {
-        composable("welcome") { WelcomeScreen(navController) }
+        composable("welcome") {
+            WelcomeScreen(navController)
+        }
+
+        composable("landingscreen") {
+            WelcomeScreen(navController)
+        }
+
         composable("home") {  }
 
     }

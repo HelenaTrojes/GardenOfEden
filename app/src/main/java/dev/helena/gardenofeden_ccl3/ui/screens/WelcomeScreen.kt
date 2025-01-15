@@ -61,7 +61,7 @@ fun WelcomeScreen(navController: NavHostController) {
         )
         Button(
 //            onClick = {  },
-             onClick = { navController.navigate("home") },
+             onClick = { navController.navigate("landingscreen") },
             modifier = Modifier
                 .padding(top = 40.dp)
                 .height(60.dp)
