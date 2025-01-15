@@ -24,6 +24,7 @@ import dev.helena.gardenofeden_ccl3.ui.navigation.BottomNavigationBar
 
 @Composable
 fun HomeScreen(navController: NavController, entryViewModel: EntryViewModel) {
+
     val bottomNavController = rememberNavController()
 
     Scaffold(
@@ -40,7 +41,7 @@ fun HomeScreen(navController: NavController, entryViewModel: EntryViewModel) {
                 PlainHomeScreen()
             }
             composable("journal_tab") {
-                JournalScreen(entryViewModel)
+                JournalScreen(navController, entryViewModel)
             }
         }
     }

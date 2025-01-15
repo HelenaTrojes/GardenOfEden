@@ -180,7 +180,6 @@ fun getQuestionOfTheDay(context: Context): String {
         return "No questions available for today"
     }
 
-
     // calculating here how many days have passed since the start date
     val today = LocalDate.now()
     val daysPassed = ChronoUnit.DAYS.between(START_DATE, today).toInt()
@@ -190,13 +189,4 @@ fun getQuestionOfTheDay(context: Context): String {
 
     // we go through the questions again
     return questions[index].question
-
-    /*
-    if(index < questions.size) {
-        return questions[index].question
-    } else {
-        return "No more questions available" // returns the exact question
-    }
-
-     */
 }
