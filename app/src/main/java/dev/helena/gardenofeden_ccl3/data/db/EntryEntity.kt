@@ -9,5 +9,5 @@ data class EntryEntity(
     val mood: String,
     val question: String,
     val answer: String,
-    val date: Long,
+    val date: Long = System.currentTimeMillis(),
 )

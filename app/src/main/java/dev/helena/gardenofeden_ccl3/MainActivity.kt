@@ -29,7 +29,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             GardenOfEden_CCL3Theme {
                 // Pass the viewModel here
-                AppNavigation()
+                AppNavigation(entryViewModel)
             }
         }
     }

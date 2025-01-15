@@ -17,6 +17,20 @@ class EntryViewModel(private val repository: EntryRepository) : ViewModel() {
     private val _entryDetails = MutableLiveData<EntryEntity>()
     val entryDetails: LiveData<EntryEntity> get() = _entryDetails
 
+    // LiveData for checking if there's an entry for today
+    private val _hasEntryForToday = MutableLiveData<Boolean>()
+    val hasEntryForToday: LiveData<Boolean> get() = _hasEntryForToday
+
+    init {
+        checkForEntryToday()
+    }
+
+    private fun checkForEntryToday() {
+        viewModelScope.launch {
+            _hasEntryForToday.value = repository.hasEntryForToday()
+        }
+    }
+
     private fun getAllEntries() {
         viewModelScope.launch {
             _entries.value = repository.getAllEntries()
@@ -32,21 +46,21 @@ class EntryViewModel(private val repository: EntryRepository) : ViewModel() {
     fun insertEntry(entry: EntryEntity) {
         viewModelScope.launch {
             repository.insertEntry(entry)
-            getAllEntries() // Refresh the list
+            getAllEntries() // refresh
         }
     }
 
     fun updateEntry(entry: EntryEntity) {
         viewModelScope.launch {
             repository.updateEntry(entry)
-            getAllEntries() // Refresh the list
+            getAllEntries()
         }
     }
 
     fun deleteEntry(entry: EntryEntity) {
         viewModelScope.launch {
             repository.deleteEntry(entry)
-            getAllEntries() // Refresh the list
+            getAllEntries()
         }
     }
 }

@@ -60,7 +60,7 @@ fun WelcomeScreen(navController: NavHostController) {
                 .aspectRatio(1f)   // Maintain the original aspect ratio (1:1 for a square image)
         )
         Button(
-            onClick = { navController.navigate("questionOfTheDay") },
+            onClick = { navController.navigate("landing") },
             modifier = Modifier
                 .padding(top = 40.dp)
                 .height(60.dp)

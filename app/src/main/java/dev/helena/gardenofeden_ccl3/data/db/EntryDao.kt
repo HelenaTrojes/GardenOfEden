@@ -28,4 +28,7 @@ import androidx.room.Update
         // Get an entry by ID
         @Query("SELECT * FROM entries WHERE id = :entryId LIMIT 1")
         suspend fun getEntryById(entryId: Long): EntryEntity?
+
+        @Query("SELECT * FROM entries WHERE date >= :start AND date < :end")
+        suspend fun getEntriesInDateRange(start: Long, end: Long): List<EntryEntity>
     }
