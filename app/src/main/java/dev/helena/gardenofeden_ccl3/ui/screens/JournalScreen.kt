@@ -1,8 +1,6 @@
 package dev.helena.gardenofeden_ccl3.ui.screens
 
-import android.util.Log
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -27,7 +25,10 @@ import dev.helena.gardenofeden_ccl3.ui.ViewModel.EntryViewModel
 import dev.helena.gardenofeden_ccl3.ui.components.JournalEntryCard
 
 @Composable
-fun JournalScreen( navController: NavController, entryViewModel: EntryViewModel) {
+fun JournalScreen(
+    navController: NavController,
+    entryViewModel: EntryViewModel
+) {
 
     // Observe the list of entries
     val entries by entryViewModel.entries.observeAsState(emptyList())
@@ -54,18 +55,18 @@ fun JournalScreen( navController: NavController, entryViewModel: EntryViewModel)
             .fillMaxSize()
             .padding(horizontal = 20.dp)
     ) {
+        println("Entries size: ${entries.size}")
         items(entries) { entry ->
+
             JournalEntryCard(
                 entry = entry,
-                modifier = Modifier.clickable {
-                    if (entry.id != null) {
-                        navController.navigate("journal_detail_screen/${entry.id}")
-                    } else {
-                        Log.e("JournalScreen", "Entry ID is null or invalid")
-                    }
-                }
-            )
+                onClick =  {
+                    println("Navigating to entry ID: ${entry.id}")
+                    navController.navigate("journal_detail_screen/${entry.id}")
+                        println("Navigated to entry bitch")
 
+                    }
+                )
             Spacer(modifier = Modifier.height(17.dp))
         }
     }

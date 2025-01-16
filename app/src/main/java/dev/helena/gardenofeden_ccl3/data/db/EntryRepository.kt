@@ -22,7 +22,8 @@ class EntryRepository(private val entryDao: EntryDao) {
     }
 
     suspend fun getEntryById(entryId: Long): EntryEntity? {
-        return entryDao.getEntryById(entryId)
+        val entry = entryDao.getEntryById(entryId)
+        return entry
     }
 
     suspend fun hasEntryForToday(): Boolean {
