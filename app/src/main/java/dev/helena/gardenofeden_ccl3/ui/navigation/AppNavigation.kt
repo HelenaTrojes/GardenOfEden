@@ -18,7 +18,7 @@ fun AppNavigation(entryViewModel: EntryViewModel) {
 
     NavHost(navController = navController, startDestination = "welcome") {
         composable("welcome") {
-            WelcomeScreen(navController)
+            WelcomeScreen(navController, entryViewModel)
         }
         composable("landing") {
             LandingScreen(navController, entryViewModel)

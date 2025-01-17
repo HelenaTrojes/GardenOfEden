@@ -1,5 +1,6 @@
 package dev.helena.gardenofeden_ccl3
 
+import PreferenceManager
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -17,10 +18,12 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val preferenceManager = PreferenceManager(this)
 
         // Initialize ViewModel
         val entryDao = AppDatabase.getDatabase(applicationContext).entryDao()
-        val repository = EntryRepository(entryDao)
+        val repository = EntryRepository(entryDao, preferenceManager)
+
         val viewModelFactory = EntryViewModelFactory(repository)
         entryViewModel = ViewModelProvider(this, viewModelFactory)[EntryViewModel::class.java]
 

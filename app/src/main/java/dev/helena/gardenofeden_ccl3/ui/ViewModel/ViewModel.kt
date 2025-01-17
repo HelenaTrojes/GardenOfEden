@@ -17,19 +17,16 @@ class EntryViewModel(private val repository: EntryRepository) : ViewModel() {
     private val _entryDetails = MutableLiveData<EntryEntity>()
     val entryDetails: LiveData<EntryEntity> get() = _entryDetails
 
-    // LiveData for checking if there's an entry for today
-    private val _hasEntryForToday = MutableLiveData<Boolean>()
-    val hasEntryForToday: LiveData<Boolean> get() = _hasEntryForToday
-
-    init {
-        checkForEntryToday()
+    // Check if an entry exists for today
+    fun hasEntryForToday(): Boolean {
+        return repository.hasEntryForToday()
     }
 
-    private fun checkForEntryToday() {
-        viewModelScope.launch {
-            _hasEntryForToday.value = repository.hasEntryForToday()
-        }
+    // Save the entry date when a new entry is created
+    fun saveLastEntryDate(timestamp: Long) {
+        repository.saveEntryDate(timestamp)
     }
+
 
     private fun getAllEntries() {
         viewModelScope.launch {

@@ -17,6 +17,7 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -27,9 +28,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import dev.helena.gardenofeden_ccl3.R
+import dev.helena.gardenofeden_ccl3.ui.ViewModel.EntryViewModel
+import kotlinx.coroutines.launch
 
 @Composable
-fun WelcomeScreen(navController: NavHostController) {
+fun WelcomeScreen(navController: NavHostController, entryViewModel: EntryViewModel) {
+    val coroutineScope = rememberCoroutineScope()
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -57,11 +62,20 @@ fun WelcomeScreen(navController: NavHostController) {
             painter = painterResource(id = R.drawable.tulip),
             contentDescription = "Tulip Image",
             modifier = Modifier
-                .fillMaxWidth(0.8f) // Scale down width to 80% of the screen width
-                .aspectRatio(1f)   // Maintain the original aspect ratio (1:1 for a square image)
+                .fillMaxWidth(0.8f) // scale down width to 80% of the screen width
+                .aspectRatio(1f)   // maintains the original aspect ratio (1:1 for a square image)
         )
         Button(
-            onClick = { navController.navigate("landing") },
+            onClick = {
+                coroutineScope.launch {
+                    if(entryViewModel.hasEntryForToday()) {
+                        navController.navigate("home")
+                    } else {
+                        navController.navigate("landing")
+                    }
+                }
+            }
+            ,
             modifier = Modifier
                 .padding(top = 40.dp)
                 .height(60.dp)
