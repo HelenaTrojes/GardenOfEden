@@ -11,8 +11,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -22,12 +25,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import dev.helena.gardenofeden_ccl3.ui.ViewModel.EntryViewModel
 
 @Composable
 fun JournalEntryDetailScreen(
+    navController: NavController,
     entryId: Long?,
     entryViewModel: EntryViewModel
 ) {
@@ -52,10 +58,29 @@ fun JournalEntryDetailScreen(
     }
 
 
-    Column(
+    Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFFADD8E6)),
+            .background(Color(0xFFADD8E6))
+            .padding(20.dp)
+    ) {
+        IconButton(
+            onClick = { navController.popBackStack()  },
+            modifier = Modifier
+                .align(Alignment.TopStart)
+                .padding(top = 30.dp, start = 7.dp)
+        ) {
+            Icon(
+                imageVector = Icons.Filled.ArrowBack,
+                contentDescription = "Back",
+                tint = Color.Black
+            )
+        }
+    }
+
+    Column(
+        modifier = Modifier
+            .fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
@@ -72,46 +97,48 @@ fun JournalEntryDetailScreen(
 
             // Question of entry
             Text(
-                text = "Question of the day:",
+                text = "Question of the day",
                 style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.Bold),
                 modifier = Modifier.padding(bottom = 8.dp),
-                fontSize = 16.sp,
+                fontSize = 20.sp,
                 fontWeight = FontWeight.SemiBold
             )
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(10.dp))
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .border(2.dp, Color.DarkGray, RoundedCornerShape(10.dp))
+                    .border(1.dp, Color.DarkGray, RoundedCornerShape(10.dp))
                     .padding(16.dp)
+                    .padding(horizontal = 30.dp)
             ) {
                 Text(
                     text = it.question,
                     style = MaterialTheme.typography.bodyLarge,
-                    fontSize = 16.sp
+                    fontSize = 16.sp,
+                    textAlign = TextAlign.Center
                 )
             }
-            Spacer(modifier = Modifier.height(32.dp))
+            Spacer(modifier = Modifier.height(35.dp))
 
             // Answer of entry
             Text(
-                text = "Your answer:",
+                text = "Your answer",
                 style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold),
                 modifier = Modifier.padding(bottom = 8.dp),
-                fontSize = 16.sp,
+                fontSize = 20.sp,
                 fontWeight = FontWeight.SemiBold
             )
 
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(150.dp)
                     .background(Color.White, RoundedCornerShape(10.dp))
                     .border(1.dp, Color.DarkGray, RoundedCornerShape(10.dp))
                     .padding(16.dp)
+                    .padding(horizontal = 30.dp)
             ) {
                 Text(
-                    text = it.answer ?: "No answer provided",
+                    text = it.answer,
                     style = MaterialTheme.typography.bodyMedium,
                     color = Color.Black
                 )

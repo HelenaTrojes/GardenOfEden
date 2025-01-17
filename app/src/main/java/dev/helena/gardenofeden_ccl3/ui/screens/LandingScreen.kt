@@ -69,11 +69,11 @@ fun LandingScreen(navController: NavController, entryViewModel: EntryViewModel) 
                 .padding(horizontal = 25.dp)
         ) {
             val moods = listOf(
-                "😊" to "happy",
-                "😢" to "sad",
-                "😲" to "surprised",
-                "😜" to "silly",
-                "😡" to "angry"
+                "😊" to "Happy",
+                "😢" to "Sad",
+                "😲" to "Surprised",
+                "😜" to "Silly",
+                "😡" to "Angry"
             )
             moods.forEach { (emoji, mood) ->
                 val isSelected = selectedMood == mood // check if the emoji is selected
