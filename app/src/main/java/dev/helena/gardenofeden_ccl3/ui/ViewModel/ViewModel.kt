@@ -11,11 +11,16 @@ import kotlinx.coroutines.launch
 
 class EntryViewModel(private val repository: EntryRepository) : ViewModel() {
 
+    //liveData to observe entries
     private val _entries = MutableLiveData<List<EntryEntity>>()
     val entries: LiveData<List<EntryEntity>> get() = _entries
 
     private val _entryDetails = MutableLiveData<EntryEntity>()
     val entryDetails: LiveData<EntryEntity> get() = _entryDetails
+
+    init {
+        getAllEntries() // Load entries when the ViewModel is created
+    }
 
     // Check if an entry exists for today
     fun hasEntryForToday(): Boolean {
