@@ -52,12 +52,14 @@ class EntryViewModel(private val repository: EntryRepository) : ViewModel() {
         }
     }
 
+
     fun updateEntry(entry: EntryEntity) {
         viewModelScope.launch {
             repository.updateEntry(entry)
-            getAllEntries()
+            _entryDetails.value = entry
         }
     }
+
 
     fun deleteEntry(entry: EntryEntity) {
         viewModelScope.launch {

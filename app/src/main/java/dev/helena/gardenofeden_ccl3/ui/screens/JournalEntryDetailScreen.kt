@@ -5,6 +5,7 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -12,15 +13,21 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -39,24 +46,22 @@ fun JournalEntryDetailScreen(
 ) {
     // Observing the entry details based on entryId
     val entry by entryViewModel.entryDetails.observeAsState()
+    var isEditing by remember { mutableStateOf(false) }
+    var editedAnswer by remember { mutableStateOf("") }
+
 
     // LaunchedEffect to fetch the entry details when entryId changes
     LaunchedEffect(entryId) {
-        println("JournalDetailScreen: LaunchedEffect with entryID = $entryId")
         if (entryId != null) {
             entryViewModel.getEntryById(entryId)
         }
     }
 
-    // Show loading or error message based on entryId
-    if (entryId == null || entryId == -1L) {
-        println("JournalDetailScreen: Invalid entryId received ($entryId)")
-        Text("Loading...")
-    } else {
-        println("JournalDetailScreen: Valid entryId received ($entryId)")
-        Text("Entry ID: $entryId")
+    LaunchedEffect(entry) {
+        entry?.let {
+            editedAnswer = it.answer
+        }
     }
-
 
     Box(
         modifier = Modifier
@@ -71,7 +76,7 @@ fun JournalEntryDetailScreen(
                 .padding(top = 30.dp, start = 7.dp)
         ) {
             Icon(
-                imageVector = Icons.Filled.ArrowBack,
+                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                 contentDescription = "Back",
                 tint = Color.Black
             )
@@ -86,13 +91,20 @@ fun JournalEntryDetailScreen(
     ) {
         // Displaying details of the specific entry
         entry?.let {
-            // Mood of entry
-            Text(
-                text = "Mood: ${it.mood}",
-                style = MaterialTheme.typography.headlineMedium,
-                fontWeight = FontWeight.Bold,
-                modifier = Modifier.padding(bottom = 16.dp)
-            )
+
+            Row(
+                modifier = Modifier
+            ) {
+                // Mood of entry
+                Text(
+                    text = "Mood: ${it.mood}",
+                    style = MaterialTheme.typography.headlineMedium,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.padding(bottom = 16.dp)
+                )
+
+            }
+
             Spacer(modifier = Modifier.height(16.dp))
 
             // Question of entry
@@ -129,19 +141,62 @@ fun JournalEntryDetailScreen(
                 fontWeight = FontWeight.SemiBold
             )
 
-            Box(
+            Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .background(Color.White, RoundedCornerShape(10.dp))
-                    .border(1.dp, Color.DarkGray, RoundedCornerShape(10.dp))
-                    .padding(16.dp)
-                    .padding(horizontal = 30.dp)
+                    .padding(horizontal = 16.dp),
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                Text(
-                    text = it.answer,
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = Color.Black
-                )
+                if(isEditing) {
+                    TextField(
+                        value = editedAnswer,
+                        onValueChange = {editedAnswer = it},
+                        modifier = Modifier
+                            .weight(1f)
+                            .background(Color.White, RoundedCornerShape(10.dp))
+                            .border(1.dp, Color.DarkGray, RoundedCornerShape(10.dp)),
+                        textStyle = MaterialTheme.typography.bodyMedium.copy(color = Color.Black)
+                    )
+                } else {
+                    Box(
+                        modifier = Modifier
+                            .padding(14.dp)
+                            .weight(1f)
+                            .background(Color.White, RoundedCornerShape(5.dp))
+                            .border(1.dp, Color.DarkGray, RoundedCornerShape(5.dp))
+                    ) {
+                        Text(
+                            modifier = Modifier
+                                .padding(14.dp),
+                            text = it.answer,
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = Color.Black,
+                            fontSize = 20.sp
+                        )
+                    }
+                }
+
+                IconButton(
+                    onClick = {
+                        if (isEditing) {
+                            val updatedEntry = it.copy(answer = editedAnswer)
+                            entryViewModel.updateEntry(updatedEntry)
+
+                            if (entryId != null) {
+                                entryViewModel.getEntryById(entryId)
+                            }
+                        } else {
+                            editedAnswer = it.answer
+                        }
+                        isEditing = !isEditing
+                    }
+                ) {
+                    Icon(
+                        imageVector = if (isEditing) Icons.Filled.Check else Icons.Filled.Edit,
+                        contentDescription = if (isEditing) "Save" else "Edit"
+                    )
+                }
+
             }
 
         } ?:
