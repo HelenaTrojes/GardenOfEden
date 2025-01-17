@@ -22,7 +22,8 @@ import java.time.LocalDate
 
 @Composable
 fun JournalScreen(entryViewModel: EntryViewModel) {
-    // Observe the list of entries
+
+    // observe the list of entries
     val entries by entryViewModel.entries.observeAsState(emptyList())
 
     LazyColumn(
@@ -37,7 +38,7 @@ fun JournalScreen(entryViewModel: EntryViewModel) {
 @Composable
 fun JournalEntryCard(entry: EntryEntity) {
     val date = LocalDate.ofEpochDay(entry.date / 86400000L) // Convert timestamp to LocalDate
-    val formattedDate = date.toString() // Format the date as needed
+    val formattedDate = date.toString()
 
     Column(
         modifier = Modifier

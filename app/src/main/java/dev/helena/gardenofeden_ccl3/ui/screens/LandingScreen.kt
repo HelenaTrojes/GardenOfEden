@@ -154,6 +154,7 @@ fun LandingScreen(navController: NavController, entryViewModel: EntryViewModel) 
                         date = System.currentTimeMillis() // Current timestamp
                     )
                     entryViewModel.insertEntry(entry)  // Save to the database
+                    entryViewModel.saveLastEntryDate(System.currentTimeMillis()) // save last entry date
                     navController.navigate("home") {
                         popUpTo("landing") { inclusive = true } // removes the landing page from back stack
 

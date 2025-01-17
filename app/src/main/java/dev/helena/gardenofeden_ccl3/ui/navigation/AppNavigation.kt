@@ -13,10 +13,9 @@ import dev.helena.gardenofeden_ccl3.ui.screens.WelcomeScreen
 fun AppNavigation(entryViewModel: EntryViewModel) {
     val navController = rememberNavController()
 
-    // Always start with the "welcome" screen
     NavHost(navController = navController, startDestination = "welcome") {
         composable("welcome") {
-            WelcomeScreen(navController)
+            WelcomeScreen(navController, entryViewModel)
         }
         composable("landing") {
             LandingScreen(navController, entryViewModel)
