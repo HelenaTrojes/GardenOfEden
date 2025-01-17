@@ -1,6 +1,7 @@
 package dev.helena.gardenofeden_ccl3.ui.screens
 
 import android.content.Context
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -12,7 +13,13 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
@@ -30,6 +37,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -52,6 +60,9 @@ fun LandingScreen(navController: NavController, entryViewModel: EntryViewModel) 
     var selectedMood by remember { mutableStateOf("") }
     var answerText by remember { mutableStateOf("") }
 
+    //for the input field content
+    val scrollState = rememberScrollState()
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -71,6 +82,7 @@ fun LandingScreen(navController: NavController, entryViewModel: EntryViewModel) 
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
+
             // Mood Of The Day Section
             Text(
                 text = "Mood of the Day",
@@ -154,7 +166,19 @@ fun LandingScreen(navController: NavController, entryViewModel: EntryViewModel) 
                     label = { Text("Your answer") },
                     modifier = Modifier
                         .fillMaxWidth()
+                        .heightIn(max = 100.dp)
                         .padding(bottom = 16.dp)
+                        .verticalScroll(scrollState) // Make the text area scrollable
+                        .imePadding(), // Adjusts padding when the keyboard is visible
+
+                    keyboardOptions = KeyboardOptions.Default.copy(
+                        imeAction = ImeAction.Done
+                    ),
+                    keyboardActions = KeyboardActions(
+                        onDone = {
+                            keyboardController?.hide() // Hide keyboard when done
+                        }
+                    )
                 )
             }
 
@@ -175,6 +199,12 @@ fun LandingScreen(navController: NavController, entryViewModel: EntryViewModel) 
                         navController.navigate("home") {
                             popUpTo("landing") { inclusive = true } // removes the landing page from back stack
                         }
+                    } else {
+                        Toast.makeText(
+                            context,
+                            "Please select a mood and provide an answer.",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 },
                 modifier = Modifier.align(Alignment.CenterHorizontally),
