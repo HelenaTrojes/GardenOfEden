@@ -12,7 +12,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -21,6 +22,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -39,6 +42,7 @@ fun JournalEntryDetailScreen(
 ) {
     // Observing the entry details based on entryId
     val entry by entryViewModel.entryDetails.observeAsState()
+    val showDialog = remember { mutableStateOf(false) } //state for confirmation dialog
 
     // LaunchedEffect to fetch the entry details when entryId changes
     LaunchedEffect(entryId) {
@@ -64,6 +68,7 @@ fun JournalEntryDetailScreen(
             .background(Color(0xFFADD8E6))
             .padding(20.dp)
     ) {
+        //Back Button
         IconButton(
             onClick = { navController.popBackStack()  },
             modifier = Modifier
@@ -71,9 +76,51 @@ fun JournalEntryDetailScreen(
                 .padding(top = 30.dp, start = 7.dp)
         ) {
             Icon(
-                imageVector = Icons.Filled.ArrowBack,
+                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                 contentDescription = "Back",
                 tint = Color.Black
+            )
+        }
+
+        //Delete Button
+        IconButton(
+            onClick = {showDialog.value = true},
+            modifier = Modifier
+                .align(Alignment.TopEnd)
+                .padding(top = 30.dp, end = 7.dp)
+        ) {
+            Icon(
+                imageVector = Icons.Filled.Delete,
+                contentDescription = "Delete",
+                tint = Color.Black
+            )
+        }
+// Confirmation dialog
+        if (showDialog.value) {
+            androidx.compose.material3.AlertDialog(
+                onDismissRequest = { showDialog.value = false },
+                title = { Text(text = "Delete Entry") },
+                text = { Text(text = "Are you sure you want to delete this entry? You won't get another entry for today") },
+                confirmButton = {
+                    androidx.compose.material3.TextButton(
+                        onClick = {
+                            showDialog.value = false
+                            entry?.let {
+                                entryViewModel.deleteEntry(it)
+                                navController.popBackStack() // Navigate back
+                            }
+                        }
+                    ) {
+                        Text("Yes", color = Color.Red)
+                    }
+                },
+                dismissButton = {
+                    androidx.compose.material3.TextButton(
+                        onClick = { showDialog.value = false }
+                    ) {
+                        Text("Cancel")
+                    }
+                }
             )
         }
     }
