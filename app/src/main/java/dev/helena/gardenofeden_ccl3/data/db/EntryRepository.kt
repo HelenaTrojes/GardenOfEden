@@ -23,7 +23,8 @@ class EntryRepository(private val entryDao: EntryDao, private val preferenceMana
     }
 
     suspend fun getEntryById(entryId: Long): EntryEntity? {
-        return entryDao.getEntryById(entryId)
+        val entry = entryDao.getEntryById(entryId)
+        return entry
     }
 
     // Check if an entry exists for today

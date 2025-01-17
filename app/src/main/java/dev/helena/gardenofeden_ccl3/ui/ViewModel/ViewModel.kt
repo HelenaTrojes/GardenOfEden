@@ -34,7 +34,7 @@ class EntryViewModel(private val repository: EntryRepository) : ViewModel() {
         }
     }
 
-    fun getEntryById(entryId: Long) {
+     fun getEntryById(entryId: Long) {
         viewModelScope.launch {
             _entryDetails.value = repository.getEntryById(entryId)
         }

@@ -69,11 +69,11 @@ fun LandingScreen(navController: NavController, entryViewModel: EntryViewModel) 
                 .padding(horizontal = 25.dp)
         ) {
             val moods = listOf(
-                "😊" to "happy",
-                "😢" to "sad",
-                "😲" to "surprised",
-                "😜" to "silly",
-                "😡" to "angry"
+                "😊" to "Happy",
+                "😢" to "Sad",
+                "😲" to "Surprised",
+                "😜" to "Silly",
+                "😡" to "Angry"
             )
             moods.forEach { (emoji, mood) ->
                 val isSelected = selectedMood == mood // check if the emoji is selected
@@ -181,7 +181,6 @@ fun getQuestionOfTheDay(context: Context): String {
         return "No questions available for today"
     }
 
-
     // calculating here how many days have passed since the start date
     val today = LocalDate.now()
     val daysPassed = ChronoUnit.DAYS.between(START_DATE, today).toInt()
@@ -191,13 +190,4 @@ fun getQuestionOfTheDay(context: Context): String {
 
     // we go through the questions again
     return questions[index].question
-
-    /*
-    if(index < questions.size) {
-        return questions[index].question
-    } else {
-        return "No more questions available" // returns the exact question
-    }
-
-     */
 }
