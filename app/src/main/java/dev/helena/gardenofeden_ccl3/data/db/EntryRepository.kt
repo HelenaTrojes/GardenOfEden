@@ -1,9 +1,10 @@
 package dev.helena.gardenofeden_ccl3.data.db
 
+import PreferenceManager
 import java.time.LocalDate
 import java.time.ZoneOffset
 
-class EntryRepository(private val entryDao: EntryDao) {
+class EntryRepository(private val entryDao: EntryDao, private val preferenceManager: PreferenceManager) {
 
     suspend fun insertEntry(entry: EntryEntity) {
         entryDao.insert(entry)
@@ -26,10 +27,16 @@ class EntryRepository(private val entryDao: EntryDao) {
         return entry
     }
 
-    suspend fun hasEntryForToday(): Boolean {
-        val todayStart = LocalDate.now().atStartOfDay().toEpochSecond(ZoneOffset.UTC)
-        val todayEnd = LocalDate.now().plusDays(1).atStartOfDay().toEpochSecond(ZoneOffset.UTC)
-        return entryDao.getEntriesInDateRange(todayStart, todayEnd).isNotEmpty()
+    // Check if an entry exists for today
+    fun hasEntryForToday(): Boolean {
+        val todayStart = LocalDate.now().atStartOfDay().toEpochSecond(ZoneOffset.UTC) * 1000 // Milliseconds
+        val lastEntryDate = preferenceManager.getLastEntryDate()
+        return lastEntryDate >= todayStart
+    }
+
+    // Save the last entry date when a new entry is created
+    fun saveEntryDate(timestamp: Long) {
+        preferenceManager.saveLastEntryDate(timestamp)
     }
 
 }
