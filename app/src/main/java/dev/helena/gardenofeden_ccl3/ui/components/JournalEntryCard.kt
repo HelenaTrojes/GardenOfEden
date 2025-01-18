@@ -86,9 +86,6 @@ fun JournalEntryCard(
                 color = Color.DarkGray,
                 modifier = Modifier.padding(top = 4.dp)
             )
-
-            // Mood
-            Text(text = "Mood: ${entry.mood}")
         }
     }
 }
