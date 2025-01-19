@@ -33,7 +33,7 @@ class EntryViewModel(private val repository: EntryRepository) : ViewModel() {
     }
 
 
-    private fun getAllEntries() {
+    fun getAllEntries() {
         viewModelScope.launch {
             _entries.value = repository.getAllEntries()
         }
