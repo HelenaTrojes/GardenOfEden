@@ -12,8 +12,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -22,8 +21,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -43,22 +40,32 @@ fun JournalEntryDetailScreen(
     // Observing the entry details based on entryId
     val entry by entryViewModel.entryDetails.observeAsState()
     val showDialog = remember { mutableStateOf(false) } //state for confirmation dialog
+    var isEditing by remember { mutableStateOf(false) }
+    var editedAnswer by remember { mutableStateOf("") }
+
+
+    val date = Instant.ofEpochMilli(entry?.date ?: 0L).atZone(ZoneId.systemDefault()).toLocalDate()
+    val formattedDate = date.format(DateTimeFormatter.ofPattern("dd MMM yyyy"))
+
+    val moodToEmojiMap = mapOf(
+        "Happy" to "😊",
+        "Sad" to "😢",
+        "Surprised" to "😲",
+        "Silly" to "😜",
+        "Angry" to "😡"
+    )
 
     // LaunchedEffect to fetch the entry details when entryId changes
     LaunchedEffect(entryId) {
-        println("JournalDetailScreen: LaunchedEffect with entryID = $entryId")
         if (entryId != null) {
             entryViewModel.getEntryById(entryId)
         }
     }
 
-    // Show loading or error message based on entryId
-    if (entryId == null || entryId == -1L) {
-        println("JournalDetailScreen: Invalid entryId received ($entryId)")
-        Text("Loading...")
-    } else {
-        println("JournalDetailScreen: Valid entryId received ($entryId)")
-        Text("Entry ID: $entryId")
+    LaunchedEffect(entry) {
+        entry?.let {
+            editedAnswer = it.answer
+        }
     }
 
 
@@ -133,38 +140,66 @@ fun JournalEntryDetailScreen(
     ) {
         // Displaying details of the specific entry
         entry?.let {
-            // Mood of entry
+            Row(
+                modifier = Modifier
+                    .padding(16.dp)
+            ) {
+                // get the emoj for the selected mood
+                val moodEmoji = moodToEmojiMap[it.mood] ?: it.mood
+
+                // Mood of entry
+                Text(
+                    text = "Mood: $moodEmoji",
+                    style = MaterialTheme.typography.headlineMedium,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 20.sp,
+                    modifier = Modifier.padding(bottom = 16.dp)
+                )
+            }
+
             Text(
-                text = "Mood: ${it.mood}",
-                style = MaterialTheme.typography.headlineMedium,
-                fontWeight = FontWeight.Bold,
-                modifier = Modifier.padding(bottom = 16.dp)
+                text = "You felt ${it.mood} on $formattedDate ",
+                style = MaterialTheme.typography.bodyMedium,
+                fontSize = 16.sp,
+                color = Color.Black,
+                modifier = Modifier.padding(top = 4.dp)
             )
+
             Spacer(modifier = Modifier.height(16.dp))
 
+            Column(
+                modifier = Modifier
+                    .padding(16.dp)
+                .padding(horizontal = 20.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
+            ) {
             // Question of entry
             Text(
                 text = "Question of the day",
                 style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.Bold),
                 modifier = Modifier.padding(bottom = 8.dp),
                 fontSize = 20.sp,
-                fontWeight = FontWeight.SemiBold
+                fontWeight = FontWeight.SemiBold,
+                textAlign = TextAlign.Center
             )
-            Spacer(modifier = Modifier.height(10.dp))
+            Spacer(modifier = Modifier.height(5.dp))
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .border(1.dp, Color.DarkGray, RoundedCornerShape(10.dp))
-                    .padding(16.dp)
-                    .padding(horizontal = 30.dp)
+                    .border(1.dp, Color.DarkGray, RoundedCornerShape(30.dp))
+                    .padding()
+                    .padding(horizontal = 20.dp)
+                    .padding(vertical = 10.dp)
             ) {
                 Text(
                     text = it.question,
-                    style = MaterialTheme.typography.bodyLarge,
-                    fontSize = 16.sp,
+                    style = MaterialTheme.typography.bodyLarge.copy(color = Color.Black),
                     textAlign = TextAlign.Center
                 )
             }
+            }
+
             Spacer(modifier = Modifier.height(35.dp))
 
             // Answer of entry
@@ -176,19 +211,45 @@ fun JournalEntryDetailScreen(
                 fontWeight = FontWeight.SemiBold
             )
 
-            Box(
+            Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .background(Color.White, RoundedCornerShape(10.dp))
-                    .border(1.dp, Color.DarkGray, RoundedCornerShape(10.dp))
-                    .padding(16.dp)
-                    .padding(horizontal = 30.dp)
+                    .padding(horizontal = 16.dp),
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                Text(
-                    text = it.answer,
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = Color.Black
+                TextField(
+                    value = if (isEditing) editedAnswer else it.answer,
+                    onValueChange = { if (isEditing) editedAnswer = it },
+                    modifier = Modifier
+                        .weight(1f)
+                        .background(Color.White, RoundedCornerShape(10.dp))
+                        .border(2.dp, Color.DarkGray, RoundedCornerShape(10.dp)),
+                    textStyle = MaterialTheme.typography.bodyLarge.copy(color = Color.Black),
+                    enabled = isEditing,
+                    readOnly = !isEditing
                 )
+
+                IconButton(
+                    onClick = {
+                        if (isEditing) {
+                            val updatedEntry = it.copy(answer = editedAnswer)
+                            entryViewModel.updateEntry(updatedEntry)
+
+                            if (entryId != null) {
+                                entryViewModel.getEntryById(entryId)
+                            }
+                        } else {
+                            editedAnswer = it.answer
+                        }
+                        isEditing = !isEditing
+                    }
+                ) {
+                    Icon(
+                        imageVector = if (isEditing) Icons.Filled.Check else Icons.Filled.Edit,
+                        contentDescription = if (isEditing) "Save" else "Edit"
+                    )
+                }
+
             }
 
         } ?:
