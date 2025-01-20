@@ -16,11 +16,13 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.clipPath
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import dev.helena.gardenofeden_ccl3.data.db.EntryEntity
+import dev.helena.gardenofeden_ccl3.ui.theme.MintLeaf
 import java.time.LocalDate
 
 @Composable
@@ -53,16 +55,17 @@ fun JournalEntryCard(
             }
             clipPath(clipPath) {
                 drawRoundRect(
-                    color = Color.LightGray,
+                    color = Color.White,
                     size = size,
                     cornerRadius = CornerRadius(cornerRadius.toPx())
                 )
                 drawRoundRect(
-                    color = Color.DarkGray,
+                    color = MintLeaf,
                     topLeft = Offset(size.width - cutCornerSize.toPx(), -100f),
                     size = Size(cutCornerSize.toPx() + 100f, cutCornerSize.toPx() + 100f),
                     cornerRadius = CornerRadius(cornerRadius.toPx())
                 )
+
             }
         }
 

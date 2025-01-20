@@ -44,6 +44,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import dev.helena.gardenofeden_ccl3.data.db.EntryEntity
 import dev.helena.gardenofeden_ccl3.ui.ViewModel.EntryViewModel
+import dev.helena.gardenofeden_ccl3.ui.theme.MintLeaf
 import dev.helena.gardenofeden_ccl3.util.JsonUtils
 import java.time.LocalDate
 import java.time.temporal.ChronoUnit
@@ -66,7 +67,8 @@ fun LandingScreen(navController: NavController, entryViewModel: EntryViewModel) 
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFFADD8E6))
+            .imePadding()
+            .background(MintLeaf)
             .clickable(
                 interactionSource = remember { MutableInteractionSource() },
                 indication = null // No ripple effect
@@ -78,7 +80,8 @@ fun LandingScreen(navController: NavController, entryViewModel: EntryViewModel) 
     ) {
         Column(
             modifier = Modifier
-                .fillMaxSize(),
+                .fillMaxSize()
+                .imePadding(),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
@@ -140,6 +143,7 @@ fun LandingScreen(navController: NavController, entryViewModel: EntryViewModel) 
             // Question Of The Day Section
             Column(
                 modifier = Modifier
+                    .imePadding()
                     .padding(horizontal = 30.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
