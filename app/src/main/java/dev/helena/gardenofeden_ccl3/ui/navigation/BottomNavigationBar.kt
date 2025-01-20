@@ -1,5 +1,6 @@
 package dev.helena.gardenofeden_ccl3.ui.navigation
 
+import android.content.res.Resources.Theme
 import androidx.compose.material.icons.Icons
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -13,6 +14,10 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.compose.material.icons.filled.FilterVintage
 import androidx.compose.material.icons.filled.Book
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import dev.helena.gardenofeden_ccl3.ui.theme.LemonDark
+import dev.helena.gardenofeden_ccl3.ui.theme.LemonLight
+import dev.helena.gardenofeden_ccl3.ui.theme.MintLeaf
 
 @Composable
 fun BottomNavigationBar(navController: NavController) {
@@ -20,7 +25,7 @@ fun BottomNavigationBar(navController: NavController) {
     val currentRoute = currentBackStackEntry?.destination?.route
 
     NavigationBar(
-        containerColor = Color.Gray
+        containerColor = Color.White
     ) {
         val items = listOf(
             "home_tab" to Pair ("My Garden", Icons.Filled.FilterVintage),
@@ -48,11 +53,11 @@ fun BottomNavigationBar(navController: NavController) {
                 icon = { Icon(icon, contentDescription = label) },
                 label = { Text(label) },
                 colors = NavigationBarItemDefaults.colors(
-                    selectedIconColor = Color.White,
-                    selectedTextColor = Color.White,
-                    unselectedIconColor = Color.Black,
-                    unselectedTextColor = Color.Black,
-                    indicatorColor = Color(0xFF0096C7)
+                    selectedIconColor = MintLeaf,
+                    selectedTextColor = MintLeaf,
+                    unselectedIconColor = MintLeaf,
+                    unselectedTextColor = MintLeaf,
+                    indicatorColor = LemonLight,
                 )
             )
         }
