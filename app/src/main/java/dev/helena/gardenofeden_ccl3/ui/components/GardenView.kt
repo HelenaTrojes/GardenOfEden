@@ -1,6 +1,7 @@
 package dev.helena.gardenofeden_ccl3.ui.components
 
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -11,6 +12,7 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.DrawScope
+import androidx.compose.ui.input.pointer.pointerInput
 import dev.helena.gardenofeden_ccl3.data.db.EntryEntity
 import dev.helena.gardenofeden_ccl3.ui.theme.BlueDark
 import dev.helena.gardenofeden_ccl3.ui.theme.BlueLight
@@ -27,7 +29,7 @@ import kotlin.math.sin
 
 
 @Composable
-fun GardenView(entries: List<EntryEntity>, growthTriggered: Boolean) {
+fun GardenView(entries: List<EntryEntity>, growthTriggered: Boolean, onPlantStroke: (String) -> Unit) {
     val plants = remember(entries) {
         entries.map { entry ->
             mutableStateOf(
@@ -86,10 +88,26 @@ fun GardenView(entries: List<EntryEntity>, growthTriggered: Boolean) {
             // Only draw the flower (petals) at BLOOM stage
             if (plantState.value.growthStage == PlantGrowthStage.BLOOM) {
                 drawFlower(position.x, position.y - growthHeight, plantState.value.mood)
+
+                // Detect the stroke gesture
+                Modifier.pointerInput(Unit) {
+                    detectDragGestures { _, _ ->
+                        // When stroked, trigger a random message
+                        val messages = listOf(
+                            "Thanks for taking care of me!",
+                            "Could you please not get on my nerves?",
+                            "I guess you really dig me!",
+                            "Pet me, and I’ll bloom faster!",
+                            "Don’t you have other plants to stroke?"
+                        )
+                        onPlantStroke(messages.random())
+                    }
+                }
             }
         }
     }
 }
+
 
 
 fun DrawScope.drawStem(x: Float, baseY: Float, height: Float) {
