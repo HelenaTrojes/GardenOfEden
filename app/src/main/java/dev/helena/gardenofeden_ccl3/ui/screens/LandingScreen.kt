@@ -1,6 +1,7 @@
 package dev.helena.gardenofeden_ccl3.ui.screens
 
 import android.content.Context
+import android.widget.Space
 import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -44,10 +45,13 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import dev.helena.gardenofeden_ccl3.data.db.EntryEntity
 import dev.helena.gardenofeden_ccl3.ui.ViewModel.EntryViewModel
+import dev.helena.gardenofeden_ccl3.ui.theme.LemonLight
 import dev.helena.gardenofeden_ccl3.ui.theme.MintLeaf
+import dev.helena.gardenofeden_ccl3.ui.theme.RoseLight
 import dev.helena.gardenofeden_ccl3.util.JsonUtils
 import java.time.LocalDate
 import java.time.temporal.ChronoUnit
+import kotlin.math.min
 
 val START_DATE: LocalDate = LocalDate.of(2025, 1, 1)
 
@@ -68,7 +72,7 @@ fun LandingScreen(navController: NavController, entryViewModel: EntryViewModel) 
         modifier = Modifier
             .fillMaxSize()
             .imePadding()
-            .background(MintLeaf)
+            .background(LemonLight)
             .clickable(
                 interactionSource = remember { MutableInteractionSource() },
                 indication = null // No ripple effect
@@ -81,9 +85,11 @@ fun LandingScreen(navController: NavController, entryViewModel: EntryViewModel) 
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .imePadding(),
+                .verticalScroll(scrollState)
+                .imePadding()
+                .padding(top = 150.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
+            verticalArrangement = Arrangement.Top
         ) {
 
             // Mood Of The Day Section
@@ -91,8 +97,11 @@ fun LandingScreen(navController: NavController, entryViewModel: EntryViewModel) 
                 text = "Mood of the Day",
                 style = MaterialTheme.typography.headlineMedium,
                 fontWeight = FontWeight.Bold,
-                modifier = Modifier.padding(bottom = 16.dp)
+                fontSize = 30.sp,
+                modifier = Modifier.padding(bottom = 16.dp),
+                color = Color.Black
             )
+            Spacer(modifier = Modifier.height(20.dp))
             Row(
                 horizontalArrangement = Arrangement.SpaceEvenly,
                 modifier = Modifier
@@ -120,7 +129,7 @@ fun LandingScreen(navController: NavController, entryViewModel: EntryViewModel) 
                             ) { selectedMood = mood }
                             .padding(horizontal = 8.dp)
                             .background(
-                                color = if (isSelected) Color(0xFF0096C7).copy(alpha = 0.3f) else Color.Transparent,
+                                color = if (isSelected) MintLeaf else Color.Transparent,
                                 shape = MaterialTheme.shapes.small
                             )
                             .padding(8.dp),
@@ -133,12 +142,13 @@ fun LandingScreen(navController: NavController, entryViewModel: EntryViewModel) 
                 Text(
                     text = "You feel $selectedMood today!",
                     style = MaterialTheme.typography.bodyMedium,
+                    fontSize = 17.sp,
                     color = Color.DarkGray,
                     modifier = Modifier.padding(bottom = 26.dp)
                 )
             }
 
-            Spacer(modifier = Modifier.height(40.dp))
+            Spacer(modifier = Modifier.height(50.dp))
 
             // Question Of The Day Section
             Column(
@@ -152,8 +162,10 @@ fun LandingScreen(navController: NavController, entryViewModel: EntryViewModel) 
                     text = "Question of the Day",
                     style = MaterialTheme.typography.headlineMedium,
                     fontWeight = FontWeight.Bold,
+                    fontSize = 30.sp,
                     modifier = Modifier
-                        .padding(bottom = 16.dp)
+                        .padding(bottom = 16.dp),
+                    color = Color.Black
                 )
                 Text(
                     text = questionOfTheDay,
@@ -170,7 +182,7 @@ fun LandingScreen(navController: NavController, entryViewModel: EntryViewModel) 
                     label = { Text("Your answer") },
                     modifier = Modifier
                         .fillMaxWidth()
-                        .heightIn(max = 100.dp)
+                        .heightIn(min= 56.dp, max = 70.dp)
                         .padding(bottom = 16.dp)
                         .verticalScroll(scrollState) // Make the text area scrollable
                         .imePadding(), // Adjusts padding when the keyboard is visible
@@ -184,39 +196,42 @@ fun LandingScreen(navController: NavController, entryViewModel: EntryViewModel) 
                         }
                     )
                 )
-            }
 
-            Spacer(modifier = Modifier.height(10.dp))
+                Spacer(modifier = Modifier.height(50.dp))
 
-            Button(
-                onClick = {
-                    if (selectedMood.isNotEmpty() && answerText.isNotEmpty()) {
-                        // creates entry and saves it
-                        val entry = EntryEntity(
-                            mood = selectedMood,
-                            question = questionOfTheDay,
-                            answer = answerText,
-                            date = System.currentTimeMillis() // Current timestamp
-                        )
-                        entryViewModel.insertEntry(entry)  // Save to the database
-                        entryViewModel.saveLastEntryDate(System.currentTimeMillis()) // save last entry date
-                        navController.navigate("home") {
-                            popUpTo("landing") { inclusive = true } // removes the landing page from back stack
+                Button(
+                    onClick = {
+                        if (selectedMood.isNotEmpty() && answerText.isNotEmpty()) {
+                            // creates entry and saves it
+                            val entry = EntryEntity(
+                                mood = selectedMood,
+                                question = questionOfTheDay,
+                                answer = answerText,
+                                date = System.currentTimeMillis() // Current timestamp
+                            )
+                            entryViewModel.insertEntry(entry)  // Save to the database
+                            entryViewModel.saveLastEntryDate(System.currentTimeMillis()) // save last entry date
+                            navController.navigate("home") {
+                                popUpTo("landing") { inclusive = true } // removes the landing page from back stack
+                            }
+                        } else {
+                            Toast.makeText(
+                                context,
+                                "Please select a mood and provide an answer.",
+                                Toast.LENGTH_SHORT
+                            ).show()
                         }
-                    } else {
-                        Toast.makeText(
-                            context,
-                            "Please select a mood and provide an answer.",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-                },
-                modifier = Modifier.align(Alignment.CenterHorizontally),
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = Color(0xFF0096C7)
-                )
-            ) {
-                Text("Save answer")
+                    },
+                    modifier = Modifier.align(Alignment.CenterHorizontally),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = MintLeaf
+                    )
+                ) {
+                    Text(
+                        text = "Save answer",
+                        color = Color.Black
+                    )
+                }
             }
         }
     }
