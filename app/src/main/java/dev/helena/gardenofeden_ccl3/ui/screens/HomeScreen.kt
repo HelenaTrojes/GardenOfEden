@@ -1,10 +1,14 @@
 package dev.helena.gardenofeden_ccl3.ui.screens
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -29,8 +33,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import dev.helena.gardenofeden_ccl3.ui.theme.Greenlight
 import dev.helena.gardenofeden_ccl3.ui.theme.MintLeaf
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Info
 
 
 @Composable
@@ -58,10 +63,13 @@ fun HomeScreen(navController: NavController, entryViewModel: EntryViewModel) {
     }
 }
 
+
 @Composable
 fun VirtualGardenScreen(entryViewModel: EntryViewModel) {
     val entries by entryViewModel.entries.observeAsState(initial = emptyList()) // Observe entries
     val growthTriggered = remember { mutableStateOf(false) }
+    var showInfoDialog by remember { mutableStateOf(false) } // State for info dialog visibility
+    var plantMessage by remember { mutableStateOf<String?>(null) } // Store the plant message
 
     // Trigger automatic growth when entering the screen
     LaunchedEffect(Unit) {
@@ -74,7 +82,7 @@ fun VirtualGardenScreen(entryViewModel: EntryViewModel) {
             .background(
                 Brush.verticalGradient(
                     colors = listOf(
-                        Color.White, //Start color
+                        Color.White, // Start color
                         MintLeaf // End color
                     )
                 )
@@ -83,27 +91,39 @@ fun VirtualGardenScreen(entryViewModel: EntryViewModel) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         // Title Section
-        Text(
-            text = "Eden of Garden",
-            style = MaterialTheme.typography.headlineLarge.copy(fontWeight = FontWeight.Bold),
-            color = MintLeaf,
-            modifier = Modifier.padding(top = 25.dp, bottom = 8.dp)
-        )
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 25.dp, bottom = 8.dp),
+            contentAlignment = Alignment.Center
+        ) {// Title at the center
+            Text(
+                text = "Garden of Eden",
+                style = MaterialTheme.typography.headlineLarge.copy(fontWeight = FontWeight.Bold),
+                color = MintLeaf,
+                modifier = Modifier.align(Alignment.Center)
+            )
+                // Information Icon
+                Box(
+                    modifier = Modifier
+                        .align(Alignment.CenterEnd)
+                        .clickable { showInfoDialog = true }
+                        .padding(8.dp)
+                ) {
+                    Icon(
+                        imageVector = Icons.Filled.Info,
+                        contentDescription = "Information Icon",
+                        tint = MintLeaf,
+                        modifier = Modifier.size(32.dp) // Adjust icon size for better visuals
+                    )
+                }
+            }
 
-        // Informational Text
-        Text(
-            text = "Each flower represents an emotion you have logged. Watch your garden grow!",
-            style = MaterialTheme.typography.bodyMedium,
-            textAlign = TextAlign.Center,
-            color = MintLeaf, // Dark teal color for the subtitle
-            modifier = Modifier.padding(bottom = 16.dp)
-        )
 
         // Garden Section
         Box(
             modifier = Modifier
                 .fillMaxSize()
-//                .background(Color(0xFFB2DFDB))
         ) {
             if (entries.isEmpty()) {
                 Text(
@@ -112,9 +132,67 @@ fun VirtualGardenScreen(entryViewModel: EntryViewModel) {
                     modifier = Modifier.align(Alignment.Center)
                 )
             } else {
-                GardenView(entries = entries, growthTriggered = growthTriggered.value)
+                // Pass the plantMessage callback to GardenView
+                GardenView(entries = entries, growthTriggered = growthTriggered.value) { message ->
+                    plantMessage = message
+                }
+            }
+        }
+// Display the stroking message
+        plantMessage?.let {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(Color.Black.copy(alpha = 0.5f))
+                    .clickable { plantMessage = null }, // Dismiss message on click
+                contentAlignment = Alignment.Center
+            ) {
+                Box(
+                    modifier = Modifier
+                        .background(Color.White, shape = MaterialTheme.shapes.medium)
+                        .padding(16.dp)
+                ) {
+                    Text(
+                        text = it,
+                        style = MaterialTheme.typography.bodyMedium,
+                        textAlign = TextAlign.Center,
+                        color = Color.Black
+                    )
+                }
+            }
+        }
+    }
+
+    // Info Dialog
+    if (showInfoDialog) {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Color.Black.copy(alpha = 0.5f))
+                .clickable { showInfoDialog = false } // Close dialog when background is clicked
+                .padding(16.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            Box(
+                modifier = Modifier
+                    .background(Color.White, shape = MaterialTheme.shapes.medium)
+                    .padding(16.dp)
+            ) {
+                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                    Text(
+                        text = "For what are the flowers?",
+                        style = MaterialTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold),
+                        color = MintLeaf,
+                        modifier = Modifier.padding(bottom = 8.dp)
+                    )
+                    Text(
+                        text = "The Garden of Eden is your personal garden where each flower represents an emotion you have logged. Watch as your emotions grow and bloom into a beautiful garden!",
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = Color.Black,
+                        textAlign = TextAlign.Center
+                    )
+                }
             }
         }
     }
 }
-
