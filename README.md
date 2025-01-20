@@ -34,3 +34,6 @@ heal through journaling, and find peace by nurturing their personal "Garden of E
 - Loading > Landing > Home
 - Home > Journal > Detail Screen
 
+# Usability Test Documentation
+
+For detailed information on usability tests, please refer to the [Usability Test Documentation](docs/usability_tests.md).
