@@ -37,13 +37,13 @@ Before conducting the usability test, a heuristic evaluation was performed by bo
 
 - **Visibility of system status**: Ensuring the app provides feedback for user actions.
 - **Match between system and the real world**: Using intuitive representations like flowers for mood tracking.
-- **Error prevention and recovery**: Avoiding accidental deletions and providing clear options to undo changes.
+- **Error prevention and recovery**: Prevent accidental deletions with a confirmation dialog.
 - **Consistency and standards**: Ensuring uniform navigation and design patterns.
 
 #### Key Findings from Heuristic Evaluation
 
-- The flower representation was well-received for its visual appeal, but users may need better explanations of its meaning.
-- The journal editing flow could be improved by making the "Save" action more distinguishable.
+- The flower representation could be well-received for its visual appeal, but users may need better explanations of its meaning.
+- The journal editing/deletion flow could be improved by changing the layout structure.
 
 ### Hypotheses and Research Questions
 
@@ -84,7 +84,7 @@ Participants will answer the following questions:
 
 #### Dependent Variables
 
-- **Task success rate**: Percentage of participants who complete tasks without assistance.
+- **Task success rate**: Percentage of participants who complete the tasks.
 - **Error rate**: The number of mistakes or confusions observed.
 - **Satisfaction ratings**: Participant feedback on ease of use, collected via post-test surveys.
 
@@ -93,4 +93,4 @@ Participants will answer the following questions:
 - **Direct observation**: Documenting user actions, behaviors, and errors.
 - **Post-test surveys**: Collecting feedback on task difficulty and overall app experience.
 - **Think-aloud protocol**: Encouraging participants to verbalize their thoughts as they complete tasks.
-
+- 
