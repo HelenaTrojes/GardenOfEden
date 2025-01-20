@@ -26,7 +26,11 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import dev.helena.gardenofeden_ccl3.ui.theme.Greenlight
+import dev.helena.gardenofeden_ccl3.ui.theme.MintLeaf
 
 
 @Composable
@@ -67,16 +71,23 @@ fun VirtualGardenScreen(entryViewModel: EntryViewModel) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFFB2DFDB))
+            .background(
+                Brush.verticalGradient(
+                    colors = listOf(
+                        Color.White, //Start color
+                        MintLeaf // End color
+                    )
+                )
+            )
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         // Title Section
         Text(
             text = "Eden of Garden",
-            style = MaterialTheme.typography.titleLarge,
-            color = Color(0xFF00796B), // Deep teal color for the title
-            modifier = Modifier.padding(bottom = 8.dp)
+            style = MaterialTheme.typography.headlineLarge.copy(fontWeight = FontWeight.Bold),
+            color = MintLeaf,
+            modifier = Modifier.padding(top = 25.dp, bottom = 8.dp)
         )
 
         // Informational Text
@@ -84,7 +95,7 @@ fun VirtualGardenScreen(entryViewModel: EntryViewModel) {
             text = "Each flower represents an emotion you have logged. Watch your garden grow!",
             style = MaterialTheme.typography.bodyMedium,
             textAlign = TextAlign.Center,
-            color = Color(0xFF004D40), // Dark teal color for the subtitle
+            color = MintLeaf, // Dark teal color for the subtitle
             modifier = Modifier.padding(bottom = 16.dp)
         )
 
@@ -92,7 +103,7 @@ fun VirtualGardenScreen(entryViewModel: EntryViewModel) {
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .background(Color(0xFFB2DFDB)) // Match garden background
+//                .background(Color(0xFFB2DFDB))
         ) {
             if (entries.isEmpty()) {
                 Text(

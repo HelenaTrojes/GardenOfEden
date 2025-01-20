@@ -12,6 +12,7 @@ import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import dev.helena.gardenofeden_ccl3.data.db.EntryEntity
+import dev.helena.gardenofeden_ccl3.ui.theme.MintLeaf
 import kotlinx.coroutines.delay
 import kotlin.math.cos
 import kotlin.math.sin
@@ -34,9 +35,9 @@ fun GardenView(entries: List<EntryEntity>, growthTriggered: Boolean) {
     LaunchedEffect(growthTriggered) {
         if (growthTriggered) {
             plants.forEach { plantState ->
-                delay(1000L) // Delay between each growth stage
+                delay(500L) // Delay between each growth stage
                 plantState.value = plantState.value.copy(growthStage = PlantGrowthStage.SPROUT)
-                delay(1000L)
+                delay(600L)
                 plantState.value = plantState.value.copy(growthStage = PlantGrowthStage.BLOOM)
             }
         }
@@ -64,7 +65,7 @@ fun GardenView(entries: List<EntryEntity>, growthTriggered: Boolean) {
 }
 fun DrawScope.drawHill(size: Size) {
     drawArc(
-        color = Color(0xFF8BC34A), // Light green for the hill
+        color = MintLeaf, // Light green for the hill
         startAngle = 0f,
         sweepAngle = 180f,
         useCenter = true,
