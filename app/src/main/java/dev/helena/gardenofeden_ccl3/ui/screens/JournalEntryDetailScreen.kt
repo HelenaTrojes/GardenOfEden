@@ -13,12 +13,17 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.Save
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -63,7 +68,7 @@ fun JournalEntryDetailScreen(
     val entry by entryViewModel.entryDetails.observeAsState()
     val showDialog = remember { mutableStateOf(false) } //state for confirmation dialog
     var isEditing by remember { mutableStateOf(false) }
-    var editedAnswer by remember { mutableStateOf("") }
+    var editedAnswer by remember { mutableStateOf(TextFieldValue("")) }
 
     val focusRequester = remember { FocusRequester() }
 
@@ -87,13 +92,15 @@ fun JournalEntryDetailScreen(
 
     LaunchedEffect(entry) {
         entry?.let {
-           //  editedAnswer = it.answer
-            editedAnswer = it.answer
+            editedAnswer = TextFieldValue(it.answer)
         }
     }
 
     LaunchedEffect(isEditing) {
         if (isEditing) {
+            editedAnswer = TextFieldValue(
+                text = entry?.answer ?: "",
+                selection = TextRange(entry?.answer?.length ?: 0))
             focusRequester.requestFocus()
         }
     }
@@ -102,7 +109,7 @@ fun JournalEntryDetailScreen(
         modifier = Modifier
             .fillMaxSize()
             .background(LemonLight)
-            .padding(20.dp)
+            .padding(16.dp)
             .imePadding()
     ) {
         //Back Button
@@ -110,54 +117,12 @@ fun JournalEntryDetailScreen(
             onClick = { navController.popBackStack()  },
             modifier = Modifier
                 .align(Alignment.TopStart)
-                .padding(top = 30.dp, start = 7.dp)
+                .padding(top = 30.dp)
         ) {
             Icon(
                 imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                 contentDescription = "Back",
                 tint = Color.Black
-            )
-        }
-
-        //Delete Button
-        IconButton(
-            onClick = {showDialog.value = true},
-            modifier = Modifier
-                .align(Alignment.TopEnd)
-                .padding(top = 30.dp, end = 7.dp)
-        ) {
-            Icon(
-                imageVector = Icons.Filled.Delete,
-                contentDescription = "Delete",
-                tint = Color.Black
-            )
-        }
-// Confirmation dialog
-        if (showDialog.value) {
-            androidx.compose.material3.AlertDialog(
-                onDismissRequest = { showDialog.value = false },
-                title = { Text(text = "Delete Entry") },
-                text = { Text(text = "Are you sure you want to delete this entry? You won't get another entry for today") },
-                confirmButton = {
-                    androidx.compose.material3.TextButton(
-                        onClick = {
-                            showDialog.value = false
-                            entry?.let {
-                                entryViewModel.deleteEntry(it)
-                                navController.popBackStack() // Navigate back
-                            }
-                        }
-                    ) {
-                        Text("Yes", color = Color.Red)
-                    }
-                },
-                dismissButton = {
-                    androidx.compose.material3.TextButton(
-                        onClick = { showDialog.value = false }
-                    ) {
-                        Text("Cancel")
-                    }
-                }
             )
         }
     }
@@ -246,14 +211,14 @@ fun JournalEntryDetailScreen(
             IconButton(
                 onClick = {
                     if (isEditing) {
-                        val updatedEntry = it.copy(answer = editedAnswer)
+                        val updatedEntry = it.copy(answer = editedAnswer.text)
                         entryViewModel.updateEntry(updatedEntry)
 
                         if (entryId != null) {
                             entryViewModel.getEntryById(entryId)
                         }
                     } else {
-                        editedAnswer = it.answer
+                        editedAnswer = TextFieldValue(it.answer)
                     }
                     isEditing = !isEditing
                 }
@@ -263,18 +228,62 @@ fun JournalEntryDetailScreen(
                     contentDescription = if (isEditing) "Save" else "Edit"
                 )
             }
+                Spacer(modifier = Modifier.width(10.dp))
+
+                //Delete Button
+                IconButton(
+                    onClick = {showDialog.value = true},
+                ) {
+                    Icon(
+                        imageVector = Icons.Filled.Delete,
+                        contentDescription = "Delete",
+                        tint = Color.Black
+                    )
+                }
+
             }
+
+            // Confirmation dialog
+            if (showDialog.value) {
+                androidx.compose.material3.AlertDialog(
+                    onDismissRequest = { showDialog.value = false },
+                    title = { Text(text = "Delete Journal") },
+                    text = { Text(text = "Are you sure you want to delete this entry? Please note, you won’t be able to create a new entry for today.") },
+                    confirmButton = {
+                        androidx.compose.material3.TextButton(
+                            onClick = {
+                                showDialog.value = false
+                                entry?.let {
+                                    entryViewModel.deleteEntry(it)
+                                    navController.popBackStack() // Navigate back
+                                }
+                            }
+                        ) {
+                            Text("Yes", color = Color.Red)
+                        }
+                    },
+                    dismissButton = {
+                        androidx.compose.material3.TextButton(
+                            onClick = { showDialog.value = false }
+                        ) {
+                            Text("Cancel")
+                        }
+                    }
+                )
+            }
+
 
             Spacer(modifier = Modifier.height(5.dp))
 
                 TextField(
-                    value = if (isEditing) editedAnswer else it.answer,
+                    value = editedAnswer,
                     onValueChange = { if (isEditing) editedAnswer = it },
                     modifier = Modifier
                         .fillMaxWidth()
                         .background(Color.White, RoundedCornerShape(10.dp))
-                        .padding(vertical = 10.dp)
-                        .heightIn(max = 200.dp)
+                        .padding(vertical = 5.dp)
+                        .wrapContentHeight()
+                        .verticalScroll(rememberScrollState())
                         .focusRequester(focusRequester),
                     textStyle = MaterialTheme.typography.bodyLarge.copy(color = Color.Black),
                     enabled = isEditing,
