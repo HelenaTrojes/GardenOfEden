@@ -51,16 +51,22 @@ android {
 }
 
 dependencies {
+    implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.androidx.runtime)
+    implementation(libs.androidx.lifecycle.runtime.compose)
+    implementation(libs.androidx.runtime.livedata)
+
+
     //For images
-    implementation("io.coil-kt.coil3:coil-compose:3.0.4")
+    implementation(libs.coil.compose)
 
     //Room
-    implementation("androidx.room:room-runtime:2.6.1")
-    implementation("androidx.room:room-ktx:2.6.1")
-    ksp("androidx.room:room-compiler:2.6.1")
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.ktx)
+    ksp(libs.androidx.room.compiler)
 
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.7")
-    implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.8.7")
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation (libs.androidx.lifecycle.livedata.ktx)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -82,7 +88,7 @@ dependencies {
 
 
     // Navigation
-    implementation ("androidx.navigation:navigation-compose:2.8.5")
+    implementation (libs.androidx.navigation.compose)
 
     implementation (libs.androidx.material.icons.extended)
 
