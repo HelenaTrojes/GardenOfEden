@@ -29,6 +29,9 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import dev.helena.gardenofeden_ccl3.R
 import dev.helena.gardenofeden_ccl3.ui.ViewModel.EntryViewModel
+import dev.helena.gardenofeden_ccl3.ui.theme.LemonDark
+import dev.helena.gardenofeden_ccl3.ui.theme.LemonLight
+import dev.helena.gardenofeden_ccl3.ui.theme.MintLeaf
 import kotlinx.coroutines.launch
 
 @Composable
@@ -38,26 +41,27 @@ fun WelcomeScreen(navController: NavHostController, entryViewModel: EntryViewMod
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFFADD8E6)),
+            .background(MintLeaf),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
         Text(
-            text = "Welcome to",
-            fontSize = 30.sp,
+            text = "Garden of Eden",
+            fontSize = 40.sp,
+            fontWeight = FontWeight.SemiBold,
+            color = Color.Black,
+            textAlign = TextAlign.Center,
+            modifier = Modifier.padding(bottom = 10.dp)
+        )
+        Text(
+            text = "Track. Heal. Bloom.",
+            fontSize = 20.sp,
             fontWeight = FontWeight.Normal,
             color = Color.Black,
             textAlign = TextAlign.Center,
         )
-        Spacer(modifier = Modifier.height(10.dp))
-        Text(
-            text = "Garden of Eden",
-            fontSize = 50.sp,
-            fontWeight = FontWeight.Bold,
-            color = Color.Black,
-            textAlign = TextAlign.Center,
-            modifier = Modifier.padding(bottom = 16.dp)
-        )
+
+        Spacer(modifier = Modifier.height(20.dp))
         Image(
             painter = painterResource(id = R.drawable.tulip),
             contentDescription = "Tulip Image",
@@ -65,6 +69,7 @@ fun WelcomeScreen(navController: NavHostController, entryViewModel: EntryViewMod
                 .fillMaxWidth(0.8f) // scale down width to 80% of the screen width
                 .aspectRatio(1f)   // maintains the original aspect ratio (1:1 for a square image)
         )
+        Spacer(modifier = Modifier.height(30.dp))
         Button(
             onClick = {
                 coroutineScope.launch {
@@ -74,15 +79,14 @@ fun WelcomeScreen(navController: NavHostController, entryViewModel: EntryViewMod
                         navController.navigate("landing")
                     }
                 }
-            }
-            ,
+            },
             modifier = Modifier
                 .padding(top = 40.dp)
                 .height(60.dp)
                 .padding(horizontal = 16.dp),
             shape = androidx.compose.foundation.shape.CircleShape,
             colors = ButtonDefaults.buttonColors(
-                containerColor  = Color(0xFF0096C7),
+                containerColor  = LemonLight,
             )
         ) {
             Text(

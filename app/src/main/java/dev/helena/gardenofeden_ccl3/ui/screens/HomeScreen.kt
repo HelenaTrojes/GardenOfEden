@@ -26,7 +26,16 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.sp
+import dev.helena.gardenofeden_ccl3.ui.theme.BlueDark
+import dev.helena.gardenofeden_ccl3.ui.theme.CheekeyDark
+import dev.helena.gardenofeden_ccl3.ui.theme.CheekyLight
+import dev.helena.gardenofeden_ccl3.ui.theme.CyanDark
+import dev.helena.gardenofeden_ccl3.ui.theme.LemonDark
+import dev.helena.gardenofeden_ccl3.ui.theme.MintLeaf
+import dev.helena.gardenofeden_ccl3.ui.theme.RoseDark
 
 
 @Composable
@@ -73,18 +82,21 @@ fun VirtualGardenScreen(entryViewModel: EntryViewModel) {
     ) {
         // Title Section
         Text(
-            text = "Eden of Garden",
+            text = "Garden of Eden",
             style = MaterialTheme.typography.titleLarge,
-            color = Color(0xFF00796B), // Deep teal color for the title
+            fontWeight = FontWeight.SemiBold,
+            fontSize = 20.sp,
+            color = CheekeyDark, // Deep teal color for the title
             modifier = Modifier.padding(bottom = 8.dp)
         )
 
         // Informational Text
         Text(
-            text = "Each flower represents an emotion you have logged. Watch your garden grow!",
+            text = "Each flower represents an emotion. Watch your garden flourish!",
             style = MaterialTheme.typography.bodyMedium,
+            fontSize = 14.sp,
             textAlign = TextAlign.Center,
-            color = Color(0xFF004D40), // Dark teal color for the subtitle
+            color = CheekeyDark, // Dark teal color for the subtitle
             modifier = Modifier.padding(bottom = 16.dp)
         )
 
@@ -92,7 +104,7 @@ fun VirtualGardenScreen(entryViewModel: EntryViewModel) {
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .background(Color(0xFFB2DFDB)) // Match garden background
+                .background(Color(0xFFB2DFDB))
         ) {
             if (entries.isEmpty()) {
                 Text(

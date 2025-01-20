@@ -23,6 +23,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import dev.helena.gardenofeden_ccl3.ui.ViewModel.EntryViewModel
 import dev.helena.gardenofeden_ccl3.ui.components.JournalEntryCard
+import dev.helena.gardenofeden_ccl3.ui.theme.LemonLight
 
 @Composable
 fun JournalScreen(
@@ -36,13 +37,13 @@ fun JournalScreen(
     Column (
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFFADD8E6))
+            .background(LemonLight)
     ) {
         Text(
             text = "Your journal",
             style = MaterialTheme.typography.headlineLarge.copy(fontWeight = FontWeight.Bold),
             color = Color.Black,
-            fontSize = 34.sp,
+            fontSize = 30.sp,
             textAlign = TextAlign.Center,
             modifier = Modifier
                 .padding(bottom = 30.dp)
