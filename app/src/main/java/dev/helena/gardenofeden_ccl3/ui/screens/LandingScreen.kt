@@ -41,6 +41,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.max
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import dev.helena.gardenofeden_ccl3.data.db.EntryEntity
@@ -81,12 +82,13 @@ fun LandingScreen(navController: NavController, entryViewModel: EntryViewModel) 
                 focusManager.clearFocus()
                 keyboardController?.hide()
             }
+
     ) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .verticalScroll(scrollState)
-                .imePadding()
+               // .imePadding()
                 .padding(top = 150.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Top
@@ -153,7 +155,7 @@ fun LandingScreen(navController: NavController, entryViewModel: EntryViewModel) 
             // Question Of The Day Section
             Column(
                 modifier = Modifier
-                    .imePadding()
+                   // .imePadding()
                     .padding(horizontal = 30.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
@@ -182,10 +184,10 @@ fun LandingScreen(navController: NavController, entryViewModel: EntryViewModel) 
                     label = { Text("Your answer") },
                     modifier = Modifier
                         .fillMaxWidth()
-                        .heightIn(min= 56.dp, max = 70.dp)
-                        .padding(bottom = 16.dp)
-                        .verticalScroll(scrollState) // Make the text area scrollable
-                        .imePadding(), // Adjusts padding when the keyboard is visible
+                        .heightIn(min = 30.dp, max = 70.dp)
+                        .padding(bottom = 7.dp),
+                       // .verticalScroll(scrollState) // Make the text area scrollable
+                       // .imePadding(), // Adjusts padding when the keyboard is visible
 
                     keyboardOptions = KeyboardOptions.Default.copy(
                         imeAction = ImeAction.Done
@@ -194,10 +196,13 @@ fun LandingScreen(navController: NavController, entryViewModel: EntryViewModel) 
                         onDone = {
                             keyboardController?.hide() // Hide keyboard when done
                         }
-                    )
+                    ),
+                    maxLines = Int.MAX_VALUE,
+                    singleLine = false
                 )
 
-                Spacer(modifier = Modifier.height(50.dp))
+                Spacer(modifier = Modifier.height(16.dp))
+
 
                 Button(
                     onClick = {
@@ -222,7 +227,11 @@ fun LandingScreen(navController: NavController, entryViewModel: EntryViewModel) 
                             ).show()
                         }
                     },
-                    modifier = Modifier.align(Alignment.CenterHorizontally),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp)
+                        .padding(16.dp)
+                        .align(Alignment.CenterHorizontally),
                     colors = ButtonDefaults.buttonColors(
                         containerColor = MintLeaf
                     )
