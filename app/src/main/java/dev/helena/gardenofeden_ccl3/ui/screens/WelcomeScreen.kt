@@ -41,7 +41,7 @@ fun WelcomeScreen(navController: NavHostController, entryViewModel: EntryViewMod
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(MintLeaf),
+            .background(LemonLight),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
@@ -81,25 +81,25 @@ fun WelcomeScreen(navController: NavHostController, entryViewModel: EntryViewMod
                 }
             },
             modifier = Modifier
-                .padding(top = 40.dp)
-                .height(60.dp)
-                .padding(horizontal = 16.dp),
+                .padding(top = 30.dp)
+                .height(50.dp)
+                .padding(horizontal = 12.dp),
             shape = androidx.compose.foundation.shape.CircleShape,
             colors = ButtonDefaults.buttonColors(
-                containerColor  = LemonLight,
+                containerColor  = MintLeaf,
             )
         ) {
             Text(
                 text = "Get started",
-                fontSize = 20.sp,
+                fontSize = 16.sp,
                 fontWeight = FontWeight.Bold,
-                color = Color.Black,
+                color = Color.White,
                 modifier = Modifier.padding(end = 8.dp)
             )
             Icon(
                 imageVector = Icons.AutoMirrored.Filled.ArrowForward,
                 contentDescription = "Go to your daily mood check-up",
-                tint = Color.Black
+                tint = Color.White
             )
         }
     }

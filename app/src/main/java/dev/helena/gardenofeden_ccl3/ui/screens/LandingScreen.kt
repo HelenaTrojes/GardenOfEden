@@ -99,17 +99,16 @@ fun LandingScreen(navController: NavController, entryViewModel: EntryViewModel) 
                 text = "Mood of the Day",
                 style = MaterialTheme.typography.headlineMedium,
                 fontWeight = FontWeight.Bold,
-                fontSize = 30.sp,
+                fontSize = 32.sp,
                 modifier = Modifier.padding(bottom = 16.dp),
                 color = Color.Black
             )
-            Spacer(modifier = Modifier.height(20.dp))
+            Spacer(modifier = Modifier.height(10.dp))
             Row(
                 horizontalArrangement = Arrangement.SpaceEvenly,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(bottom = 24.dp)
-                    .padding(horizontal = 25.dp)
+                    .padding(bottom = 24.dp, start = 20.dp, end = 20.dp)
             ) {
                 val moods = listOf(
                     "😊" to "Happy",
@@ -123,18 +122,18 @@ fun LandingScreen(navController: NavController, entryViewModel: EntryViewModel) 
 
                     Text(
                         text = emoji,
-                        fontSize = 32.sp,
+                        fontSize = 28.sp,
                         modifier = Modifier
                             .clickable(
                                 indication = null,
                                 interactionSource = remember { MutableInteractionSource() }
                             ) { selectedMood = mood }
-                            .padding(horizontal = 8.dp)
+                            .padding(horizontal = 4.dp)
                             .background(
                                 color = if (isSelected) MintLeaf else Color.Transparent,
                                 shape = MaterialTheme.shapes.small
                             )
-                            .padding(8.dp),
+                            .padding(4.dp),
                         textAlign = TextAlign.Center
                     )
                 }
