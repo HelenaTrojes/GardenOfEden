@@ -13,7 +13,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
@@ -22,10 +21,12 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -43,9 +44,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import dev.helena.gardenofeden_ccl3.data.db.EntryEntity
+import dev.helena.gardenofeden_ccl3.ui.theme.DarkGreen
+import dev.helena.gardenofeden_ccl3.ui.theme.Green
 import dev.helena.gardenofeden_ccl3.ui.viewmodel.EntryViewModel
-import dev.helena.gardenofeden_ccl3.ui.theme.LemonLight
-import dev.helena.gardenofeden_ccl3.ui.theme.MintLeaf
 import dev.helena.gardenofeden_ccl3.util.JsonUtils
 import java.time.LocalDate
 import java.time.temporal.ChronoUnit
@@ -65,11 +66,15 @@ fun LandingScreen(navController: NavController, entryViewModel: EntryViewModel) 
     //for the input field content
     val scrollState = rememberScrollState()
 
+    LaunchedEffect(answerText) {
+        scrollState.animateScrollTo(scrollState.maxValue)
+    }
+
     Box(
         modifier = Modifier
             .fillMaxSize()
             .imePadding()
-            .background(LemonLight)
+            .background(Color.White)
             .clickable(
                 interactionSource = remember { MutableInteractionSource() },
                 indication = null // No ripple effect
@@ -83,9 +88,9 @@ fun LandingScreen(navController: NavController, entryViewModel: EntryViewModel) 
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .verticalScroll(scrollState)
+               // .verticalScroll(scrollState)
                // .imePadding()
-                .padding(top = 150.dp),
+                .padding(top = 90.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Top
         ) {
@@ -95,8 +100,8 @@ fun LandingScreen(navController: NavController, entryViewModel: EntryViewModel) 
                 text = "Mood of the Day",
                 style = MaterialTheme.typography.headlineMedium,
                 fontWeight = FontWeight.Bold,
-                fontSize = 32.sp,
-                modifier = Modifier.padding(bottom = 16.dp),
+                fontSize = 28.sp,
+                modifier = Modifier.padding(bottom = 20.dp),
                 color = Color.Black
             )
             Spacer(modifier = Modifier.height(10.dp))
@@ -124,12 +129,12 @@ fun LandingScreen(navController: NavController, entryViewModel: EntryViewModel) 
                                 indication = null,
                                 interactionSource = remember { MutableInteractionSource() }
                             ) { selectedMood = mood }
-                            .padding(horizontal = 4.dp)
+                            .padding(horizontal = 8.dp)
                             .background(
-                                color = if (isSelected) MintLeaf else Color.Transparent,
+                                color = if (isSelected) DarkGreen else Color.Transparent,
                                 shape = MaterialTheme.shapes.small
                             )
-                            .padding(4.dp),
+                            .padding(8.dp),
                         textAlign = TextAlign.Center
                     )
                 }
@@ -139,18 +144,17 @@ fun LandingScreen(navController: NavController, entryViewModel: EntryViewModel) 
                 Text(
                     text = "You feel $selectedMood today!",
                     style = MaterialTheme.typography.bodyMedium,
-                    fontSize = 17.sp,
+                    fontSize = 14.sp,
                     color = Color.DarkGray,
-                    modifier = Modifier.padding(bottom = 26.dp)
                 )
             }
 
-            Spacer(modifier = Modifier.height(50.dp))
+            Spacer(modifier = Modifier.height(35.dp))
 
             // Question Of The Day Section
             Column(
                 modifier = Modifier
-                   // .imePadding()
+                   //.imePadding()
                     .padding(horizontal = 30.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
@@ -159,10 +163,16 @@ fun LandingScreen(navController: NavController, entryViewModel: EntryViewModel) 
                     text = "Question of the Day",
                     style = MaterialTheme.typography.headlineMedium,
                     fontWeight = FontWeight.Bold,
-                    fontSize = 30.sp,
-                    modifier = Modifier
-                        .padding(bottom = 16.dp),
+                    fontSize = 28.sp,
+                    modifier = Modifier,
                     color = Color.Black
+                )
+                HorizontalDivider(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 6.dp),
+                    thickness = 3.dp,
+                    color = DarkGreen
                 )
                 Text(
                     text = questionOfTheDay,
@@ -171,25 +181,26 @@ fun LandingScreen(navController: NavController, entryViewModel: EntryViewModel) 
                     textAlign = TextAlign.Center,
                     fontWeight = FontWeight.SemiBold,
                     modifier = Modifier
-                        .padding(bottom = 16.dp)
+                        .padding(bottom = 20.dp, top = 2.dp)
                 )
+
                 OutlinedTextField(
                     value = answerText,
-                    onValueChange = { answerText = it },
+                    onValueChange = { newText ->
+                        answerText = newText },
                     label = { Text("Your answer") },
                     modifier = Modifier
                         .fillMaxWidth()
-                        .heightIn(min = 30.dp, max = 70.dp)
-                        .padding(bottom = 7.dp),
-                       // .verticalScroll(scrollState) // Make the text area scrollable
-                       // .imePadding(), // Adjusts padding when the keyboard is visible
-
+                        .height(350.dp)
+                        .padding(5.dp)
+                        .verticalScroll(scrollState),
                     keyboardOptions = KeyboardOptions.Default.copy(
                         imeAction = ImeAction.Done
                     ),
                     keyboardActions = KeyboardActions(
                         onDone = {
                             keyboardController?.hide() // Hide keyboard when done
+                            focusManager.clearFocus()
                         }
                     ),
                     maxLines = Int.MAX_VALUE,
@@ -223,17 +234,18 @@ fun LandingScreen(navController: NavController, entryViewModel: EntryViewModel) 
                         }
                     },
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 16.dp)
-                        .padding(16.dp)
+                         .padding(top = 20.dp, bottom = 5.dp)
+                        .height(50.dp)
+                        .padding(horizontal = 12.dp)
                         .align(Alignment.CenterHorizontally),
+                    shape = androidx.compose.foundation.shape.CircleShape,
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = MintLeaf
+                        containerColor  = Green,
                     )
                 ) {
                     Text(
                         text = "Save answer",
-                        color = Color.Black
+                        color = Color.Black,
                     )
                 }
             }

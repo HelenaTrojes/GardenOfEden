@@ -33,9 +33,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import dev.helena.gardenofeden_ccl3.ui.theme.MintLeaf
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Info
+import dev.helena.gardenofeden_ccl3.ui.theme.Rose
 
 
 @Composable
@@ -82,7 +82,7 @@ fun VirtualGardenScreen(entryViewModel: EntryViewModel) {
                 Brush.verticalGradient(
                     colors = listOf(
                         Color.White, // Start color
-                        MintLeaf // End color
+                        Rose // End color
                     )
                 )
             )
@@ -99,7 +99,7 @@ fun VirtualGardenScreen(entryViewModel: EntryViewModel) {
             Text(
                 text = "Garden of Eden",
                 style = MaterialTheme.typography.headlineLarge.copy(fontWeight = FontWeight.Bold),
-                color = MintLeaf,
+                color = Color.Black,
                 modifier = Modifier.align(Alignment.Center)
             )
             // Information Icon
@@ -112,7 +112,7 @@ fun VirtualGardenScreen(entryViewModel: EntryViewModel) {
                 Icon(
                     imageVector = Icons.Filled.Info,
                     contentDescription = "Information Icon",
-                    tint = MintLeaf,
+                    tint = Rose,
                     modifier = Modifier.size(32.dp) // Adjust icon size for better visuals
                 )
             }
@@ -156,7 +156,7 @@ fun VirtualGardenScreen(entryViewModel: EntryViewModel) {
                     Text(
                         text = "For what are the flowers?",
                         style = MaterialTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold),
-                        color = MintLeaf,
+                        color = Color.Black,
                         modifier = Modifier.padding(bottom = 8.dp)
                     )
                     Text(

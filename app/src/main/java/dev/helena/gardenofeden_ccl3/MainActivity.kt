@@ -8,10 +8,10 @@ import androidx.activity.enableEdgeToEdge
 import androidx.lifecycle.ViewModelProvider
 import dev.helena.gardenofeden_ccl3.data.db.AppDatabase
 import dev.helena.gardenofeden_ccl3.data.db.EntryRepository
-import dev.helena.gardenofeden_ccl3.ui.viewmodel.EntryViewModel
 import dev.helena.gardenofeden_ccl3.ui.viewmodel.EntryViewModelFactory
 import dev.helena.gardenofeden_ccl3.ui.navigation.AppNavigation
 import dev.helena.gardenofeden_ccl3.ui.theme.GardenOfEden_CCL3Theme
+import dev.helena.gardenofeden_ccl3.ui.viewmodel.EntryViewModel
 
 class MainActivity : ComponentActivity() {
     private lateinit var entryViewModel: EntryViewModel

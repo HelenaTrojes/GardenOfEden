@@ -16,6 +16,8 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -23,6 +25,7 @@ import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -41,15 +44,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import dev.helena.gardenofeden_ccl3.ui.theme.DarkGreen
 import dev.helena.gardenofeden_ccl3.ui.viewmodel.EntryViewModel
-import dev.helena.gardenofeden_ccl3.ui.theme.LemonLight
+import dev.helena.gardenofeden_ccl3.ui.theme.Rose
 import java.time.Instant
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
@@ -68,6 +75,7 @@ fun JournalEntryDetailScreen(
     var editedAnswer by remember { mutableStateOf(TextFieldValue("")) }
 
     val focusRequester = remember { FocusRequester() }
+    val scrollState = rememberScrollState()
 
     val date = Instant.ofEpochMilli(entry?.date ?: 0L).atZone(ZoneId.systemDefault()).toLocalDate()
     val formattedDate = date.format(DateTimeFormatter.ofPattern("dd MMM yyyy"))
@@ -102,11 +110,15 @@ fun JournalEntryDetailScreen(
         }
     }
 
+    LaunchedEffect(editedAnswer) {
+        scrollState.animateScrollTo(scrollState.maxValue)
+    }
+
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(LemonLight)
-            .padding(16.dp)
+            .background(Color.White)
+            .padding(top = 20.dp, start = 5.dp)
             .imePadding()
     ) {
         //Back Button
@@ -114,7 +126,7 @@ fun JournalEntryDetailScreen(
             onClick = { navController.popBackStack()  },
             modifier = Modifier
                 .align(Alignment.TopStart)
-                .padding(top = 30.dp)
+                .padding(top = 20.dp)
         ) {
             Icon(
                 imageVector = Icons.AutoMirrored.Filled.ArrowBack,
@@ -128,14 +140,44 @@ fun JournalEntryDetailScreen(
         modifier = Modifier
             .fillMaxSize()
             .padding(16.dp)
-            .padding(top = 110.dp)
-            .padding(start = 10.dp, end = 10.dp)
+           // .padding(start = 10.dp, top = 100.dp)
             .imePadding(),
         horizontalAlignment = Alignment.Start,
         verticalArrangement = Arrangement.Top
     ) {
+
+        Text(
+            text = "Your Journals",
+            style = MaterialTheme.typography.headlineLarge.copy(fontWeight = FontWeight.Bold),
+            color = Color.Black,
+            fontSize = 30.sp,
+            textAlign = TextAlign.Center,
+            modifier = Modifier
+                .padding(top = 36.dp)
+                .fillMaxWidth()
+        )
+        HorizontalDivider(
+            modifier = Modifier
+                .padding(vertical = 10.dp, horizontal = 50.dp),
+            thickness = 3.dp,
+            color = Rose
+        )
+
+        Spacer(modifier = Modifier.height(20.dp))
+
         // Displaying details of the specific entry
         entry?.let {
+
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(5.dp)
+                    .background(Rose, RoundedCornerShape(16.dp))
+                    .padding(16.dp)
+                    .imePadding(),
+                horizontalAlignment = Alignment.Start,
+                verticalArrangement = Arrangement.Top
+            ) {
 
             Row(
                 modifier = Modifier
@@ -148,14 +190,14 @@ fun JournalEntryDetailScreen(
                     text = "Mood: $moodEmoji",
                     style = MaterialTheme.typography.headlineMedium,
                     fontWeight = FontWeight.Bold,
-                    fontSize = 25.sp
+                    fontSize = 20.sp
                 )
             }
-            Spacer(modifier = Modifier.height(5.dp))
+            Spacer(modifier = Modifier.height(7.dp))
             Text(
                 text = "You felt ${it.mood} on $formattedDate ",
                 style = MaterialTheme.typography.bodyMedium,
-                fontSize = 20.sp,
+                fontSize = 16.sp,
                 color = Color.Black,
 
             )
@@ -166,10 +208,10 @@ fun JournalEntryDetailScreen(
                 text = "Question of the day",
                 style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.Bold),
                 modifier = Modifier.padding(bottom = 8.dp),
-                fontSize = 25.sp,
+                fontSize = 20.sp,
                 fontWeight = FontWeight.SemiBold
             )
-            Spacer(modifier = Modifier.height(5.dp))
+            Spacer(modifier = Modifier.height(7.dp))
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -201,7 +243,7 @@ fun JournalEntryDetailScreen(
                 modifier = Modifier
                     .padding(bottom = 8.dp)
                     .weight(1f),
-                fontSize = 25.sp,
+                fontSize = 20.sp,
                 fontWeight = FontWeight.SemiBold
             )
 
@@ -277,21 +319,27 @@ fun JournalEntryDetailScreen(
                     onValueChange = { if (isEditing) editedAnswer = it },
                     modifier = Modifier
                         .fillMaxWidth()
-                        .background(Color.White, RoundedCornerShape(10.dp))
-                        .padding(vertical = 5.dp)
+                        .height(350.dp)
+                        .padding(5.dp)
+                        .border(1.dp, DarkGreen, RoundedCornerShape(10.dp))
+                       // .padding(vertical = 5.dp)
                         .wrapContentHeight()
-                        .verticalScroll(rememberScrollState())
+                        .verticalScroll(scrollState)
                         .focusRequester(focusRequester),
-                    textStyle = MaterialTheme.typography.bodyLarge.copy(color = Color.Black),
+                    textStyle = MaterialTheme.typography.bodyLarge.copy(
+                        color = Color.Black,
+                        textAlign = TextAlign.Start),
                     enabled = isEditing,
                     readOnly = !isEditing,
                     colors = TextFieldDefaults.textFieldColors(
-                        containerColor = Color.White,
+                        containerColor = Color.Transparent,
                         focusedIndicatorColor = Color.Transparent,
                         unfocusedIndicatorColor = Color.Transparent,
                         disabledIndicatorColor = Color.Transparent,
                         cursorColor = Color.Black
-                    )
+                    ),
+                    maxLines = Int.MAX_VALUE,
+                    singleLine = false
                 )
         } ?:
 
@@ -300,5 +348,8 @@ fun JournalEntryDetailScreen(
             style = MaterialTheme.typography.bodyLarge,
             modifier = Modifier.padding(top = 16.dp)
         )
+
+        }
+
     }
 }

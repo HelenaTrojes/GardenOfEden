@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -23,7 +24,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import dev.helena.gardenofeden_ccl3.ui.viewmodel.EntryViewModel
 import dev.helena.gardenofeden_ccl3.ui.components.JournalEntryCard
-import dev.helena.gardenofeden_ccl3.ui.theme.LemonLight
+import dev.helena.gardenofeden_ccl3.ui.theme.Rose
 
 @Composable
 fun JournalScreen(
@@ -37,19 +38,26 @@ fun JournalScreen(
     Column (
         modifier = Modifier
             .fillMaxSize()
-            .background(LemonLight)
+            .background(Color.White)
     ) {
         Text(
-            text = "Your journal",
+            text = "Your Journals",
             style = MaterialTheme.typography.headlineLarge.copy(fontWeight = FontWeight.Bold),
             color = Color.Black,
             fontSize = 30.sp,
             textAlign = TextAlign.Center,
             modifier = Modifier
-                .padding(bottom = 30.dp)
-                .padding(top = 25.dp)
+                .padding(top = 30.dp)
                 .fillMaxWidth()
         )
+        HorizontalDivider(
+            modifier = Modifier
+                .padding(vertical = 10.dp, horizontal = 50.dp),
+            thickness = 3.dp,
+            color = Rose
+        )
+
+        Spacer(modifier = Modifier.height(20.dp))
 
     LazyColumn(
         modifier = Modifier
@@ -64,8 +72,6 @@ fun JournalScreen(
                 onClick =  {
                     println("Navigating to entry ID: ${entry.id}")
                     navController.navigate("journal_detail_screen/${entry.id}")
-                        println("Navigated to entry bitch")
-
                     }
                 )
             Spacer(modifier = Modifier.height(17.dp))

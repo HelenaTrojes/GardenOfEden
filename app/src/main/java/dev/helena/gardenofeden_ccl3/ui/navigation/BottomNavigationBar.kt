@@ -1,6 +1,5 @@
 package dev.helena.gardenofeden_ccl3.ui.navigation
 
-import android.content.res.Resources.Theme
 import androidx.compose.material.icons.Icons
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -14,10 +13,9 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.compose.material.icons.filled.FilterVintage
 import androidx.compose.material.icons.filled.Book
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
-import dev.helena.gardenofeden_ccl3.ui.theme.LemonDark
+import dev.helena.gardenofeden_ccl3.ui.theme.Green
 import dev.helena.gardenofeden_ccl3.ui.theme.LemonLight
-import dev.helena.gardenofeden_ccl3.ui.theme.MintLeaf
+import dev.helena.gardenofeden_ccl3.ui.theme.Rose
 
 @Composable
 fun BottomNavigationBar(navController: NavController) {
@@ -25,10 +23,10 @@ fun BottomNavigationBar(navController: NavController) {
     val currentRoute = currentBackStackEntry?.destination?.route
 
     NavigationBar(
-        containerColor = Color.White
+        containerColor = Green
     ) {
         val items = listOf(
-            "home_tab" to Pair ("My Garden", Icons.Filled.FilterVintage),
+            "home_tab" to Pair ("Garden", Icons.Filled.FilterVintage),
             "journal_tab" to Pair ("Journals", Icons.Filled.Book)
         )
         items.forEach { (route, pair) ->
@@ -53,11 +51,11 @@ fun BottomNavigationBar(navController: NavController) {
                 icon = { Icon(icon, contentDescription = label) },
                 label = { Text(label) },
                 colors = NavigationBarItemDefaults.colors(
-                    selectedIconColor = MintLeaf,
-                    selectedTextColor = MintLeaf,
-                    unselectedIconColor = MintLeaf,
-                    unselectedTextColor = MintLeaf,
-                    indicatorColor = LemonLight,
+                    selectedIconColor = Color.Black,
+                    selectedTextColor = Color.Black,
+                    unselectedIconColor = Color.Black,
+                    unselectedTextColor = Color.Black,
+                    indicatorColor = Rose,
                 )
             )
         }

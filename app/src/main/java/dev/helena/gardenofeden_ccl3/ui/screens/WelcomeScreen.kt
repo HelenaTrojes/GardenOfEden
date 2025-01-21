@@ -1,8 +1,6 @@
 package dev.helena.gardenofeden_ccl3.ui.screens
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
@@ -18,7 +16,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
@@ -30,14 +27,13 @@ import androidx.navigation.NavHostController
 import dev.helena.gardenofeden_ccl3.R
 import dev.helena.gardenofeden_ccl3.ui.viewmodel.EntryViewModel
 import dev.helena.gardenofeden_ccl3.ui.theme.DarkGreen
-import dev.helena.gardenofeden_ccl3.ui.theme.LemonDark
-import dev.helena.gardenofeden_ccl3.ui.theme.LemonLight
+import dev.helena.gardenofeden_ccl3.ui.theme.Green
 import kotlinx.coroutines.launch
 
 @Composable
 fun WelcomeScreen(navController: NavHostController, entryViewModel: EntryViewModel) {
     val coroutineScope = rememberCoroutineScope()
-    
+
     Column(
         modifier = Modifier
             .fillMaxSize(),
@@ -83,20 +79,20 @@ fun WelcomeScreen(navController: NavHostController, entryViewModel: EntryViewMod
                 .padding(horizontal = 12.dp),
             shape = androidx.compose.foundation.shape.CircleShape,
             colors = ButtonDefaults.buttonColors(
-                containerColor  = LemonDark,
+                containerColor  = Green,
             )
         ) {
             Text(
                 text = "Get started",
                 fontSize = 16.sp,
                 fontWeight = FontWeight.Bold,
-                color = DarkGreen,
+                color = Color.Black,
                 modifier = Modifier.padding(end = 8.dp)
             )
             Icon(
                 imageVector = Icons.AutoMirrored.Filled.ArrowForward,
                 contentDescription = "Go to your daily mood check-up",
-                tint = DarkGreen
+                tint = Color.Black
             )
         }
     }
