@@ -43,9 +43,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import dev.helena.gardenofeden_ccl3.data.db.EntryEntity
+import dev.helena.gardenofeden_ccl3.ui.theme.Green
 import dev.helena.gardenofeden_ccl3.ui.viewmodel.EntryViewModel
 import dev.helena.gardenofeden_ccl3.ui.theme.LemonLight
-import dev.helena.gardenofeden_ccl3.ui.theme.MintLeaf
 import dev.helena.gardenofeden_ccl3.util.JsonUtils
 import java.time.LocalDate
 import java.time.temporal.ChronoUnit
@@ -126,7 +126,7 @@ fun LandingScreen(navController: NavController, entryViewModel: EntryViewModel) 
                             ) { selectedMood = mood }
                             .padding(horizontal = 4.dp)
                             .background(
-                                color = if (isSelected) MintLeaf else Color.Transparent,
+                                color = if (isSelected) Green else Color.Transparent,
                                 shape = MaterialTheme.shapes.small
                             )
                             .padding(4.dp),
@@ -228,7 +228,8 @@ fun LandingScreen(navController: NavController, entryViewModel: EntryViewModel) 
                         .padding(16.dp)
                         .align(Alignment.CenterHorizontally),
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = MintLeaf
+                        containerColor =
+                            Green
                     )
                 ) {
                     Text(

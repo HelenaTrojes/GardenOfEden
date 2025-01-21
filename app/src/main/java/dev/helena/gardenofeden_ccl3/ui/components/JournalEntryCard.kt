@@ -22,7 +22,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import dev.helena.gardenofeden_ccl3.data.db.EntryEntity
-import dev.helena.gardenofeden_ccl3.ui.theme.MintLeaf
+import dev.helena.gardenofeden_ccl3.ui.theme.Green
 import java.time.LocalDate
 
 @Composable
@@ -60,7 +60,7 @@ fun JournalEntryCard(
                     cornerRadius = CornerRadius(cornerRadius.toPx())
                 )
                 drawRoundRect(
-                    color = MintLeaf,
+                    color = Green,
                     topLeft = Offset(size.width - cutCornerSize.toPx(), -100f),
                     size = Size(cutCornerSize.toPx() + 100f, cutCornerSize.toPx() + 100f),
                     cornerRadius = CornerRadius(cornerRadius.toPx())

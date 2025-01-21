@@ -15,9 +15,9 @@ import androidx.compose.material.icons.filled.FilterVintage
 import androidx.compose.material.icons.filled.Book
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import dev.helena.gardenofeden_ccl3.ui.theme.Green
 import dev.helena.gardenofeden_ccl3.ui.theme.LemonDark
 import dev.helena.gardenofeden_ccl3.ui.theme.LemonLight
-import dev.helena.gardenofeden_ccl3.ui.theme.MintLeaf
 
 @Composable
 fun BottomNavigationBar(navController: NavController) {
@@ -53,10 +53,10 @@ fun BottomNavigationBar(navController: NavController) {
                 icon = { Icon(icon, contentDescription = label) },
                 label = { Text(label) },
                 colors = NavigationBarItemDefaults.colors(
-                    selectedIconColor = MintLeaf,
-                    selectedTextColor = MintLeaf,
-                    unselectedIconColor = MintLeaf,
-                    unselectedTextColor = MintLeaf,
+                    selectedIconColor = Green,
+                    selectedTextColor = Green,
+                    unselectedIconColor = Green,
+                    unselectedTextColor = Green,
                     indicatorColor = LemonLight,
                 )
             )
