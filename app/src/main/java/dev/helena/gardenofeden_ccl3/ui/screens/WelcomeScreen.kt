@@ -29,6 +29,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import dev.helena.gardenofeden_ccl3.R
 import dev.helena.gardenofeden_ccl3.ui.ViewModel.EntryViewModel
+import dev.helena.gardenofeden_ccl3.ui.theme.DarkGreen
 import dev.helena.gardenofeden_ccl3.ui.theme.LemonDark
 import dev.helena.gardenofeden_ccl3.ui.theme.LemonLight
 import dev.helena.gardenofeden_ccl3.ui.theme.MintLeaf
@@ -37,7 +38,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun WelcomeScreen(navController: NavHostController, entryViewModel: EntryViewModel) {
     val coroutineScope = rememberCoroutineScope()
-
+    
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -49,7 +50,7 @@ fun WelcomeScreen(navController: NavHostController, entryViewModel: EntryViewMod
             text = "Garden of Eden",
             fontSize = 40.sp,
             fontWeight = FontWeight.SemiBold,
-            color = Color.Black,
+            color = DarkGreen,
             textAlign = TextAlign.Center,
             modifier = Modifier.padding(bottom = 10.dp)
         )
@@ -57,7 +58,7 @@ fun WelcomeScreen(navController: NavHostController, entryViewModel: EntryViewMod
             text = "Track. Heal. Bloom.",
             fontSize = 20.sp,
             fontWeight = FontWeight.Normal,
-            color = Color.Black,
+            color = DarkGreen,
             textAlign = TextAlign.Center,
         )
 
@@ -86,20 +87,20 @@ fun WelcomeScreen(navController: NavHostController, entryViewModel: EntryViewMod
                 .padding(horizontal = 12.dp),
             shape = androidx.compose.foundation.shape.CircleShape,
             colors = ButtonDefaults.buttonColors(
-                containerColor  = MintLeaf,
+                containerColor  = LemonDark,
             )
         ) {
             Text(
                 text = "Get started",
                 fontSize = 16.sp,
                 fontWeight = FontWeight.Bold,
-                color = Color.White,
+                color = DarkGreen,
                 modifier = Modifier.padding(end = 8.dp)
             )
             Icon(
                 imageVector = Icons.AutoMirrored.Filled.ArrowForward,
                 contentDescription = "Go to your daily mood check-up",
-                tint = Color.White
+                tint = DarkGreen
             )
         }
     }
