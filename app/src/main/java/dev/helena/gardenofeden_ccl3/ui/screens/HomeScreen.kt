@@ -8,6 +8,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.systemBarsPadding
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -79,38 +81,32 @@ fun VirtualGardenScreen(entryViewModel: EntryViewModel) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(
-                Brush.verticalGradient(
-                    colors = listOf(
-                        Color.White, // Start color
-                        Rose // End color
-                    )
-                )
-            )
+            .systemBarsPadding()
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        // Title Section
-        Box(
+        // Title and Information Icon Section
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = 25.dp, bottom = 8.dp),
-            contentAlignment = Alignment.Center
-        ) {// Title at the center
+                .padding(top = 25.dp, bottom = 8.dp)
+        ) {
+            // Title at the center
             Text(
                 text = "Garden of Eden",
                 style = MaterialTheme.typography.headlineLarge.copy(fontWeight = FontWeight.Bold),
-                color = Rose,
-                modifier = Modifier.align(Alignment.Center)
+                color = Color.Black,
+                modifier = Modifier.align(Alignment.CenterHorizontally)
             )
-            // Information Icon
+            // Information Icon below the title
             Box(
                 modifier = Modifier
-                    .align(Alignment.CenterEnd)
+                    .background(Color.Black, shape = CircleShape)
                     .clickable { showInfoDialog = true }
-                    .padding(8.dp)
             ) {
                 Icon(
+
                     imageVector = Icons.Filled.Info,
                     contentDescription = "Information Icon",
                     tint = Rose,
@@ -118,7 +114,6 @@ fun VirtualGardenScreen(entryViewModel: EntryViewModel) {
                 )
             }
         }
-
 
         // Garden Section
         Box(
