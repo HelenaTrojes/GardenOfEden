@@ -69,7 +69,6 @@ fun VirtualGardenScreen(entryViewModel: EntryViewModel) {
     val entries by entryViewModel.entries.observeAsState(initial = emptyList()) // Observe entries
     val growthTriggered = remember { mutableStateOf(false) }
     var showInfoDialog by remember { mutableStateOf(false) } // State for info dialog visibility
-    var plantMessage by remember { mutableStateOf<String?>(null) } // Store the plant message
 
     // Trigger automatic growth when entering the screen
     LaunchedEffect(Unit) {
@@ -103,21 +102,21 @@ fun VirtualGardenScreen(entryViewModel: EntryViewModel) {
                 color = MintLeaf,
                 modifier = Modifier.align(Alignment.Center)
             )
-                // Information Icon
-                Box(
-                    modifier = Modifier
-                        .align(Alignment.CenterEnd)
-                        .clickable { showInfoDialog = true }
-                        .padding(8.dp)
-                ) {
-                    Icon(
-                        imageVector = Icons.Filled.Info,
-                        contentDescription = "Information Icon",
-                        tint = MintLeaf,
-                        modifier = Modifier.size(32.dp) // Adjust icon size for better visuals
-                    )
-                }
+            // Information Icon
+            Box(
+                modifier = Modifier
+                    .align(Alignment.CenterEnd)
+                    .clickable { showInfoDialog = true }
+                    .padding(8.dp)
+            ) {
+                Icon(
+                    imageVector = Icons.Filled.Info,
+                    contentDescription = "Information Icon",
+                    tint = MintLeaf,
+                    modifier = Modifier.size(32.dp) // Adjust icon size for better visuals
+                )
             }
+        }
 
 
         // Garden Section
@@ -133,32 +132,7 @@ fun VirtualGardenScreen(entryViewModel: EntryViewModel) {
                 )
             } else {
                 // Pass the plantMessage callback to GardenView
-                GardenView(entries = entries, growthTriggered = growthTriggered.value) { message ->
-                    plantMessage = message
-                }
-            }
-        }
-// Display the stroking message
-        plantMessage?.let {
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(Color.Black.copy(alpha = 0.5f))
-                    .clickable { plantMessage = null }, // Dismiss message on click
-                contentAlignment = Alignment.Center
-            ) {
-                Box(
-                    modifier = Modifier
-                        .background(Color.White, shape = MaterialTheme.shapes.medium)
-                        .padding(16.dp)
-                ) {
-                    Text(
-                        text = it,
-                        style = MaterialTheme.typography.bodyMedium,
-                        textAlign = TextAlign.Center,
-                        color = Color.Black
-                    )
-                }
+                GardenView(entries = entries, growthTriggered = growthTriggered.value)
             }
         }
     }

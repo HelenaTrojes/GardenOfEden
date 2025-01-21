@@ -29,7 +29,7 @@ import kotlin.math.sin
 
 
 @Composable
-fun GardenView(entries: List<EntryEntity>, growthTriggered: Boolean, onPlantStroke: (String) -> Unit) {
+fun GardenView(entries: List<EntryEntity>, growthTriggered: Boolean) {
     val plants = remember(entries) {
         entries.map { entry ->
             mutableStateOf(
@@ -89,20 +89,7 @@ fun GardenView(entries: List<EntryEntity>, growthTriggered: Boolean, onPlantStro
             if (plantState.value.growthStage == PlantGrowthStage.BLOOM) {
                 drawFlower(position.x, position.y - growthHeight, plantState.value.mood)
 
-                // Detect the stroke gesture
-                Modifier.pointerInput(Unit) {
-                    detectDragGestures { _, _ ->
-                        // When stroked, trigger a random message
-                        val messages = listOf(
-                            "Thanks for taking care of me!",
-                            "Could you please not get on my nerves?",
-                            "I guess you really dig me!",
-                            "Pet me, and I’ll bloom faster!",
-                            "Don’t you have other plants to stroke?"
-                        )
-                        onPlantStroke(messages.random())
-                    }
-                }
+
             }
         }
     }
