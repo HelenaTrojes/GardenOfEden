@@ -6,7 +6,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import dev.helena.gardenofeden_ccl3.ui.ViewModel.EntryViewModel
+import dev.helena.gardenofeden_ccl3.ui.viewmodel.EntryViewModel
 import dev.helena.gardenofeden_ccl3.ui.screens.HomeScreen
 import dev.helena.gardenofeden_ccl3.ui.screens.JournalEntryDetailScreen
 import dev.helena.gardenofeden_ccl3.ui.screens.LandingScreen

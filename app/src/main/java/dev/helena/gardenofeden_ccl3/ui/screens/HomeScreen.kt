@@ -22,7 +22,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import dev.helena.gardenofeden_ccl3.ui.ViewModel.EntryViewModel
+import dev.helena.gardenofeden_ccl3.ui.viewmodel.EntryViewModel
 import dev.helena.gardenofeden_ccl3.ui.components.GardenView
 import dev.helena.gardenofeden_ccl3.ui.navigation.BottomNavigationBar
 import androidx.compose.runtime.getValue

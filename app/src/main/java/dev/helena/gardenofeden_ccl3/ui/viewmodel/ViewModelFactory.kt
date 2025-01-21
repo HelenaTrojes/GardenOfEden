@@ -1,4 +1,4 @@
-package dev.helena.gardenofeden_ccl3.ui.ViewModel
+package dev.helena.gardenofeden_ccl3.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

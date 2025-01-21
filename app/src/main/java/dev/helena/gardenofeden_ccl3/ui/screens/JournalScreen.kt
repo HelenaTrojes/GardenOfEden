@@ -21,7 +21,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import dev.helena.gardenofeden_ccl3.ui.ViewModel.EntryViewModel
+import dev.helena.gardenofeden_ccl3.ui.viewmodel.EntryViewModel
 import dev.helena.gardenofeden_ccl3.ui.components.JournalEntryCard
 import dev.helena.gardenofeden_ccl3.ui.theme.LemonLight
 
