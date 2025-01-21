@@ -20,6 +20,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -39,16 +40,13 @@ fun WelcomeScreen(navController: NavHostController, entryViewModel: EntryViewMod
     
     Column(
         modifier = Modifier
-            .fillMaxSize()
-            .background(LemonLight),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
+            .fillMaxSize(),
     ) {
         Text(
-            text = "Garden of Eden",
+            text = "Garden",
             fontSize = 40.sp,
             fontWeight = FontWeight.SemiBold,
-            color = DarkGreen,
+            color = Color.Black,
             textAlign = TextAlign.Center,
             modifier = Modifier.padding(bottom = 10.dp)
         )
