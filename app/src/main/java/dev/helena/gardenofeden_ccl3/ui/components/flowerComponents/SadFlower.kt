@@ -51,9 +51,9 @@ fun DrawScope.drawSadFlower(centerX: Float, centerY: Float) {
 
     // leaves
     drawLine(
-        color = DarkGreen,
-        start = Offset(centerX - 10f, centerY + 40f),  // Adjusted starting position
-        end = Offset(centerX + 20f, centerY + 60f),   // Adjusted end position for stem
+        color = Color.Yellow,
+        start = Offset(centerX - 20f, centerY + 50f),  // Adjusted starting position
+        end = Offset(centerX + 10f, centerY + 80f),   // Adjusted end position for stem
         strokeWidth = 6f  // Thicker stem for more visibility
     )
 }
