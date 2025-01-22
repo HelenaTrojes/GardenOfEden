@@ -75,11 +75,11 @@ fun HomeScreen(navController: NavController, entryViewModel: EntryViewModel) {
 
 @Composable
 fun VirtualGardenScreen(entryViewModel: EntryViewModel) {
-    val entries by entryViewModel.entries.observeAsState(initial = emptyList()) // Observe entries
+    val entries by entryViewModel.entries.observeAsState(initial = emptyList()) // observe entries
     val growthTriggered = remember { mutableStateOf(false) }
     var showInfoDialog by remember { mutableStateOf(false) } // State for info dialog visibility
 
-    // Trigger automatic growth when entering the screen
+    // automatic growth when entering the screen
     LaunchedEffect(Unit) {
         growthTriggered.value = true
     }
@@ -91,14 +91,14 @@ fun VirtualGardenScreen(entryViewModel: EntryViewModel) {
 //            .padding(top = 16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        // Title and Information Icon Section
+
+        // Title
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = 30.dp, bottom = 8.dp)
         ) {
-            // Title at the center
             Text(
                 text = "Your Garden of Eden",
                 style = MaterialTheme.typography.headlineLarge.copy(fontWeight = FontWeight.Bold),
@@ -106,13 +106,14 @@ fun VirtualGardenScreen(entryViewModel: EntryViewModel) {
                 modifier = Modifier.align(Alignment.CenterHorizontally),
                 fontSize = 30.sp
             )
+            //Underline
             HorizontalDivider(
                 modifier = Modifier
                     .padding(vertical = 10.dp, horizontal = 50.dp),
                 thickness = 3.dp,
                 color = Rose
             )
-            // Information Icon below the title
+            // Information Icon
             Box(
                 modifier = Modifier
                     .clickable { showInfoDialog = true }
@@ -123,7 +124,7 @@ fun VirtualGardenScreen(entryViewModel: EntryViewModel) {
                     imageVector = Icons.Filled.Info,
                     contentDescription = "Information Icon",
                     tint = Green,
-                    modifier = Modifier.size(32.dp) // Adjust icon size for better visuals
+                    modifier = Modifier.size(32.dp)
                 )
             }
         }
@@ -153,7 +154,7 @@ fun VirtualGardenScreen(entryViewModel: EntryViewModel) {
             modifier = Modifier
                 .fillMaxSize()
                 .background(Color.Black.copy(alpha = 0.5f))
-                .clickable { showInfoDialog = false } // Close dialog when background is clicked
+                .clickable { showInfoDialog = false }
                 .padding(16.dp),
             contentAlignment = Alignment.Center
         ) {
