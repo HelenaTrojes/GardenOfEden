@@ -46,7 +46,7 @@ fun WelcomeScreen(navController: NavHostController, entryViewModel: EntryViewMod
         modifier = Modifier
             .fillMaxSize()
             .systemBarsPadding() //automatically adds padding to avoid system bars and notches
-            .padding(top = 60.dp),
+            .padding(top = 50.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
@@ -59,7 +59,7 @@ fun WelcomeScreen(navController: NavHostController, entryViewModel: EntryViewMod
                 painter = painterResource(id = R.drawable.icon_eden_of_garden),
                 contentDescription = "Tulip Image",
                 modifier = Modifier
-                    .fillMaxWidth(0.65f) // scale down width to 80% of the screen width
+                    .fillMaxWidth(0.60f) // scale down width to 80% of the screen width
                     .aspectRatio(1f)   // maintains the original aspect ratio (1:1 for a square image)
             )
 
@@ -74,45 +74,45 @@ fun WelcomeScreen(navController: NavHostController, entryViewModel: EntryViewMod
             // "Garden" Text (Layer Above)
             Text(
                 text = "Garden",
-                fontSize = 48.sp,
+                fontSize = 45.sp,
                 fontWeight = FontWeight.ExtraBold,
                 color = Color.Black,
                 textAlign = TextAlign.Center,
                 modifier = Modifier
-                    .offset(x = -80.dp)
+                    .offset(x = -75.dp)
             )
 //        }
         Text(
             text = "of",
-            fontSize = 48.sp,
+            fontSize = 45.sp,
             fontWeight = FontWeight.Normal,
             color = Color.Black,
             textAlign = TextAlign.Center,
             modifier = Modifier
-                .padding(top = 20.dp)
+                .padding(top = 15.dp)
                 .offset(x = 2.dp)
         )
         Text(
             text = "Eden",
-            fontSize = 48.sp,
+            fontSize = 45.sp,
             fontWeight = FontWeight.ExtraBold,
             color = Color.Black,
             textAlign = TextAlign.Center,
             modifier = Modifier
-                .padding(top = 20.dp)
-                .offset(x = 70.dp)
+                .padding(top = 15.dp)
+                .offset(x = 65.dp)
         )
         Text(
             text = "Track. Heal. Bloom.",
-            fontSize = 20.sp,
-            fontWeight = FontWeight.Bold,
+            fontSize = 18.sp,
+            fontWeight = FontWeight.Normal,
             color = Color.Black,
             textAlign = TextAlign.Center,
             modifier = Modifier
                 .padding(top = 30.dp)
         )
 
-        Spacer(modifier = Modifier.height(40.dp))
+        Spacer(modifier = Modifier.height(30.dp))
 
         Button(
             onClick = {
