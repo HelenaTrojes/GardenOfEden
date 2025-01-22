@@ -21,6 +21,7 @@ import dev.helena.gardenofeden_ccl3.ui.components.flowerComponents.drawSillyFlow
 import dev.helena.gardenofeden_ccl3.ui.components.flowerComponents.drawStem
 import dev.helena.gardenofeden_ccl3.ui.components.flowerComponents.drawSurprisedFlower
 import kotlinx.coroutines.delay
+import kotlin.random.Random
 
 
 @Composable
@@ -54,8 +55,8 @@ fun GardenView(entries: List<EntryEntity>, growthTriggered: Boolean) {
     val positions = remember(entries) {
         entries.map {
             Offset(
-                x = (screenWidth.value * 0.1f + (screenWidth.value * 0.8f * (0..1).random())).toFloat(),
-                y = (screenHeight.value * 0.2f + (screenHeight.value * 0.6f * (0..1).random())).toFloat()
+                x = (screenWidth.value * 0.1f + (screenWidth.value * 0.94f * Random.nextFloat())).toFloat(),  // 3% margin from left to right
+                y = (screenHeight.value * 0.2f + (screenHeight.value * 0.6f * (0..1).random())).toFloat() // Restricting to middle area
             )
         }
     }
