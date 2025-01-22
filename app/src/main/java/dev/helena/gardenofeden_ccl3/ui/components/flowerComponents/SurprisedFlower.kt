@@ -7,12 +7,6 @@ import androidx.compose.ui.graphics.drawscope.DrawScope
 import dev.helena.gardenofeden_ccl3.ui.theme.Green
 
 fun DrawScope.drawSurprisedFlower(centerX: Float, centerY: Float) {
-    // Stem
-    drawRect(
-        color = Color(0xFF4CAF50), // Subdued green
-        size = Size(20f, 120f),
-        topLeft = Offset(centerX - 10f, centerY - 60f)
-    )
 
     // Leaves on the stem
     drawLine(

@@ -37,7 +37,7 @@ fun GardenView(entries: List<EntryEntity>, growthTriggered: Boolean) {
     val moodStemHeights = mapOf(
         "Happy" to 200f,
         "Sad" to 120f,
-        "Calm" to 180f,
+        "Surprised" to 100f,
         "Silly" to 160f,
         "Angry" to 140f,
         "Default" to 150f // Fallback for undefined moods
