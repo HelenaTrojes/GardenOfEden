@@ -37,6 +37,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -55,6 +56,7 @@ import dev.helena.gardenofeden_ccl3.ui.theme.DarkGreen
 import dev.helena.gardenofeden_ccl3.ui.theme.Green
 import dev.helena.gardenofeden_ccl3.ui.viewmodel.EntryViewModel
 import dev.helena.gardenofeden_ccl3.ui.theme.Rose
+import kotlinx.coroutines.launch
 import java.time.Instant
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
@@ -69,13 +71,13 @@ fun JournalEntryDetailScreen(
     val context = LocalContext.current
     // Observing the entry details based on entryId
     val entry by entryViewModel.entryDetails.observeAsState()
-    Log.i("test", "from beginning ${entry}")
     val showDialog = remember { mutableStateOf(false) } //state for confirmation dialog
     var isEditing by remember { mutableStateOf(false) }
     var editedAnswer by remember { mutableStateOf(TextFieldValue("")) }
 
     val focusRequester = remember { FocusRequester() }
     val scrollState = rememberScrollState()
+    val coroutineScope = rememberCoroutineScope()
 
     val date = Instant.ofEpochMilli(entry?.date ?: 0L).atZone(ZoneId.systemDefault()).toLocalDate()
     val formattedDate = date.format(DateTimeFormatter.ofPattern("dd MMM yyyy"))
@@ -103,11 +105,9 @@ fun JournalEntryDetailScreen(
     }
 
     LaunchedEffect(isEditing) {
-        // Scroll to the last line of the text when editing starts
+        // Scroll to the end of the text when editing
         if (isEditing) {
             focusRequester.requestFocus()
-            // Scroll to the end of the TextField
-            scrollState.animateScrollTo(scrollState.maxValue)
             editedAnswer = editedAnswer.copy(selection = TextRange(editedAnswer.text.length))
         }
     }
@@ -138,7 +138,6 @@ fun JournalEntryDetailScreen(
         modifier = Modifier
             .fillMaxSize()
             .padding(16.dp)
-            // .padding(start = 10.dp, top = 100.dp)
             .imePadding(),
         horizontalAlignment = Alignment.Start,
         verticalArrangement = Arrangement.Top
@@ -165,15 +164,13 @@ fun JournalEntryDetailScreen(
 
         // Displaying details of the specific entry
         entry?.let {
-
             Column(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(5.dp)
                     .background(Rose, RoundedCornerShape(16.dp))
                     .padding(16.dp)
-                    //.verticalScroll(scrollState)
-                    .imePadding(),
+                   .imePadding(),
                 horizontalAlignment = Alignment.Start,
                 verticalArrangement = Arrangement.Top
             ) {
@@ -198,7 +195,6 @@ fun JournalEntryDetailScreen(
                     style = MaterialTheme.typography.bodyMedium,
                     fontSize = 16.sp,
                     color = Color.Black,
-
                     )
                 Spacer(modifier = Modifier.height(40.dp))
 
@@ -228,7 +224,6 @@ fun JournalEntryDetailScreen(
                 }
 
                 Spacer(modifier = Modifier.height(40.dp))
-
 
                 // Answer of entry
                 Row(
@@ -324,7 +319,6 @@ fun JournalEntryDetailScreen(
                     )
                 }
 
-
                 Spacer(modifier = Modifier.height(5.dp))
 
                 Box(
@@ -337,12 +331,27 @@ fun JournalEntryDetailScreen(
                             color = if (isEditing) Color.White else Color.Transparent,
                             shape = RoundedCornerShape(10.dp))
                 ) {
-                    TextField(
-                        value = editedAnswer,
-                        onValueChange = { if (isEditing) editedAnswer = it },
+
+                    Box(
                         modifier = Modifier
                             .fillMaxSize()
                             .verticalScroll(scrollState)
+                    ) {
+
+                    TextField(
+                        value = editedAnswer,
+                        onValueChange = { newValue ->
+                            editedAnswer = newValue
+                            if(isEditing) {
+                                coroutineScope.launch {
+                                    scrollState.animateScrollTo(scrollState.maxValue)
+
+                                }
+
+                            }
+                        },
+                        modifier = Modifier
+                            .fillMaxSize()
                             .focusRequester(focusRequester),
                         textStyle = MaterialTheme.typography.bodyLarge.copy(
                             color = Color.Black,
@@ -360,6 +369,7 @@ fun JournalEntryDetailScreen(
                         maxLines = Int.MAX_VALUE,
                         singleLine = false,
                     )
+                    }
                 }
             }
         }
