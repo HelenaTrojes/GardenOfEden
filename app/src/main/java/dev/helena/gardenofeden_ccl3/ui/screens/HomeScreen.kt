@@ -6,10 +6,12 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -37,6 +39,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Info
+import androidx.compose.ui.draw.clip
+import dev.helena.gardenofeden_ccl3.ui.theme.DarkGreen
 import dev.helena.gardenofeden_ccl3.ui.theme.Green
 import dev.helena.gardenofeden_ccl3.ui.theme.Rose
 
@@ -81,8 +85,8 @@ fun VirtualGardenScreen(entryViewModel: EntryViewModel) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .systemBarsPadding()
-            .padding(16.dp),
+            .systemBarsPadding(),
+//            .padding(top = 16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         // Title and Information Icon Section
@@ -94,22 +98,31 @@ fun VirtualGardenScreen(entryViewModel: EntryViewModel) {
         ) {
             // Title at the center
             Text(
-                text = "Garden of Eden",
+                text = "Your Garden of Eden",
                 style = MaterialTheme.typography.headlineLarge.copy(fontWeight = FontWeight.Bold),
                 color = Color.Black,
                 modifier = Modifier.align(Alignment.CenterHorizontally)
             )
+            // Stroke (Underline)
+            Box(
+                modifier = Modifier
+                    .align(Alignment.CenterHorizontally) // Align the stroke with the title
+                    .fillMaxWidth(0.8f) // Set width of the underline (50% of the parent width, adjust as needed)
+                    .height(4.dp) // Stroke thickness
+                    .background(Rose) // Stroke color
+                    .padding(top = 4.dp) // Add spacing below the title
+            )
             // Information Icon below the title
             Box(
                 modifier = Modifier
-                    .background(Color.Black, shape = CircleShape)
                     .clickable { showInfoDialog = true }
+                    .padding(top = 10.dp)
             ) {
                 Icon(
 
                     imageVector = Icons.Filled.Info,
                     contentDescription = "Information Icon",
-                    tint = Rose,
+                    tint = Green,
                     modifier = Modifier.size(32.dp) // Adjust icon size for better visuals
                 )
             }
@@ -119,6 +132,7 @@ fun VirtualGardenScreen(entryViewModel: EntryViewModel) {
         Box(
             modifier = Modifier
                 .fillMaxSize()
+                .background(DarkGreen)
         ) {
             if (entries.isEmpty()) {
                 Text(
