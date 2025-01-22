@@ -86,8 +86,8 @@ fun VirtualGardenScreen(entryViewModel: EntryViewModel) {
 
     Column(
         modifier = Modifier
-            .fillMaxSize(),
-//            .systemBarsPadding(),
+            .fillMaxSize()
+        .systemBarsPadding(),
 //            .padding(top = 16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {

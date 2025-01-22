@@ -7,12 +7,14 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
@@ -70,7 +72,7 @@ fun LandingScreen(navController: NavController, entryViewModel: EntryViewModel) 
         scrollState.animateScrollTo(scrollState.maxValue)
     }
 
-    Box(
+    BoxWithConstraints (
         modifier = Modifier
             .fillMaxSize()
             .imePadding()
@@ -85,12 +87,15 @@ fun LandingScreen(navController: NavController, entryViewModel: EntryViewModel) 
             }
 
     ) {
+        val screenWidth = maxWidth
+        val screenHeight = maxHeight
+
         Column(
             modifier = Modifier
                 .fillMaxSize()
                // .verticalScroll(scrollState)
                // .imePadding()
-                .padding(top = 90.dp),
+                .padding(top = screenHeight * 0.1f),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Top
         ) {
@@ -100,16 +105,17 @@ fun LandingScreen(navController: NavController, entryViewModel: EntryViewModel) 
                 text = "Mood of the Day",
                 style = MaterialTheme.typography.headlineMedium,
                 fontWeight = FontWeight.Bold,
-                fontSize = 28.sp,
-                modifier = Modifier.padding(bottom = 20.dp),
+                fontSize = (screenWidth * 0.07f).value.sp,
+                modifier = Modifier.padding(bottom = screenWidth * 0.02f),
                 color = Color.Black
             )
-            Spacer(modifier = Modifier.height(10.dp))
+            //Spacer(modifier = Modifier.height(10.dp))
             Row(
                 horizontalArrangement = Arrangement.SpaceEvenly,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(bottom = 24.dp, start = 20.dp, end = 20.dp)
+                    .padding(horizontal = screenWidth * 0.05f)
+                   // .padding(bottom = 24.dp, start = 20.dp, end = 20.dp)
             ) {
                 val moods = listOf(
                     "😊" to "Happy",
@@ -123,20 +129,21 @@ fun LandingScreen(navController: NavController, entryViewModel: EntryViewModel) 
 
                     Text(
                         text = emoji,
-                        fontSize = 28.sp,
+                        fontSize = (screenWidth * 0.08f).value.sp,
                         modifier = Modifier
                             .clickable(
                                 indication = null,
                                 interactionSource = remember { MutableInteractionSource() }
                             ) { selectedMood = mood }
-                            .padding(horizontal = 8.dp)
+                            .padding(horizontal = screenWidth * 0.02f)
                             .background(
                                 color = if (isSelected) DarkGreen else Color.Transparent,
                                 shape = MaterialTheme.shapes.small
                             )
-                            .padding(8.dp),
+                            .padding(screenWidth * 0.02f),
                         textAlign = TextAlign.Center
                     )
+                    Spacer(modifier = Modifier.height(screenHeight * 0.05f))
                 }
             }
 
@@ -144,18 +151,18 @@ fun LandingScreen(navController: NavController, entryViewModel: EntryViewModel) 
                 Text(
                     text = "You feel $selectedMood today!",
                     style = MaterialTheme.typography.bodyMedium,
-                    fontSize = 14.sp,
+                    fontSize = (screenWidth * 0.04f).value.sp,
                     color = Color.DarkGray,
                 )
             }
 
-            Spacer(modifier = Modifier.height(35.dp))
+            Spacer(modifier = Modifier.height(screenHeight * 0.02f))
 
             // Question Of The Day Section
             Column(
                 modifier = Modifier
                    //.imePadding()
-                    .padding(horizontal = 30.dp),
+                    .padding(horizontal = screenWidth * 0.08f),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ) {
@@ -163,25 +170,24 @@ fun LandingScreen(navController: NavController, entryViewModel: EntryViewModel) 
                     text = "Question of the Day",
                     style = MaterialTheme.typography.headlineMedium,
                     fontWeight = FontWeight.Bold,
-                    fontSize = 28.sp,
-                    modifier = Modifier,
+                    fontSize = (screenWidth * 0.07f).value.sp,
                     color = Color.Black
                 )
                 HorizontalDivider(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(vertical = 6.dp),
+                        .padding(vertical = screenHeight * 0.01f),
                     thickness = 3.dp,
                     color = DarkGreen
                 )
                 Text(
                     text = questionOfTheDay,
                     style = MaterialTheme.typography.bodyMedium,
-                    fontSize = 16.sp,
+                    fontSize = (screenWidth * 0.045f).value.sp,
                     textAlign = TextAlign.Center,
                     fontWeight = FontWeight.SemiBold,
                     modifier = Modifier
-                        .padding(bottom = 20.dp, top = 2.dp)
+                        .padding(vertical = screenHeight * 0.02f)
                 )
 
                 OutlinedTextField(
@@ -191,7 +197,8 @@ fun LandingScreen(navController: NavController, entryViewModel: EntryViewModel) 
                     label = { Text("Your answer") },
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(350.dp)
+                        .heightIn(min = 150.dp, max = screenHeight * 0.5f)
+                        //.height(350.dp)
                         .padding(5.dp)
                         .verticalScroll(scrollState),
                     keyboardOptions = KeyboardOptions.Default.copy(
@@ -207,7 +214,7 @@ fun LandingScreen(navController: NavController, entryViewModel: EntryViewModel) 
                     singleLine = false
                 )
 
-                Spacer(modifier = Modifier.height(16.dp))
+                Spacer(modifier = Modifier.height(screenHeight * 0.03f))
 
 
                 Button(
@@ -234,9 +241,9 @@ fun LandingScreen(navController: NavController, entryViewModel: EntryViewModel) 
                         }
                     },
                     modifier = Modifier
-                         .padding(top = 20.dp, bottom = 5.dp)
+                         .padding(vertical = screenHeight * 0.02f)
                         .height(50.dp)
-                        .padding(horizontal = 12.dp)
+                      //  .padding(horizontal = 12.dp)
                         .align(Alignment.CenterHorizontally),
                     shape = androidx.compose.foundation.shape.CircleShape,
                     colors = ButtonDefaults.buttonColors(

@@ -26,6 +26,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -41,78 +42,83 @@ import kotlinx.coroutines.launch
 @Composable
 fun WelcomeScreen(navController: NavHostController, entryViewModel: EntryViewModel) {
     val coroutineScope = rememberCoroutineScope()
-    
+    val configuration = LocalConfiguration.current
+    val screenHeight = configuration.screenHeightDp.dp
+    val screenWidth = configuration.screenWidthDp.dp
+
+    // Scale values dynamically
+    val imageSize = screenWidth * 0.45f
+    val titleFontSize = (screenHeight * 0.07f).value.sp
+    val subtitleFontSize = (screenHeight * 0.03f).value.sp
+    val buttonHeight = (screenHeight * 0.07f)
+
     Column(
         modifier = Modifier
             .fillMaxSize()
             .systemBarsPadding() //automatically adds padding to avoid system bars and notches
-            .padding(top = 50.dp),
+            .padding(top = screenHeight * 0.06f),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-//        Box(
-//            modifier = Modifier
-////                .wrapContentSize() // Size wraps the content
-//        ) {
             // Green Circle (Layer Underneath)
             Image(
                 painter = painterResource(id = R.drawable.icon_eden_of_garden),
                 contentDescription = "Tulip Image",
                 modifier = Modifier
-                    .fillMaxWidth(0.60f) // scale down width to 80% of the screen width
+                    .fillMaxWidth(0.45f) // scale down width to 80% of the screen width
                     .aspectRatio(1f)   // maintains the original aspect ratio (1:1 for a square image)
             )
-
-//            Box(
-//                modifier = Modifier
-//                    .size(250.dp) // Circle size
-//                    .align(Alignment.Center) // Align circle to the end
-//                    .offset(x = 5.dp, y = 1.dp) // Fine-tune position horizontally
-//                    .background(color = Green, shape = CircleShape) // Circle color and shape
-//            )
 
             // "Garden" Text (Layer Above)
             Text(
                 text = "Garden",
-                fontSize = 45.sp,
+                fontSize = titleFontSize,
                 fontWeight = FontWeight.ExtraBold,
                 color = Color.Black,
                 textAlign = TextAlign.Center,
                 modifier = Modifier
-                    .offset(x = -75.dp)
+                    .offset(x = -screenWidth * 0.2f)
+                   // .offset(x = -75.dp)
             )
 //        }
         Text(
             text = "of",
-            fontSize = 45.sp,
+            fontSize = titleFontSize,
             fontWeight = FontWeight.Normal,
             color = Color.Black,
             textAlign = TextAlign.Center,
-            modifier = Modifier
+            modifier = Modifier.padding(top = 8.dp)
+           /* modifier = Modifier
                 .padding(top = 15.dp)
                 .offset(x = 2.dp)
+
+            */
         )
         Text(
             text = "Eden",
-            fontSize = 45.sp,
+            fontSize = titleFontSize,
             fontWeight = FontWeight.ExtraBold,
             color = Color.Black,
             textAlign = TextAlign.Center,
             modifier = Modifier
+                .offset(x = screenWidth * 0.15f)
+                /*
                 .padding(top = 15.dp)
                 .offset(x = 65.dp)
+
+                 */
         )
         Text(
             text = "Track. Heal. Bloom.",
-            fontSize = 18.sp,
+            fontSize = subtitleFontSize,
             fontWeight = FontWeight.Normal,
             color = Color.Black,
             textAlign = TextAlign.Center,
             modifier = Modifier
-                .padding(top = 30.dp)
+                .padding(top = screenHeight * 0.1f)
         )
 
-        Spacer(modifier = Modifier.height(30.dp))
+        Spacer(modifier = Modifier.height(screenHeight * 0.1f))
 
         Button(
             onClick = {
@@ -125,9 +131,9 @@ fun WelcomeScreen(navController: NavHostController, entryViewModel: EntryViewMod
                 }
             },
             modifier = Modifier
-                .padding(top = 30.dp)
-                .height(50.dp)
-                .padding(horizontal = 12.dp),
+                .padding(horizontal = screenWidth * 0.1f)
+                .height(buttonHeight),
+                //.padding(horizontal = 10.dp),
             shape = CircleShape,
             colors = ButtonDefaults.buttonColors(
                 containerColor = Green,
@@ -135,7 +141,7 @@ fun WelcomeScreen(navController: NavHostController, entryViewModel: EntryViewMod
         ) {
             Text(
                 text = "Get started",
-                fontSize = 20.sp,
+                fontSize = subtitleFontSize,
                 fontWeight = FontWeight.Bold,
                 color = Color.Black,
                 modifier = Modifier.padding(end = 8.dp)
