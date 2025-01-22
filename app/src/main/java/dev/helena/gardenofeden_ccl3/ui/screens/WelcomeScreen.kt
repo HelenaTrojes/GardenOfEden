@@ -77,7 +77,7 @@ fun WelcomeScreen(navController: NavHostController, entryViewModel: EntryViewMod
                 color = Color.Black,
                 textAlign = TextAlign.Center,
                 modifier = Modifier
-                    .offset(x = -screenWidth * 0.2f)
+                    .offset(x = -screenWidth * 0.15f)
                    // .offset(x = -75.dp)
             )
 //        }
@@ -101,7 +101,7 @@ fun WelcomeScreen(navController: NavHostController, entryViewModel: EntryViewMod
             color = Color.Black,
             textAlign = TextAlign.Center,
             modifier = Modifier
-                .offset(x = screenWidth * 0.15f)
+                .offset(x = screenWidth * 0.18f)
                 /*
                 .padding(top = 15.dp)
                 .offset(x = 65.dp)

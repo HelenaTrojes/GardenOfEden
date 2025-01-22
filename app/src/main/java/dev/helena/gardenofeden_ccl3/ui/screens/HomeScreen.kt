@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -36,6 +35,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Scaffold
 import androidx.compose.ui.unit.sp
 import dev.helena.gardenofeden_ccl3.ui.theme.DarkGreen
 import dev.helena.gardenofeden_ccl3.ui.theme.Green
@@ -81,8 +81,8 @@ fun VirtualGardenScreen(entryViewModel: EntryViewModel) {
 
     Column(
         modifier = Modifier
-            .fillMaxSize()
-        .systemBarsPadding(),
+            .fillMaxSize(),
+//        .systemBarsPadding(),
 //            .padding(top = 16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -132,9 +132,13 @@ fun VirtualGardenScreen(entryViewModel: EntryViewModel) {
         ) {
             if (entries.isEmpty()) {
                 Text(
-                    text = "No plants yet. Log your mood to grow your garden!",
+                    text = "No plants yet. Log your mood tomorrow to grow your garden!",
+                    style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold),
+                    color = Color.White,
                     textAlign = TextAlign.Center,
-                    modifier = Modifier.align(Alignment.Center)
+                    modifier = Modifier
+                        .align(Alignment.Center)
+                        .padding(start = 10.dp, end = 10.dp)
                 )
             } else {
                 // Pass the plantMessage callback to GardenView

@@ -23,7 +23,6 @@ import dev.helena.gardenofeden_ccl3.ui.components.flowerComponents.drawSurprised
 import kotlinx.coroutines.delay
 import kotlin.random.Random
 
-
 @Composable
 fun GardenView(entries: List<EntryEntity>, growthTriggered: Boolean) {
     val plants = remember(entries) {
@@ -48,16 +47,52 @@ fun GardenView(entries: List<EntryEntity>, growthTriggered: Boolean) {
     )
 
     val configuration = LocalConfiguration.current
-    val screenWidth = configuration.screenWidthDp.dp
-    val screenHeight = configuration.screenHeightDp.dp
+    val screenWidthDp = configuration.screenWidthDp.dp
+    val screenHeightDp = configuration.screenHeightDp.dp
 
-    // Generate random positions for the flowers
+//    val density = LocalDensity.current.density
+
+    // Convert to actual pixels inside the composable
+    val screenWidthPx = with(LocalDensity.current) { screenWidthDp.toPx() }
+    val screenHeightPx = with(LocalDensity.current) { screenHeightDp.toPx() }
+
+    // Define garden area margins in pixels
+    val marginX = screenWidthPx * 0.05f // 5% margin on each side
+    val marginTop = screenHeightPx * 0.02f // Top margin stays the same
+    val marginBottom = screenHeightPx * 0.33f // Reduce the bottom margin to make garden shorter
+
+    // Define the garden height with reduced bottom margin
+    val gardenHeight = screenHeightPx - marginTop - marginBottom // Shorter garden
+
+    // Garden area width
+    val gardenWidth = screenWidthPx - 2 * marginX
+
+    // Calculate the number of columns and rows based on the available space and plant count
+    val numPlants = entries.size
+    val columns = kotlin.math.ceil(kotlin.math.sqrt(numPlants.toFloat())).toInt() // Number of columns based on sqrt of total plants
+    val rows = kotlin.math.ceil(numPlants.toFloat() / columns).toInt() // Calculate rows based on the columns
+
+    // Dynamically calculate the size of each grid cell
+    val cellWidth = gardenWidth / columns
+    val cellHeight = gardenHeight / rows
+
+    // Generate positions with slight randomness
     val positions = remember(entries) {
-        entries.map {
-            Offset(
-                x = (screenWidth.value * 0.1f + (screenWidth.value * 0.94f * Random.nextFloat())).toFloat(),  // 3% margin from left to right
-                y = (screenHeight.value * 0.2f + (screenHeight.value * 0.6f * (0..1).random())).toFloat() // Restricting to middle area
-            )
+        List(entries.size) { index ->
+            val row = index / columns
+            val col = index % columns
+
+//            Offset(
+//                x = marginX + col * cellWidth + Random.nextFloat() * cellWidth * 0.3f, // Add slight randomness
+//                y = marginTop + row * cellHeight + Random.nextFloat() * cellHeight * 0.3f
+//            )
+            val x = marginX + col * cellWidth + Random.nextFloat() * cellWidth * 0.3f
+            val y = marginTop + row * cellHeight + Random.nextFloat() * cellHeight * 0.3f
+
+            // Debug: Print the position to see the values
+            println("Plant $index position: x = $x, y = $y")
+
+            Offset(x, y)
         }
     }
 
@@ -65,15 +100,25 @@ fun GardenView(entries: List<EntryEntity>, growthTriggered: Boolean) {
     LaunchedEffect(growthTriggered) {
         if (growthTriggered) {
             plants.forEach { plantState ->
-                delay(500L) // Delay between each growth stage
                 plantState.value = plantState.value.copy(growthStage = PlantGrowthStage.SPROUT)
-                delay(600L)
+            }
+            delay(600L)
+            plants.forEach { plantState ->
                 plantState.value = plantState.value.copy(growthStage = PlantGrowthStage.BLOOM)
             }
         }
     }
 
     Canvas(modifier = Modifier.fillMaxSize()) {
+        // Draw the red border for the garden area
+//        drawRect(
+//            color = androidx.compose.ui.graphics.Color.Red,
+//            size = androidx.compose.ui.geometry.Size(gardenWidth, gardenHeight),
+//            topLeft = Offset(marginX, marginTop), // This keeps the red border at the correct position
+//            style = androidx.compose.ui.graphics.drawscope.Stroke(width = 4f) // Border thickness
+//
+
+        // Draw the plants inside the garden area
         plants.forEachIndexed { index, plantState ->
             val position = positions[index]
             val baseStemHeight = moodStemHeights[plantState.value.mood] ?: moodStemHeights["Default"]!!
@@ -87,11 +132,14 @@ fun GardenView(entries: List<EntryEntity>, growthTriggered: Boolean) {
 
             // Only draw the flower (petals) at BLOOM stage
             if (plantState.value.growthStage == PlantGrowthStage.BLOOM) {
-                drawFlower(position.x, position.y - growthHeight, plantState.value.mood)
+                val flowerCenterY = position.y - growthHeight
+
+                drawFlower(position.x, flowerCenterY, plantState.value.mood)
             }
         }
     }
 }
+
 
 fun DrawScope.drawFlower(centerX: Float, centerY: Float, mood: String) {
     when (mood) {
@@ -112,4 +160,3 @@ data class Plant(
 enum class PlantGrowthStage {
     SEED, SPROUT, BLOOM
 }
-

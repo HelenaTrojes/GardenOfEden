@@ -14,10 +14,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -36,6 +34,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -44,7 +43,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
@@ -68,14 +66,14 @@ fun JournalEntryDetailScreen(
 
     // Observing the entry details based on entryId
     val entry by entryViewModel.entryDetails.observeAsState()
-    Log.i("test", "from beginning ${entry}")
+    Log.i("test", "from beginning $entry")
     val showDialog = remember { mutableStateOf(false) } //state for confirmation dialog
     var isEditing by remember { mutableStateOf(false) }
     var editedAnswer by remember { mutableStateOf(TextFieldValue("")) }
 
     val focusRequester = remember { FocusRequester() }
     val scrollState = rememberScrollState()
-    val cursorPosition = remember { mutableStateOf(0) }
+    val cursorPosition = remember { mutableIntStateOf(0) }
 
     val date = Instant.ofEpochMilli(entry?.date ?: 0L).atZone(ZoneId.systemDefault()).toLocalDate()
     val formattedDate = date.format(DateTimeFormatter.ofPattern("dd MMM yyyy"))
@@ -92,7 +90,7 @@ fun JournalEntryDetailScreen(
     LaunchedEffect(entryId) {
         if (entryId != null) {
             entryViewModel.getEntryById(entryId)
-            Log.i("test", "from launch ${entry}")
+            Log.i("test", "from launch $entry")
         }
     }
 
@@ -252,7 +250,7 @@ fun JournalEntryDetailScreen(
 
                                 if (entryId != null) {
                                     entryViewModel.getEntryById(entryId)
-                                    Log.i("test", "from idk where ${entry}")
+                                    Log.i("test", "from idk where $entry")
 
                                 }
                             } else {

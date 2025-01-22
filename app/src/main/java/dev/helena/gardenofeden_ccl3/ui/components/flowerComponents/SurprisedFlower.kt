@@ -4,7 +4,6 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.DrawScope
-import dev.helena.gardenofeden_ccl3.ui.theme.Green
 
 fun DrawScope.drawSurprisedFlower(centerX: Float, centerY: Float) {
 
