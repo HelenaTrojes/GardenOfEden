@@ -75,6 +75,7 @@ fun JournalEntryDetailScreen(
 
     val focusRequester = remember { FocusRequester() }
     val scrollState = rememberScrollState()
+    val cursorPosition = remember { mutableStateOf(0) }
 
     val date = Instant.ofEpochMilli(entry?.date ?: 0L).atZone(ZoneId.systemDefault()).toLocalDate()
     val formattedDate = date.format(DateTimeFormatter.ofPattern("dd MMM yyyy"))
@@ -102,19 +103,11 @@ fun JournalEntryDetailScreen(
     }
 
     LaunchedEffect(isEditing) {
+        // Scroll to the last line of the text when editing starts
         if (isEditing) {
-            editedAnswer = TextFieldValue(
-                text = entry?.answer ?: "",
-                selection = TextRange(entry?.answer?.length ?: 0)
-            )
-            focusRequester.requestFocus()
-        } else {
-            scrollState.scrollTo(0)
+            // Scroll to the end of the TextField
+            scrollState.animateScrollTo(scrollState.maxValue)
         }
-    }
-
-    LaunchedEffect(editedAnswer) {
-        scrollState.animateScrollTo(scrollState.maxValue)
     }
 
     Box(
@@ -177,6 +170,7 @@ fun JournalEntryDetailScreen(
                     .padding(5.dp)
                     .background(Rose, RoundedCornerShape(16.dp))
                     .padding(16.dp)
+                    .verticalScroll(scrollState)
                     .imePadding(),
                 horizontalAlignment = Alignment.Start,
                 verticalArrangement = Arrangement.Top
@@ -272,6 +266,8 @@ fun JournalEntryDetailScreen(
                             contentDescription = if (isEditing) "Save" else "Edit"
                         )
                     }
+
+
                     Spacer(modifier = Modifier.width(10.dp))
 
                     //Delete Button
@@ -322,7 +318,7 @@ fun JournalEntryDetailScreen(
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(450.dp)
+                        .height(200.dp)
                         .padding(5.dp)
                         .border(2.dp, Green, RoundedCornerShape(10.dp))
                         .background(Color.White, RoundedCornerShape(10.dp))
@@ -332,7 +328,7 @@ fun JournalEntryDetailScreen(
                         onValueChange = { if (isEditing) editedAnswer = it },
                         modifier = Modifier
                             .fillMaxSize()
-                            .verticalScroll(scrollState)
+                           // .verticalScroll(scrollState)
                             .focusRequester(focusRequester),
                         textStyle = MaterialTheme.typography.bodyLarge.copy(
                             color = Color.Black,
