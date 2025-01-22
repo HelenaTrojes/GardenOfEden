@@ -47,7 +47,7 @@ fun GardenView(entries: List<EntryEntity>, growthTriggered: Boolean) {
     val positions = remember(entries) {
         entries.map {
             Offset(
-                x = (50..350).random().toFloat(), // Random horizontal placement
+                x = (90..340).random().toFloat(), // Random horizontal placement
                 y = (300..900).random().toFloat() // Random vertical placement
             )
         }

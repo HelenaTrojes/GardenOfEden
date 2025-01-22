@@ -39,7 +39,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Info
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.unit.sp
 import dev.helena.gardenofeden_ccl3.ui.theme.DarkGreen
 import dev.helena.gardenofeden_ccl3.ui.theme.Green
 import dev.helena.gardenofeden_ccl3.ui.theme.Rose
@@ -84,8 +86,8 @@ fun VirtualGardenScreen(entryViewModel: EntryViewModel) {
 
     Column(
         modifier = Modifier
-            .fillMaxSize()
-            .systemBarsPadding(),
+            .fillMaxSize(),
+//            .systemBarsPadding(),
 //            .padding(top = 16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -94,23 +96,21 @@ fun VirtualGardenScreen(entryViewModel: EntryViewModel) {
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = 25.dp, bottom = 8.dp)
+                .padding(top = 30.dp, bottom = 8.dp)
         ) {
             // Title at the center
             Text(
                 text = "Your Garden of Eden",
                 style = MaterialTheme.typography.headlineLarge.copy(fontWeight = FontWeight.Bold),
                 color = Color.Black,
-                modifier = Modifier.align(Alignment.CenterHorizontally)
+                modifier = Modifier.align(Alignment.CenterHorizontally),
+                fontSize = 30.sp
             )
-            // Stroke (Underline)
-            Box(
+            HorizontalDivider(
                 modifier = Modifier
-                    .align(Alignment.CenterHorizontally) // Align the stroke with the title
-                    .fillMaxWidth(0.8f) // Set width of the underline (50% of the parent width, adjust as needed)
-                    .height(4.dp) // Stroke thickness
-                    .background(Rose) // Stroke color
-                    .padding(top = 4.dp) // Add spacing below the title
+                    .padding(vertical = 10.dp, horizontal = 50.dp),
+                thickness = 3.dp,
+                color = Rose
             )
             // Information Icon below the title
             Box(

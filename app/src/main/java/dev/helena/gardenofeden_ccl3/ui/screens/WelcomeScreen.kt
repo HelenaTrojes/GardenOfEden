@@ -143,7 +143,7 @@ fun WelcomeScreen(navController: NavHostController, entryViewModel: EntryViewMod
             Icon(
                 imageVector = Icons.AutoMirrored.Filled.ArrowForward,
                 contentDescription = "Go to your daily mood check-up",
-                tint = DarkGreen
+                tint = Color.Black
             )
         }
     }
