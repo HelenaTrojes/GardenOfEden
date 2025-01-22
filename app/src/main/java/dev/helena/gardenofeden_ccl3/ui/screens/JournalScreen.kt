@@ -33,6 +33,7 @@ fun JournalScreen(
     entryViewModel: EntryViewModel
 ) {
 
+
     val configuration = LocalConfiguration.current
     val screenWidth = configuration.screenWidthDp
 
