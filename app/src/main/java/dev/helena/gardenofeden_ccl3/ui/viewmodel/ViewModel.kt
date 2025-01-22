@@ -9,7 +9,7 @@ import dev.helena.gardenofeden_ccl3.data.db.EntryRepository
 import kotlinx.coroutines.launch
 
 
-class  EntryViewModel(private val repository: EntryRepository) : ViewModel() {
+class EntryViewModel(private val repository: EntryRepository) : ViewModel() {
 
     //liveData to observe entries
     private val _entries = MutableLiveData<List<EntryEntity>>()
