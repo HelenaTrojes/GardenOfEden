@@ -45,10 +45,14 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextRange
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -291,8 +295,22 @@ fun JournalEntryDetailScreen(
                 if (showDialog.value) {
                     androidx.compose.material3.AlertDialog(
                         onDismissRequest = { showDialog.value = false },
-                        title = { Text(text = "Delete Journal") },
-                        text = { Text(text = "Are you sure you want to delete this entry? Please note, you won’t be able to create a new entry for today.") },
+                        title = {
+                            Text(
+                                text = "Delete Journal",
+                                fontWeight = FontWeight.Bold
+                            ) },
+                        text = {
+                            val text = buildAnnotatedString {
+                                withStyle(style = SpanStyle(fontWeight = FontWeight.SemiBold)) {
+                                    append("Are you sure you want to delete this entry? ")
+                                }
+                                withStyle(style = SpanStyle(fontWeight = FontWeight.SemiBold, textDecoration = TextDecoration.Underline)) {
+                                    append("Please note, you won’t be able to create a new entry for today.")
+                                }
+                            }
+                            Text(text = text)
+                        },
                         confirmButton = {
                             androidx.compose.material3.TextButton(
                                 onClick = {
