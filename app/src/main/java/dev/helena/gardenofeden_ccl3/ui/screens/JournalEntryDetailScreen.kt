@@ -49,6 +49,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import dev.helena.gardenofeden_ccl3.ui.components.MoodSelector
 import dev.helena.gardenofeden_ccl3.ui.theme.Green
 import dev.helena.gardenofeden_ccl3.ui.viewmodel.EntryViewModel
 import dev.helena.gardenofeden_ccl3.ui.theme.Rose
@@ -66,10 +67,11 @@ fun JournalEntryDetailScreen(
 
     // Observing the entry details based on entryId
     val entry by entryViewModel.entryDetails.observeAsState()
-    Log.i("test", "from beginning $entry")
     val showDialog = remember { mutableStateOf(false) } //state for confirmation dialog
     var isEditing by remember { mutableStateOf(false) }
     var editedAnswer by remember { mutableStateOf(TextFieldValue("")) }
+    var selectedMood by remember { mutableStateOf(entry?.mood ?: "") } // Initialize selectedMood from entry
+
 
     val focusRequester = remember { FocusRequester() }
     val scrollState = rememberScrollState()
@@ -90,7 +92,6 @@ fun JournalEntryDetailScreen(
     LaunchedEffect(entryId) {
         if (entryId != null) {
             entryViewModel.getEntryById(entryId)
-            Log.i("test", "from launch $entry")
         }
     }
 
@@ -105,6 +106,15 @@ fun JournalEntryDetailScreen(
         if (isEditing) {
             // Scroll to the end of the TextField
             scrollState.animateScrollTo(scrollState.maxValue)
+        }
+    }
+
+    // Update mood when user selects an emoji
+    val onMoodSelected: (String) -> Unit = { newMood ->
+        selectedMood = newMood
+        entry?.let {
+            val updatedEntry = it.copy(mood = newMood)
+            entryViewModel.updateEntry(updatedEntry) // Update entry with the new mood
         }
     }
 
@@ -198,9 +208,14 @@ fun JournalEntryDetailScreen(
                     )
                 Spacer(modifier = Modifier.height(40.dp))
 
+                MoodSelector(
+                    selectedMood = selectedMood,
+                    onMoodSelected = onMoodSelected
+                )
+
                 // Question of the day
                 Text(
-                    text = "Question of the day",
+                    text = "Journal or answer question of the day",
                     style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.Bold),
                     modifier = Modifier.padding(bottom = 8.dp),
                     fontSize = 20.sp,
