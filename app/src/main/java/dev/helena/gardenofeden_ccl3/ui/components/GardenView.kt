@@ -11,12 +11,12 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import dev.helena.gardenofeden_ccl3.data.db.EntryEntity
 import dev.helena.gardenofeden_ccl3.ui.components.flowerComponents.drawAngryFlower
-import dev.helena.gardenofeden_ccl3.ui.components.flowerComponents.drawCactus
 import dev.helena.gardenofeden_ccl3.ui.components.flowerComponents.drawDefaultFlower
 import dev.helena.gardenofeden_ccl3.ui.components.flowerComponents.drawHappyFlower
 import dev.helena.gardenofeden_ccl3.ui.components.flowerComponents.drawSadFlower
 import dev.helena.gardenofeden_ccl3.ui.components.flowerComponents.drawSillyFlower
 import dev.helena.gardenofeden_ccl3.ui.components.flowerComponents.drawStem
+import dev.helena.gardenofeden_ccl3.ui.components.flowerComponents.drawSurprisedFlower
 import kotlinx.coroutines.delay
 
 
@@ -65,8 +65,7 @@ fun GardenView(entries: List<EntryEntity>, growthTriggered: Boolean) {
         }
     }
 
-    Canvas(modifier = Modifier
-        .fillMaxSize()) {
+    Canvas(modifier = Modifier.fillMaxSize()) {
         plants.forEachIndexed { index, plantState ->
             val position = positions[index]
             val baseStemHeight = moodStemHeights[plantState.value.mood] ?: moodStemHeights["Default"]!!
@@ -81,8 +80,6 @@ fun GardenView(entries: List<EntryEntity>, growthTriggered: Boolean) {
             // Only draw the flower (petals) at BLOOM stage
             if (plantState.value.growthStage == PlantGrowthStage.BLOOM) {
                 drawFlower(position.x, position.y - growthHeight, plantState.value.mood)
-
-
             }
         }
     }
@@ -90,15 +87,14 @@ fun GardenView(entries: List<EntryEntity>, growthTriggered: Boolean) {
 
 fun DrawScope.drawFlower(centerX: Float, centerY: Float, mood: String) {
     when (mood) {
-
-                "Happy" -> drawHappyFlower(centerX, centerY)
-                "Sad" -> drawSadFlower(centerX, centerY)
-                "Calm" -> drawCactus(centerX, centerY)
-                "Silly" -> drawSillyFlower(centerX, centerY)
-                "Angry" -> drawAngryFlower(centerX, centerY)
-                else -> drawDefaultFlower(centerX, centerY)
-            }
-        }
+        "Happy" -> drawHappyFlower(centerX, centerY)
+        "Sad" -> drawSadFlower(centerX, centerY)
+        "Surprised" -> drawSurprisedFlower(centerX, centerY)
+        "Silly" -> drawSillyFlower(centerX, centerY)
+        "Angry" -> drawAngryFlower(centerX, centerY)
+        else -> drawDefaultFlower(centerX, centerY)
+    }
+}
 
 data class Plant(
     val mood: String,
