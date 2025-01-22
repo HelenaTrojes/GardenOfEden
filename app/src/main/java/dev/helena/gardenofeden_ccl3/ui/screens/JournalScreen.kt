@@ -49,6 +49,7 @@ fun JournalScreen(
     // Observe the list of entries
     val entries by entryViewModel.entries.observeAsState(emptyList())
 
+
     Column (
         modifier = Modifier
             .fillMaxSize()
