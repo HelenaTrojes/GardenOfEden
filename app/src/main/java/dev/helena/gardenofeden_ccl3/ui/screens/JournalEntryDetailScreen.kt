@@ -1,6 +1,7 @@
 package dev.helena.gardenofeden_ccl3.ui.screens
 
 import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -14,16 +15,14 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.Save
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -44,6 +43,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
@@ -51,6 +51,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import dev.helena.gardenofeden_ccl3.ui.theme.DarkGreen
 import dev.helena.gardenofeden_ccl3.ui.theme.Green
 import dev.helena.gardenofeden_ccl3.ui.viewmodel.EntryViewModel
 import dev.helena.gardenofeden_ccl3.ui.theme.Rose
@@ -65,7 +66,7 @@ fun JournalEntryDetailScreen(
     entryId: Long?,
     entryViewModel: EntryViewModel
 ) {
-
+    val context = LocalContext.current
     // Observing the entry details based on entryId
     val entry by entryViewModel.entryDetails.observeAsState()
     Log.i("test", "from beginning ${entry}")
@@ -75,7 +76,6 @@ fun JournalEntryDetailScreen(
 
     val focusRequester = remember { FocusRequester() }
     val scrollState = rememberScrollState()
-    val cursorPosition = remember { mutableStateOf(0) }
 
     val date = Instant.ofEpochMilli(entry?.date ?: 0L).atZone(ZoneId.systemDefault()).toLocalDate()
     val formattedDate = date.format(DateTimeFormatter.ofPattern("dd MMM yyyy"))
@@ -105,8 +105,10 @@ fun JournalEntryDetailScreen(
     LaunchedEffect(isEditing) {
         // Scroll to the last line of the text when editing starts
         if (isEditing) {
+            focusRequester.requestFocus()
             // Scroll to the end of the TextField
             scrollState.animateScrollTo(scrollState.maxValue)
+            editedAnswer = editedAnswer.copy(selection = TextRange(editedAnswer.text.length))
         }
     }
 
@@ -170,7 +172,7 @@ fun JournalEntryDetailScreen(
                     .padding(5.dp)
                     .background(Rose, RoundedCornerShape(16.dp))
                     .padding(16.dp)
-                    .verticalScroll(scrollState)
+                    //.verticalScroll(scrollState)
                     .imePadding(),
                 horizontalAlignment = Alignment.Start,
                 verticalArrangement = Arrangement.Top
@@ -247,26 +249,33 @@ fun JournalEntryDetailScreen(
                     IconButton(
                         onClick = {
                             if (isEditing) {
-                                val updatedEntry = it.copy(answer = editedAnswer.text)
-                                entryViewModel.updateEntry(updatedEntry)
-
-                                if (entryId != null) {
-                                    entryViewModel.getEntryById(entryId)
-                                    Log.i("test", "from idk where ${entry}")
-
+                                // Save the updated entry
+                                val updatedEntry = entry?.copy(answer = editedAnswer.text)
+                                if (updatedEntry != null) {
+                                    entryViewModel.updateEntry(updatedEntry)
+                                    Toast.makeText(
+                                        context,
+                                        "Entry saved successfully!",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
                                 }
                             } else {
-                                editedAnswer = TextFieldValue(it.answer)
+                                // Start editing
+                                editedAnswer = TextFieldValue(entry?.answer ?: "")
+                                Toast.makeText(
+                                    context,
+                                    "Editing entry...",
+                                    Toast.LENGTH_SHORT
+                                ).show()
                             }
                             isEditing = !isEditing
                         }
                     ) {
                         Icon(
-                            imageVector = if (isEditing) Icons.Filled.Check else Icons.Filled.Edit,
+                            imageVector = if (isEditing) Icons.Filled.Save else Icons.Filled.Edit,
                             contentDescription = if (isEditing) "Save" else "Edit"
                         )
                     }
-
 
                     Spacer(modifier = Modifier.width(10.dp))
 
@@ -306,7 +315,10 @@ fun JournalEntryDetailScreen(
                             androidx.compose.material3.TextButton(
                                 onClick = { showDialog.value = false }
                             ) {
-                                Text("Cancel")
+                                Text(
+                                    text = "Cancel",
+                                    color = DarkGreen
+                                )
                             }
                         }
                     )
@@ -321,14 +333,16 @@ fun JournalEntryDetailScreen(
                         .height(200.dp)
                         .padding(5.dp)
                         .border(2.dp, Green, RoundedCornerShape(10.dp))
-                        .background(Color.White, RoundedCornerShape(10.dp))
+                        .background(
+                            color = if (isEditing) Color.White else Color.Transparent,
+                            shape = RoundedCornerShape(10.dp))
                 ) {
                     TextField(
                         value = editedAnswer,
                         onValueChange = { if (isEditing) editedAnswer = it },
                         modifier = Modifier
                             .fillMaxSize()
-                           // .verticalScroll(scrollState)
+                            .verticalScroll(scrollState)
                             .focusRequester(focusRequester),
                         textStyle = MaterialTheme.typography.bodyLarge.copy(
                             color = Color.Black,
@@ -337,7 +351,7 @@ fun JournalEntryDetailScreen(
                         enabled = isEditing,
                         readOnly = !isEditing,
                         colors = TextFieldDefaults.textFieldColors(
-                            containerColor = Color.Transparent,
+                            containerColor =  Color.Transparent,
                             focusedIndicatorColor = Color.Transparent,
                             unfocusedIndicatorColor = Color.Transparent,
                             disabledIndicatorColor = Color.Transparent,

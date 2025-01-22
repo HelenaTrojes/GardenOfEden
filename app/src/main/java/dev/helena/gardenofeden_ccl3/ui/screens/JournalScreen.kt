@@ -32,8 +32,6 @@ fun JournalScreen(
     navController: NavController,
     entryViewModel: EntryViewModel
 ) {
-
-
     val configuration = LocalConfiguration.current
     val screenWidth = configuration.screenWidthDp
 
