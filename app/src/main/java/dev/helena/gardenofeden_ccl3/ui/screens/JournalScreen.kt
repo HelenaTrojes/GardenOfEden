@@ -17,6 +17,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -32,6 +33,19 @@ fun JournalScreen(
     entryViewModel: EntryViewModel
 ) {
 
+    val configuration = LocalConfiguration.current
+    val screenWidth = configuration.screenWidthDp
+
+    val paddingHorizontal = when {
+        screenWidth > 600 -> 40.dp // larger padding for tablets
+        else -> 20.dp // default padding for phones
+    }
+
+    val verticalSpacing = when {
+        screenWidth > 600 -> 30.dp // larger spacing for tablets
+        else -> 17.dp // default spacing for phones
+    }
+
     // Observe the list of entries
     val entries by entryViewModel.entries.observeAsState(emptyList())
 
@@ -40,11 +54,15 @@ fun JournalScreen(
             .fillMaxSize()
             .background(Color.White)
     ) {
+        val titleFontSize = when {
+            screenWidth > 600 -> 32.sp // larger font for tablets and larger screens
+            else -> 30.sp // default size for phones
+        }
         Text(
             text = "Your Journals",
             style = MaterialTheme.typography.headlineLarge.copy(fontWeight = FontWeight.Bold),
             color = Color.Black,
-            fontSize = 30.sp,
+            fontSize = titleFontSize,
             textAlign = TextAlign.Center,
             modifier = Modifier
                 .padding(top = 30.dp)
@@ -62,7 +80,7 @@ fun JournalScreen(
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
-            .padding(horizontal = 20.dp)
+            .padding(horizontal = paddingHorizontal)
     ) {
         println("Entries size: ${entries.size}")
         items(entries) { entry ->
@@ -74,7 +92,7 @@ fun JournalScreen(
                     navController.navigate("journal_detail_screen/${entry.id}")
                     }
                 )
-            Spacer(modifier = Modifier.height(17.dp))
+            Spacer(modifier = Modifier.height(verticalSpacing))
         }
     }
     }
