@@ -306,7 +306,7 @@ fun JournalEntryDetailScreen(
                                     append("Are you sure you want to delete this entry? ")
                                 }
                                 withStyle(style = SpanStyle(fontWeight = FontWeight.SemiBold, textDecoration = TextDecoration.Underline)) {
-                                    append("Please note, you won’t be able to create a new entry for today.")
+                                    append("Please note, your respective flower will also be deleted.")
                                 }
                             }
                             Text(text = text)
@@ -342,7 +342,7 @@ fun JournalEntryDetailScreen(
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(200.dp)
+                        .height(350.dp)
                         .padding(5.dp)
                         .border(2.dp, Green, RoundedCornerShape(10.dp))
                         .background(
@@ -384,7 +384,7 @@ fun JournalEntryDetailScreen(
                             disabledIndicatorColor = Color.Transparent,
                             cursorColor = Color.Black
                         ),
-                        maxLines = Int.MAX_VALUE,
+                       maxLines = Int.MAX_VALUE,
                         singleLine = false,
                     )
                     }
