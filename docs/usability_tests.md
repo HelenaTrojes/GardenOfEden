@@ -93,8 +93,10 @@ Participants will answer the following questions:
 ### Usability Test Results
 
 #### Quantitative Evaluation
+![SEQ SCORE](/images/seq_ccl3.jpg)
 - **Number of participants**: 6
-- **SEQ Score**: 
+- **SEQ Score**: 155 / 168 points
+- **Key feedback excerpts**: In our usability test with six participants, the overall experience was positive. Most participants found it easy to input their mood (mean: 6.83, median: 7) and view their flower and mood (mean: 6.67, median: 7). However, navigating to the journal page and editing it posed some difficulties, with a mean of 5.83 and a median of 6, suggesting room for improvement in the user interface. Deleting a journal was straightforward for all participants, with a consistent mean of 7 and median of 7. These findings suggest that while the core features are functional, enhancing journal navigation and editing feature could improve the user experience.
 
 #### Key findings after the usability tests
 

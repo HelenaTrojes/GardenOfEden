@@ -19,3 +19,5 @@ For detailed information, please refer to the [CCL3 Documentation](docs/document
 
 ## Usability Test Documentation
 For detailed information on usability tests, please refer to the [Usability Test Documentation](docs/usability_tests.md).
+
+## Final Reflections
