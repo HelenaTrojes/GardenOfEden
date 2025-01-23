@@ -10,9 +10,8 @@ Start cultivating your emotional wellness today—because your journey to growth
 - Helena Vishkurti
 - Klarissa Breitkopf
   
-# CCL3 Documentation
+# CCL3 App Concept & Documentation
 For detailed information, please refer to the [CCL3 Documentation](docs/documentation.md).
 
 # Usability Test Documentation
-
 For detailed information on usability tests, please refer to the [Usability Test Documentation](docs/usability_tests.md).
