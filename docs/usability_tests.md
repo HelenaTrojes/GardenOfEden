@@ -93,4 +93,3 @@ Participants will answer the following questions:
 - **Direct observation**: Documenting user actions, behaviors, and errors.
 - **Post-test surveys**: Collecting feedback on task difficulty and overall app experience.
 - **Think-aloud protocol**: Encouraging participants to verbalize their thoughts as they complete tasks.
-- 
