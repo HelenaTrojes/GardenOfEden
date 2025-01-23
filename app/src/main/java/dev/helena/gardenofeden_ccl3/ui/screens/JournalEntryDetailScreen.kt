@@ -1,6 +1,7 @@
 package dev.helena.gardenofeden_ccl3.ui.screens
 
 import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -14,16 +15,14 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.Save
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -38,6 +37,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -57,7 +57,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import dev.helena.gardenofeden_ccl3.ui.theme.DarkGreen
-import dev.helena.gardenofeden_ccl3.ui.components.MoodSelector
 import dev.helena.gardenofeden_ccl3.ui.theme.Green
 import dev.helena.gardenofeden_ccl3.ui.viewmodel.EntryViewModel
 import dev.helena.gardenofeden_ccl3.ui.theme.Rose
