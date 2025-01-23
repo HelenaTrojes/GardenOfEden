@@ -141,7 +141,7 @@ fun JournalEntryDetailScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp)
+            .padding(start = 16.dp, end = 16.dp, bottom = 45.dp)
             .imePadding(),
         horizontalAlignment = Alignment.Start,
         verticalArrangement = Arrangement.Top
@@ -344,7 +344,7 @@ fun JournalEntryDetailScreen(
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(350.dp)
+                        .height(300.dp)
                         .padding(5.dp)
                         .border(2.dp, Green, RoundedCornerShape(10.dp))
                         .background(

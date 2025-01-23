@@ -3,6 +3,8 @@ package dev.helena.gardenofeden_ccl3.ui.screens
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.calculateEndPadding
+import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -22,8 +24,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.BeyondBoundsLayout
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.ResolvedTextDirection
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -32,6 +36,9 @@ import dev.helena.gardenofeden_ccl3.ui.viewmodel.EntryViewModel
 import dev.helena.gardenofeden_ccl3.ui.components.JournalEntryCard
 import dev.helena.gardenofeden_ccl3.ui.theme.Green
 import dev.helena.gardenofeden_ccl3.ui.theme.Rose
+import androidx.compose.ui.unit.LayoutDirection
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.ui.platform.LocalLayoutDirection
 
 
 @Composable
@@ -59,11 +66,19 @@ fun JournalScreen(
         },
         floatingActionButtonPosition = androidx.compose.material3.FabPosition.End,
     ) { paddingValues ->
+        // Get the current layout direction (LTR or RTL)
+        val layoutDirection = LocalLayoutDirection.current
+
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .background(Color.White)
-                .padding(paddingValues)
+//                .background(Color.Black)
+                .padding(
+                    start = paddingValues.calculateStartPadding(layoutDirection),
+                    top = paddingValues.calculateTopPadding(),
+                    end = paddingValues.calculateEndPadding(layoutDirection),
+                    bottom = maxOf(0.dp,paddingValues.calculateBottomPadding() - 30.dp) // Reduce bottom padding by 30dp, make sure never less then 0
+                )
         ) {
             val titleFontSize = if (screenWidth > 600) 32.sp else 30.sp
             Text(
