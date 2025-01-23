@@ -42,7 +42,7 @@ fun GardenView(entries: List<EntryEntity>, growthTriggered: Boolean) {
         "Sad" to 120f,
         "Surprised" to 100f,
         "Silly" to 160f,
-        "Angry" to 140f,
+        "Angry" to 0f,
         "Default" to 150f // Fallback for undefined moods
     )
 
@@ -57,9 +57,9 @@ fun GardenView(entries: List<EntryEntity>, growthTriggered: Boolean) {
     val screenHeightPx = with(LocalDensity.current) { screenHeightDp.toPx() }
 
     // Define garden area margins in pixels
-    val marginX = screenWidthPx * 0.05f // 5% margin on each side
-    val marginTop = screenHeightPx * 0.02f // Top margin stays the same
-    val marginBottom = screenHeightPx * 0.33f // Reduce the bottom margin to make garden shorter
+    val marginX = screenWidthPx * 0.06f // 5% margin on each side
+    val marginTop = screenHeightPx * 0.09f // Top margin stays the same
+    val marginBottom = screenHeightPx * 0.275f // Reduce the bottom margin to make garden shorter
 
     // Define the garden height with reduced bottom margin
     val gardenHeight = screenHeightPx - marginTop - marginBottom // Shorter garden
@@ -86,11 +86,11 @@ fun GardenView(entries: List<EntryEntity>, growthTriggered: Boolean) {
 //                x = marginX + col * cellWidth + Random.nextFloat() * cellWidth * 0.3f, // Add slight randomness
 //                y = marginTop + row * cellHeight + Random.nextFloat() * cellHeight * 0.3f
 //            )
-            val x = marginX + col * cellWidth + Random.nextFloat() * cellWidth * 0.3f
-            val y = marginTop + row * cellHeight + Random.nextFloat() * cellHeight * 0.3f
+            val x = marginX + col * cellWidth + Random.nextFloat() * cellWidth * 0.5f
+            val y = marginTop + row * cellHeight + Random.nextFloat() * cellHeight * 0.5f
 
             // Debug: Print the position to see the values
-            println("Plant $index position: x = $x, y = $y")
+//            println("Plant $index position: x = $x, y = $y")
 
             Offset(x, y)
         }
@@ -111,12 +111,13 @@ fun GardenView(entries: List<EntryEntity>, growthTriggered: Boolean) {
 
     Canvas(modifier = Modifier.fillMaxSize()) {
         // Draw the red border for the garden area
-//        drawRect(
-//            color = androidx.compose.ui.graphics.Color.Red,
-//            size = androidx.compose.ui.geometry.Size(gardenWidth, gardenHeight),
-//            topLeft = Offset(marginX, marginTop), // This keeps the red border at the correct position
-//            style = androidx.compose.ui.graphics.drawscope.Stroke(width = 4f) // Border thickness
-//
+        drawRect(
+            color = androidx.compose.ui.graphics.Color.Red,
+            size = androidx.compose.ui.geometry.Size(gardenWidth, gardenHeight),
+            topLeft = Offset(marginX, marginTop), // This keeps the red border at the correct position
+            style = androidx.compose.ui.graphics.drawscope.Stroke(width = 4f) // Border thickness
+        )
+
 
         // Draw the plants inside the garden area
         plants.forEachIndexed { index, plantState ->
