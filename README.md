@@ -21,8 +21,8 @@ For detailed information, please refer to the [CCL3 Documentation](docs/document
 For detailed information on usability tests, please refer to the [Usability Test Documentation](docs/usability_tests.md).
 
 ## Final Reflections
-Klarissa Breitkopf
 
+### Klarissa Breitkopf
 Every code lab brings its own set of challenges, especially when you're trying to implement new and exciting features that you've never worked with before. Along the way, unexpected problems arise that can take hours to solve, making the process exhausting but also rewarding. For our project, one of the biggest challenges was settling on the design. We initially sketched a design, but we never created a high-fidelity prototype, which led to numerous UI changes as we started implementing features. This lack of a clear design direction caused a lot of confusion, especially with the color palette, and we found ourselves revisiting the design multiple times.
 
 Eventually, we decided to create a Figma design, which made the rest of the development process smoother. From this experience, I learned that having a Figma design is essential for a clear vision of the app’s layout. Additionally, organizing the database structure at the beginning would have given us a better overview and made it easier to manage the data.
