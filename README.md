@@ -11,7 +11,7 @@ Start cultivating your emotional wellness today—because your journey to growth
 - Klarissa Breitkopf
   
 # CCL3 Documentation
-For detailed information on the documentation, please refer to the [CCL3 Documentation](docs/usability_tests.md).
+For detailed information, please refer to the [CCL3 Documentation](docs/usability_tests.md).
 
 # Usability Test Documentation
 
