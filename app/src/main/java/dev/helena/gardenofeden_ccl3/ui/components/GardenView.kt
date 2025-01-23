@@ -111,12 +111,12 @@ fun GardenView(entries: List<EntryEntity>, growthTriggered: Boolean) {
 
     Canvas(modifier = Modifier.fillMaxSize()) {
         // Draw the red border for the garden area
-        drawRect(
-            color = androidx.compose.ui.graphics.Color.Red,
-            size = androidx.compose.ui.geometry.Size(gardenWidth, gardenHeight),
-            topLeft = Offset(marginX, marginTop), // This keeps the red border at the correct position
-            style = androidx.compose.ui.graphics.drawscope.Stroke(width = 4f) // Border thickness
-        )
+//        drawRect(
+//            color = androidx.compose.ui.graphics.Color.Red,
+//            size = androidx.compose.ui.geometry.Size(gardenWidth, gardenHeight),
+//            topLeft = Offset(marginX, marginTop), // This keeps the red border at the correct position
+//            style = androidx.compose.ui.graphics.drawscope.Stroke(width = 4f) // Border thickness
+//        )
 
 
         // Draw the plants inside the garden area
