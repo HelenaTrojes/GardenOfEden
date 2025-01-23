@@ -22,6 +22,7 @@ Adults aged 18-75 who want to track their emotional progress,
 heal through journaling, and find peace by nurturing their personal "Garden of Eden" within the app.
 
 ### Mockups
+![Mockup](images/Mockups_CCL3.jpg)
 
 ### User Flow
 - **Welcome Page**: Displays the loading page for the app.
