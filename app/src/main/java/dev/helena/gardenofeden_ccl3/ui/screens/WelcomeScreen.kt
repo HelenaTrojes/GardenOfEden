@@ -55,7 +55,7 @@ fun WelcomeScreen(navController: NavHostController, entryViewModel: EntryViewMod
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-            // Green Circle (Layer Underneath)
+            // Green Circle
             Image(
                 painter = painterResource(id = R.drawable.icon_eden_of_garden),
                 contentDescription = "Tulip Image",

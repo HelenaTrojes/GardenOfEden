@@ -32,7 +32,7 @@ fun AppNavigation(entryViewModel: EntryViewModel) {
         ) { backStackEntry ->
             val entryId = backStackEntry.arguments?.getInt("entryId")?.toLong()
             if (entryId != null) {
-                // Pass the entryId and entryViewModel to the detail screen
+
                 JournalEntryDetailScreen(navController = navController, entryId = entryId, entryViewModel = entryViewModel)
             }
         }

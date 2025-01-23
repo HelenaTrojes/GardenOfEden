@@ -141,7 +141,7 @@ fun VirtualGardenScreen(entryViewModel: EntryViewModel) {
                         .padding(start = 10.dp, end = 10.dp)
                 )
             } else {
-                // Pass the plantMessage callback to GardenView
+                // Passing the plantMessage callback to GardenView
                 GardenView(entries = entries, growthTriggered = growthTriggered.value)
             }
         }

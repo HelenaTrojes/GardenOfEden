@@ -5,6 +5,13 @@ import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color.Companion.Green
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.withTransform
+import dev.helena.gardenofeden_ccl3.ui.theme.BlueDark
+import dev.helena.gardenofeden_ccl3.ui.theme.BlueLight
+import dev.helena.gardenofeden_ccl3.ui.theme.CheekyLight
+import dev.helena.gardenofeden_ccl3.ui.theme.LemonLight
+import dev.helena.gardenofeden_ccl3.ui.theme.Rose
+import dev.helena.gardenofeden_ccl3.ui.theme.RoseLight
+import dev.helena.gardenofeden_ccl3.ui.theme.VioletDark
 
 fun DrawScope.drawSillyFlower(centerX: Float, centerY: Float) {
     // face
