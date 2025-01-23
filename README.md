@@ -1,5 +1,5 @@
 # GardenOfEden
-Download the APK file here:[Garden of Eden APK](GardenOfEden.apk)
+Download the APK file here: [Garden of Eden APK](GardenOfEden.apk)  
 Link to our [repository](https://github.com/HelenaTrojes/GardenOfEden)
 
 ## Brief Description
