@@ -92,6 +92,10 @@ Participants will answer the following questions:
 
 ### Usability Test Results
 
+#### Quantitative Evaluation
+- **Number of participants**: 6
+- **SEQ Score**: 
+
 #### Key findings after the usability tests
 
 1. **Edit/Save Confusion**: Users tapped the text field instead of the edit icon, finding the editing process unintuitive.
