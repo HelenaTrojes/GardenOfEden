@@ -1,6 +1,6 @@
 # GardenOfEden
 Download the APK file here: [Garden of Eden APK](GardenOfEden.apk)  
-Link to our [repository](https://github.com/HelenaTrojes/GardenOfEden)
+Link to our repository: [Garden of Eden Github Repo](https://github.com/HelenaTrojes/GardenOfEden)
 
 ## Brief Description
 Discover Garden of Eden, the ultimate app for enhancing self-awareness and emotional well-being! 
