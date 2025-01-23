@@ -6,7 +6,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import dev.helena.gardenofeden_ccl3.ui.theme.BlueDark
 import dev.helena.gardenofeden_ccl3.ui.theme.BlueLight
-import dev.helena.gardenofeden_ccl3.ui.theme.DarkGreen
+import dev.helena.gardenofeden_ccl3.ui.theme.Green
 import kotlin.math.cos
 import kotlin.math.sin
 
@@ -15,6 +15,13 @@ fun DrawScope.drawSadFlower(centerX: Float, centerY: Float) {
     val petalCount = 8
     val petalOffset = 50f
 
+// leaves
+    drawLine(
+        color = Green,
+        start = Offset(centerX - 20f, centerY + 50f),
+        end = Offset(centerX + 10f, centerY + 80f),
+        strokeWidth = 6f
+    )
     drawCircle(color = BlueDark, radius = 40f, center = Offset(centerX, centerY))
 
     //   "bell-shaped" petal around the center
@@ -49,11 +56,5 @@ fun DrawScope.drawSadFlower(centerX: Float, centerY: Float) {
         style = androidx.compose.ui.graphics.drawscope.Stroke(width = 2f)
     )
 
-    // leaves
-    drawLine(
-        color = Color.Yellow,
-        start = Offset(centerX - 20f, centerY + 50f),  // Adjusted starting position
-        end = Offset(centerX + 10f, centerY + 80f),   // Adjusted end position for stem
-        strokeWidth = 6f  // Thicker stem for more visibility
-    )
+
 }

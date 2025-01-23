@@ -9,13 +9,9 @@ Start cultivating your emotional wellness today—because your journey to growth
 ## Team Members
 - Helena Vishkurti
 - Klarissa Breitkopf
-
-## App Concept
-### Use Case
-The app aims to help users enhance self-awareness and emotional well-being through daily mood tracking and guided journaling. 
-Users are presented with a unique question every day to reflect on their feelings. 
-Their mood entries create a virtual garden, where each plant represents, an emotion, visually showing their emotional journey over time.
-This combination of guided journaling and gamified mood tracking promotes mental wellness, providing users with a safe and engaging space to reflect and grow
+  
+# CCL3 Documentation
+For detailed information, please refer to the [CCL3 Documentation](docs/documentation.md).
 
 ### Target User
 Adults aged 18-75 who want to track their emotional progress, 

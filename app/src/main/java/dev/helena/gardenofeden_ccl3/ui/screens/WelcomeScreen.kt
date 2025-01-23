@@ -1,8 +1,6 @@
 package dev.helena.gardenofeden_ccl3.ui.screens
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
@@ -11,9 +9,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.systemBarsPadding
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowForward
@@ -35,7 +31,6 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import dev.helena.gardenofeden_ccl3.R
 import dev.helena.gardenofeden_ccl3.ui.viewmodel.EntryViewModel
-import dev.helena.gardenofeden_ccl3.ui.theme.DarkGreen
 import dev.helena.gardenofeden_ccl3.ui.theme.Green
 import kotlinx.coroutines.launch
 
@@ -77,7 +72,7 @@ fun WelcomeScreen(navController: NavHostController, entryViewModel: EntryViewMod
                 color = Color.Black,
                 textAlign = TextAlign.Center,
                 modifier = Modifier
-                    .offset(x = -screenWidth * 0.2f)
+                    .offset(x = -screenWidth * 0.15f)
                    // .offset(x = -75.dp)
             )
 //        }
@@ -101,7 +96,7 @@ fun WelcomeScreen(navController: NavHostController, entryViewModel: EntryViewMod
             color = Color.Black,
             textAlign = TextAlign.Center,
             modifier = Modifier
-                .offset(x = screenWidth * 0.15f)
+                .offset(x = screenWidth * 0.18f)
                 /*
                 .padding(top = 15.dp)
                 .offset(x = 65.dp)

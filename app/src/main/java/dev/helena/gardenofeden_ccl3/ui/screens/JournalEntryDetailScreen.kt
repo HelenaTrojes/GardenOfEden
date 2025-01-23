@@ -146,7 +146,7 @@ fun JournalEntryDetailScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp)
+            .padding(start = 16.dp, end = 16.dp, bottom = 45.dp)
             .imePadding(),
         horizontalAlignment = Alignment.Start,
         verticalArrangement = Arrangement.Top
@@ -204,12 +204,13 @@ fun JournalEntryDetailScreen(
                     style = MaterialTheme.typography.bodyMedium,
                     fontSize = 16.sp,
                     color = Color.Black,
+
                     )
                 Spacer(modifier = Modifier.height(40.dp))
 
                 // Question of the day
                 Text(
-                    text = "Question of the day",
+                    text = "Journal or answer question of the day",
                     style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.Bold),
                     modifier = Modifier.padding(bottom = 8.dp),
                     fontSize = 20.sp,
@@ -311,7 +312,7 @@ fun JournalEntryDetailScreen(
                                     append("Are you sure you want to delete this entry? ")
                                 }
                                 withStyle(style = SpanStyle(fontWeight = FontWeight.SemiBold, textDecoration = TextDecoration.Underline)) {
-                                    append("Please note, you won’t be able to create a new entry for today.")
+                                    append("Please note, your respective flower will also be deleted.")
                                 }
                             }
                             Text(text = text)
@@ -342,12 +343,13 @@ fun JournalEntryDetailScreen(
                     )
                 }
 
+
                 Spacer(modifier = Modifier.height(5.dp))
 
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(200.dp)
+                        .height(300.dp)
                         .padding(5.dp)
                         .border(2.dp, Green, RoundedCornerShape(10.dp))
                         .background(
@@ -389,7 +391,7 @@ fun JournalEntryDetailScreen(
                             disabledIndicatorColor = Color.Transparent,
                             cursorColor = Color.Black
                         ),
-                        maxLines = Int.MAX_VALUE,
+                       maxLines = Int.MAX_VALUE,
                         singleLine = false,
                     )
                     }
