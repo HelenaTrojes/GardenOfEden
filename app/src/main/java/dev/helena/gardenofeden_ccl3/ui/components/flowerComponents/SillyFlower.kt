@@ -21,7 +21,7 @@ fun DrawScope.drawSillyFlower(centerX: Float, centerY: Float) {
     drawCircle(color = VioletDark, radius = 5f, center = Offset(centerX - 15f, centerY - 10f))
     drawCircle(color = BlueDark, radius = 5f, center = Offset(centerX + 15f, centerY - 10f))
 
-    // Draw the smile
+    //smile
     drawArc(
         color = BlueLight,
         startAngle = 0f,
@@ -31,7 +31,7 @@ fun DrawScope.drawSillyFlower(centerX: Float, centerY: Float) {
         size = Size(40f, 20f)
     )
 
-    //hair (wavy lines)
+    //hair
     drawLine(
         color = Rose,
         start = Offset(centerX - 30f, centerY - 40f),

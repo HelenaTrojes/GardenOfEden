@@ -27,11 +27,10 @@ fun DrawScope.drawHappyFlower(centerX: Float, centerY: Float) {
         drawCircle(color = Color(0xFFFFC107), radius = 25f, center = Offset(petalX, petalY))  // Slightly smaller main petals
     }
 
-    // few smaller accent petals for extra detail
+    // few smaller petals
     drawCircle(color = Color(0xFFFFD54F), radius = 15f, center = Offset(centerX - 40f, centerY - 70f))  // Smaller accent petals
     drawCircle(color = Color(0xFFFFD54F), radius = 15f, center = Offset(centerX + 40f, centerY - 70f))  // Smaller accent petals
 
-    //   leaves below the flower but still on the stem
     val stemMidY = centerY + 110f  // leaves slightly below the flower's center
     drawLeaf(centerX - 40f, stemMidY)  // Left leaf in the middle
     drawLeaf(centerX + 30f, stemMidY)  // Right leaf in the middle
@@ -42,7 +41,7 @@ fun DrawScope.drawLeaf(x: Float, y: Float) {
     drawOval(
         color = Color(0xFF388E3C),
         size = Size(40f, 20f),
-        topLeft = Offset(x - 20f, y - 10f)  // Position the leaf near the middle of the stem
+        topLeft = Offset(x - 20f, y - 10f)  // Position the leaf near stem
     )
 }
 

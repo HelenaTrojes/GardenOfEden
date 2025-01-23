@@ -8,26 +8,26 @@ import dev.helena.gardenofeden_ccl3.ui.theme.Green
 
 fun DrawScope.drawSurprisedFlower(centerX: Float, centerY: Float) {
     // Adjusted centerY for flower to align with the stem
-    val flowerCenterY = centerY - 30f // Move the flower center down
+    val flowerCenterY = centerY - 30f
 
     // Leaves on the stem
     drawLine(
-        color = Color(0xFF4CAF50), // Subdued green
+        color = Color(0xFF4CAF50), //green
         start = Offset(centerX - 10f, centerY - 60f),
-        end = Offset(centerX - 20f, centerY - 80f), // Closer leaf
+        end = Offset(centerX - 20f, centerY - 80f),
         strokeWidth = 4f
     )
     drawLine(
-        color = Color(0xFF4CAF50), // Subdued green
+        color = Color(0xFF4CAF50), //green
         start = Offset(centerX + 10f, centerY - 60f),
-        end = Offset(centerX + 20f, centerY - 80f), // Closer leaf
+        end = Offset(centerX + 20f, centerY - 80f),
         strokeWidth = 4f
     )
 
-    // Flower center (mouth-like oval for surprise expression)
+    // mouth
     drawOval(
         color = Color(0xFFFFD54F), // Softer yellow
-        topLeft = Offset(centerX - 25f, flowerCenterY - 35f), // Adjusted position
+        topLeft = Offset(centerX - 25f, flowerCenterY - 35f),
         size = Size(50f, 70f)
     )
 
@@ -35,25 +35,25 @@ fun DrawScope.drawSurprisedFlower(centerX: Float, centerY: Float) {
     drawCircle(
         color = Color.White,
         radius = 16f, // Larger eyes
-        center = Offset(centerX - 15f, flowerCenterY - 75f) // Adjusted position
+        center = Offset(centerX - 15f, flowerCenterY - 75f)
     )
     drawCircle(
         color = Color.White,
         radius = 16f,
-        center = Offset(centerX + 15f, flowerCenterY - 75f) // Adjusted position
-    )
-    drawCircle(
-        color = Color.Black,
-        radius = 6f, // Larger pupils
-        center = Offset(centerX - 15f, flowerCenterY - 75f) // Adjusted position
+        center = Offset(centerX + 15f, flowerCenterY - 75f)
     )
     drawCircle(
         color = Color.Black,
         radius = 6f,
-        center = Offset(centerX + 15f, flowerCenterY - 75f) // Adjusted position
+        center = Offset(centerX - 15f, flowerCenterY - 75f)
+    )
+    drawCircle(
+        color = Color.Black,
+        radius = 6f,
+        center = Offset(centerX + 15f, flowerCenterY - 75f)
     )
 
-    // Petals (brighter colors)
+    // Petals
     val petalColors = listOf(
         Color(0xFFFF4081), // Bright pink
         Color(0xFF64B5F6), // Bright blue
@@ -62,22 +62,22 @@ fun DrawScope.drawSurprisedFlower(centerX: Float, centerY: Float) {
     for (i in 0..5) {
         val angle = Math.toRadians((i * 60).toDouble()).toFloat()
         val petalX = centerX + 50f * kotlin.math.cos(angle)
-        val petalY = flowerCenterY + 50f * kotlin.math.sin(angle) // Adjusted position
+        val petalY = flowerCenterY + 50f * kotlin.math.sin(angle)
         drawOval(
             color = petalColors[i % petalColors.size],
-            topLeft = Offset(petalX - 20f, petalY - 20f), // Slightly larger petals
+            topLeft = Offset(petalX - 20f, petalY - 20f),
             size = Size(40f, 60f)
         )
     }
 
-    // Larger round mouth for surprise (drawn last to be on top)
+    // Larger round mouth for surprise
     drawCircle(
         color = Color.Black,
         radius = 20f, // Larger mouth
-        center = Offset(centerX, flowerCenterY - 50f) // Position the mouth above the flower center
+        center = Offset(centerX, flowerCenterY - 50f) // Position mouth
     )
 
-    // Add sparkles around the flower (optional)
+    //sparkles
     for (i in 0..5) {
         val angle = Math.toRadians((i * 60 + 30).toDouble()).toFloat()
         val sparkleX = centerX + 70f * kotlin.math.cos(angle)

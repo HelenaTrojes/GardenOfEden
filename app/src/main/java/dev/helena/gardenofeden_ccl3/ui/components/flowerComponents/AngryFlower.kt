@@ -106,7 +106,7 @@ fun DrawScope.drawAngryFlower(centerX: Float, centerY: Float) {
         strokeWidth = 4f
     )
 
-    ///Angry Mouth - Straight Horizontal Line
+    ///Angry Mouth
     drawLine(
         color = Color.Black,
         start = Offset(centerX - 20f, centerY + 10f), // Starting point of the line
