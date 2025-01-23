@@ -10,7 +10,8 @@ Start cultivating your emotional wellness today—because your journey to growth
 - Helena Vishkurti
 - Klarissa Breitkopf
   
-# Documentation [Documentation](docs/documentation.md)
+# CCL3 Documentation
+For detailed information on the documentation, please refer to the [CCL3 Documentation](docs/usability_tests.md).
 
 # Usability Test Documentation
 
