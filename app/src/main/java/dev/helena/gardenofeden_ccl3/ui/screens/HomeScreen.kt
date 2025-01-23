@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -36,6 +35,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Scaffold
 import androidx.compose.ui.unit.sp
 import dev.helena.gardenofeden_ccl3.ui.theme.DarkGreen
 import dev.helena.gardenofeden_ccl3.ui.theme.Green
@@ -81,8 +81,8 @@ fun VirtualGardenScreen(entryViewModel: EntryViewModel) {
 
     Column(
         modifier = Modifier
-            .fillMaxSize()
-        .systemBarsPadding(),
+            .fillMaxSize(),
+//        .systemBarsPadding(),
 //            .padding(top = 16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -112,7 +112,7 @@ fun VirtualGardenScreen(entryViewModel: EntryViewModel) {
             Box(
                 modifier = Modifier
                     .clickable { showInfoDialog = true }
-                    .padding(top = 10.dp)
+                    .padding(top = 8.dp, bottom = 8.dp)
             ) {
                 Icon(
 
@@ -132,9 +132,13 @@ fun VirtualGardenScreen(entryViewModel: EntryViewModel) {
         ) {
             if (entries.isEmpty()) {
                 Text(
-                    text = "No plants yet. Log your mood to grow your garden!",
+                    text = "No plants yet. Add another journal to grow your garden!",
+                    style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold),
+                    color = Color.White,
                     textAlign = TextAlign.Center,
-                    modifier = Modifier.align(Alignment.Center)
+                    modifier = Modifier
+                        .align(Alignment.Center)
+                        .padding(start = 10.dp, end = 10.dp)
                 )
             } else {
                 // Pass the plantMessage callback to GardenView
@@ -159,18 +163,58 @@ fun VirtualGardenScreen(entryViewModel: EntryViewModel) {
                     .padding(16.dp)
             ) {
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                    Text(
-                        text = "For what are the flowers?",
-                        style = MaterialTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold),
-                        color = Green,
-                        modifier = Modifier.padding(bottom = 8.dp)
-                    )
-                    Text(
-                        text = "The Garden of Eden is your personal garden where each flower represents an emotion you have logged. Watch as your emotions grow and bloom into a beautiful garden!",
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = Color.Black,
-                        textAlign = TextAlign.Center
-                    )
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        Text(
+                            text = "Purpose",
+                            style = MaterialTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold),
+                            color = Green,
+                            modifier = Modifier.padding(bottom = 8.dp)
+                        )
+                        Text(
+                            text = "The Garden of Eden is your personal garden where each flower represents an emotion you have logged. Watch as your emotions grow and bloom into a beautiful garden!",
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = Color.Black,
+                            textAlign = TextAlign.Center,
+                            modifier = Modifier.padding(bottom = 16.dp)
+                        )
+                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                            Text(
+                                text = "Garden Legend:",
+                                style = MaterialTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold),
+                                color = Green,
+                                modifier = Modifier.padding(bottom = 8.dp)
+                            )
+                            Text(
+                                text = "😊 Happy: A yellow flower",
+                                style = MaterialTheme.typography.bodyMedium,
+                                color = Color.Black,
+                                textAlign = TextAlign.Center
+                            )
+                            Text(
+                                text = "😜 Silly: A flower with a fun face",
+                                style = MaterialTheme.typography.bodyMedium,
+                                color = Color.Black,
+                                textAlign = TextAlign.Center
+                            )
+                            Text(
+                                text = "😡 Angry: A cactus",
+                                style = MaterialTheme.typography.bodyMedium,
+                                color = Color.Black,
+                                textAlign = TextAlign.Center
+                            )
+                            Text(
+                                text = "😲 Surprised: A colorful symbol flower",
+                                style = MaterialTheme.typography.bodyMedium,
+                                color = Color.Black,
+                                textAlign = TextAlign.Center
+                            )
+                            Text(
+                                text = "💧 Sad: A violet flower",
+                                style = MaterialTheme.typography.bodyMedium,
+                                color = Color.Black,
+                                textAlign = TextAlign.Center)
+                        }
+                    }
                 }
             }
         }

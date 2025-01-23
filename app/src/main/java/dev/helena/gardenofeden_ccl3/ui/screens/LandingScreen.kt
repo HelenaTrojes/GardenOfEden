@@ -161,16 +161,17 @@ fun LandingScreen(navController: NavController, entryViewModel: EntryViewModel) 
             Column(
                 modifier = Modifier
                    //.imePadding()
-                    .padding(horizontal = screenWidth * 0.08f),
+                    .padding(horizontal = screenWidth * 0.05f),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ) {
                 Text(
-                    text = "Question of the Day",
+                    text = "Write in your journal or answer today's question",
                     style = MaterialTheme.typography.headlineMedium,
                     fontWeight = FontWeight.Bold,
                     fontSize = (screenWidth * 0.07f).value.sp,
-                    color = Color.Black
+                    color = Color.Black,
+                    textAlign = TextAlign.Center
                 )
                 HorizontalDivider(
                     modifier = Modifier
