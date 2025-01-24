@@ -209,7 +209,7 @@ fun VirtualGardenScreen(entryViewModel: EntryViewModel) {
                                 textAlign = TextAlign.Center
                             )
                             Text(
-                                text = "💧 Sad: A violet flower",
+                                text = "💧 Sad: A sad flower",
                                 style = MaterialTheme.typography.bodyMedium,
                                 color = Color.Black,
                                 textAlign = TextAlign.Center)
