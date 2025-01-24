@@ -5,7 +5,6 @@
 ### Purpose of the Usability Test
 
 The purpose of this formative usability test is to evaluate the usability and functionality of the Garden of Eden app in its current development phase. The test aims to:
-
 - Assess whether users can easily input their mood and answer the question of the day without confusion.
 - Evaluate navigation through the journal list and the ability to edit journal entries.
 - Test user understanding of the connection between mood input and the flower representation in the Garden of Eden.
@@ -14,7 +13,6 @@ The purpose of this formative usability test is to evaluate the usability and fu
 ### Target Audience
 
 The target audience are individuals who:
-
 - Are aged 18-75.
 - Want to track their emotional progress & heal through journaling.
 - Are interested in mental health, mindfulness, or self-improvement.
@@ -44,8 +42,6 @@ Before conducting the usability test, a heuristic evaluation was performed by bo
 
 - The flower representation could be well-received for its visual appeal, but users may need better explanations of its meaning.
 - The journal editing/deletion flow could be improved by changing the layout structure.
-
-### Hypotheses and Research Questions
 
 #### Initial Hypotheses
 
@@ -93,3 +89,30 @@ Participants will answer the following questions:
 - **Direct observation**: Documenting user actions, behaviors, and errors.
 - **Post-test surveys**: Collecting feedback on task difficulty and overall app experience.
 - **Think-aloud protocol**: Encouraging participants to verbalize their thoughts as they complete tasks.
+
+### Usability Test Results
+
+#### Quantitative Evaluation
+![SEQ SCORE](/images/seq_ccl3.jpg)
+- **Number of participants**: 6
+- **SEQ Score**: 155 / 168 points
+- **Key feedback excerpts**: In our usability test with six participants, the overall experience was positive. Most participants found it easy to input their mood (mean: 6.83, median: 7) and view their flower and mood (mean: 6.67, median: 7). However, navigating to the journal page and editing it posed some difficulties, with a mean of 5.83 and a median of 6, suggesting room for improvement in the user interface. Deleting a journal was straightforward for all participants, with a consistent mean of 7 and median of 7. These findings suggest that while the core features are functional, enhancing journal navigation and editing feature could improve the user experience.
+
+#### Key findings after the usability tests
+
+1. **Edit/Save Confusion**: Users tapped the text field instead of the edit icon, finding the editing process unintuitive.
+2. **Garden Interaction**: Many users were unclear about the meaning of the flowers, didn't resonate with their assigned flower, and initially overlooked the info button.
+3. **Journal List Feedback**: Users expressed wanting the mood displayed alongside the question of the day in the journal list.
+4. **Multiple Entries**: Participants wanted to add more than one journal entry per day.
+
+#### App Updates Based on User Feedback
+
+To address the issues identified during usability testing and improve the app, we carefully considered all feedback and implemented the following enhancements:
+
+1. **Intuitive Edit/Save**: Users can now start typing immediately after clicking the edit icon, with toast messages indicating when editing starts or ends and background color changes.
+2. **Better Flower Design**: The flower design is now more visually appealing, with a legend explaining each type.
+3. **Flexible Entry Page**: Users can now either write freely or answer the "Question of the Day."
+4. **Multiple Entries Per Day**: Users can add multiple entries in one day.
+5. **Mood Display**: The journal card now shows the user’s mood.
+6. **Improved Alert Dialogs**: Alert dialogs are clearer, keeping users informed.
+

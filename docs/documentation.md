@@ -22,3 +22,9 @@ heal through journaling, and find peace by nurturing their personal "Garden of E
 ### Navigation
 - Loading > Landing > Home
 - Home > Journal > Detail Screen
+
+### Prototype Design
+![Prototype](/images/Prototype_CCL3.png)
+
+### Database Schema
+![Database Schema](/images/database_ccl3.jpeg)
