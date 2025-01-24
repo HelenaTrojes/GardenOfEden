@@ -51,7 +51,6 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -304,10 +303,10 @@ fun JournalEntryDetailScreen(
                         text = {
                             val text = buildAnnotatedString {
                                 withStyle(style = SpanStyle(fontWeight = FontWeight.SemiBold)) {
-                                    append("Are you sure you want to delete this entry? ")
+                                    append("Are you sure you want to delete this entry? Please note, your respective flower will also be deleted.")
                                 }
-                                withStyle(style = SpanStyle(fontWeight = FontWeight.SemiBold, textDecoration = TextDecoration.Underline)) {
-                                    append("Please note, your respective flower will also be deleted.")
+                                withStyle(style = SpanStyle(fontWeight = FontWeight.SemiBold)) {
+                                    append("")
                                 }
                             }
                             Text(text = text)
